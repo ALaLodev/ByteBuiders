@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:srcCompat="@drawable/backhouse"
+        android:scaleType="centerCrop"/>
+
+    <TextView
+        android:id="@+id/titlePlayer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:text="@string/Players_title"
+        android:textColor="@color/black"
+        android:textSize="35sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/player1"
+        android:contentDescription="player1"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="300sp"
+        android:layout_height="80sp"
+        android:layout_marginTop="100dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/one_player_control"
+        app:backgroundTint="#A20E0E"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titlePlayer"/>
+
+
+    <ImageButton
+        android:id="@+id/player2"
+        style="@style/Widget.AppCompat.Button"
+        android:contentDescription="player2"
+        android:layout_width="300sp"
+        android:layout_height="80sp"
+        android:layout_marginTop="30dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/two_players_control"
+        app:backgroundTint="#FFD700"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/player1" />
+
+    <ImageButton
+        android:id="@+id/player3"
+        android:contentDescription="player3"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="300sp"
+        android:layout_height="80sp"
+        android:layout_marginTop="30dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/three_players_control"
+        app:backgroundTint="#1E90FF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/player2" />
+
+    <ImageButton
+        android:id="@+id/player4"
+        android:contentDescription="player4"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="300sp"
+        android:layout_height="80sp"
+        android:layout_marginTop="30dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/four_player_control"
+        app:backgroundTint="#00C853"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/player3" />
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

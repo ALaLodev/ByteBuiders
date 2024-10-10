@@ -1,0 +1,12 @@
+<resources>
+<!--Pantalla Inicio -->
+    <string name="app_name">ByteBuilders</string>
+    <string name="title">Juego de cartas</string>
+    <string name="subtitle">Made by Bytebuilders</string>
+    <string name="btn_empezar">Empezar</string>
+
+<!--Pantalla Seleccion -->
+    <string name="Players_title">Número de jugadores</string>
+
+
+</resources>
