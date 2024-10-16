@@ -14,7 +14,7 @@ class GameActivity : AppCompatActivity() {
     private lateinit var selectedNumber: TextView
     private lateinit var sendButton: Button
 
-    private lateinit var fedback: TextView // Se puede cambiar por imageview. Es una ayuda para mayor o menor
+    private lateinit var feedback: TextView // Se puede cambiar por imageview. Es una ayuda para mayor o menor
     private lateinit var roundtext: TextView //Sirve para ver la ronda en la que estás jugando
 
 
@@ -34,8 +34,11 @@ class GameActivity : AppCompatActivity() {
         minusButton = findViewById(R.id.minusButton)
         selectedNumber = findViewById(R.id.selectedNumber)
         sendButton = findViewById(R.id.sendButton)
+        feedback = findViewById(R.id.feedback)
+        roundtext = findViewById(R.id.roundText)
 
         startNewRound()
+
 
         plusButton.setOnClickListener {
             val currentNumber = selectedNumber.text.toString().toInt()
@@ -48,6 +51,9 @@ class GameActivity : AppCompatActivity() {
             if (currentNumber > 1) {
                 selectedNumber.text = (currentNumber - 1).toString()
             }
+        }
+        sendButton.setOnClickListener {
+            checkAnswer()
         }
 
     }
@@ -62,7 +68,39 @@ class GameActivity : AppCompatActivity() {
 
     private fun checkAnswer() {
         val selectedNumberValue = selectedNumber.text.toString().toInt()
+        if (selectedNumberValue == randomNumber) {
+            feedback.text = "Correcto"
+            points += attemptsLeft
+            //roundsNumber++
+            nextRoundOrEndGame()
+        } else {
+            attemptsLeft--
+            feedback.text = "Incorrecto"
+            if (selectedNumberValue < randomNumber) {
+                feedback.text = "El número es mayor"
+            } else {
+                feedback.text = "El número es menor"
 
+            }
+            if (attemptsLeft == 0) {
+                feedback.text = "Has perdido, el número es $randomNumber"
+                nextRoundOrEndGame()
+            }
+
+        }
 
     }
+
+    private fun nextRoundOrEndGame() {
+        if (roundsNumber < 3) {
+            roundsNumber++
+            startNewRound()
+        } else {
+            feedback.text = "Has ganado, tu puntuación es $points"
+            sendButton.isEnabled = false
+        }
+
+    }
+
+
 }
