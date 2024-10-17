@@ -72,12 +72,12 @@
 
     <ImageView
         android:id="@+id/hiddenCard"
-        android:layout_width="200dp"
-        android:layout_height="300dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="90dp"
+        android:contentDescription="Imagen de la baraja"
         android:src="@drawable/spr_reverso"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/attemptsLayout" />
 
@@ -85,13 +85,13 @@
         android:id="@+id/feedback"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
+        android:gravity="center"
+        android:text=""
+        android:textColor="@color/black"
+        android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/sendButton"
         app:layout_constraintEnd_toEndOf="parent"
-        android:gravity="center"
-        android:textSize="30sp"
-        android:textColor="@color/black"
-        android:text=""/>
+        app:layout_constraintStart_toStartOf="parent" />
 
 
     <!-- Control de Incremento/Decremento (botones + y - y número en medio) -->
@@ -145,7 +145,19 @@
             android:backgroundTint="@color/black"
             android:src="@drawable/ic_plus"
             app:tint="@color/white" />
-
     </LinearLayout>
+
+    <Button
+        android:id="@+id/player2"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:text="Volver al inicio"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/sendButton" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

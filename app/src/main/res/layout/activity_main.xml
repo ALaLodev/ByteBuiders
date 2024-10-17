@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -6,21 +7,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:background="#040404"
+    android:background="#151923"
     android:padding="20dp">
 
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="148dp"
-        android:text="@string/title"
-        android:textSize="30sp"
-        android:textAlignment="center"
+    <ImageView
+        android:id="@+id/ImageTitle"
+        android:layout_width="match_parent"
+        android:layout_height="600dp"
+        android:src="@drawable/guesswarslogo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:textStyle="bold"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/madeby"
@@ -28,20 +25,12 @@
         android:layout_height="wrap_content"
         android:text="@string/subtitle"
         android:textAlignment="center"
-        android:textSize="16sp"
+        android:textSize="24sp"
         android:textStyle="italic"
+        app:layout_constraintTop_toBottomOf="@+id/ImageTitle"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title" />
-
-    <ImageView
-        android:id="@+id/ImageTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/barajapoker"
-        app:layout_constraintTop_toBottomOf="@+id/madeby"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintHorizontal_bias="0.5" />
 
     <Button
         android:id="@+id/empezar"
