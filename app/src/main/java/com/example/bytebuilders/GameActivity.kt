@@ -7,12 +7,16 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.example.bytebuilders.vistaModelo.MainViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 
 class GameActivity : AppCompatActivity() {
@@ -35,6 +39,7 @@ class GameActivity : AppCompatActivity() {
     private var roundsNumber = 1
     private var points = 0
     private var gameEnded = false
+    private val modelo: MainViewModel by viewModels()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -163,6 +168,17 @@ class GameActivity : AppCompatActivity() {
 
             // Mostrar la carta final
             cardImageView.setImageResource(resources.getIdentifier("card_$randomNumber", "drawable", packageName))
+            registerWinner()
         }
+    }
+
+    // Método para registrar al ganador
+    private fun registerWinner() {
+        val winnerName = "jugador" // Cambia esto por el nombre del jugador real
+        val winnerScore = points.toString()
+        val winnerDateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+
+        // Llamar al ViewModel para registrar el ganador
+        modelo.insertUser (winnerName, winnerScore, winnerDateTime)
     }
 }
