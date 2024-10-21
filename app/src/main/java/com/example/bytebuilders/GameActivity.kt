@@ -9,16 +9,13 @@ import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-
+import kotlinx.coroutines.*
 
 class GameActivity : AppCompatActivity() {
 
     private lateinit var plusButton: FloatingActionButton
     private lateinit var minusButton: FloatingActionButton
+    private lateinit var pauseButton: Button
     private lateinit var selectedNumber: TextView
     private lateinit var sendButton: Button
     private lateinit var attempsText: TextView
@@ -28,14 +25,15 @@ class GameActivity : AppCompatActivity() {
     private lateinit var feedback: TextView
     private lateinit var roundtext: TextView
 
-
     private var randomNumber = 0
     private var selectedNumberValue = 0
     private var attemptsLeft = 4
     private var roundsNumber = 1
     private var points = 0
     private var gameEnded = false
+    private var gamePaused = false
 
+    private var gameJob: Job? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +42,7 @@ class GameActivity : AppCompatActivity() {
 
         plusButton = findViewById(R.id.plusButton)
         minusButton = findViewById(R.id.minusButton)
+        pauseButton = findViewById(R.id.pauseButton)
         selectedNumber = findViewById(R.id.selectedNumber)
         sendButton = findViewById(R.id.sendButton)
         feedback = findViewById(R.id.feedback)
@@ -64,6 +63,10 @@ class GameActivity : AppCompatActivity() {
             if (currentNumber > 1) {
                 selectedNumber.text = (currentNumber - 1).toString()
             }
+        }
+        pauseButton.setOnClickListener {
+            val intent = Intent(this, PauseActivity::class.java)
+            startActivity(intent)
         }
         sendButton.setOnClickListener {
             checkAnswer()
@@ -99,7 +102,7 @@ class GameActivity : AppCompatActivity() {
     }
 
     private fun showCardForCorrectAnswer(number: Int) {
-        CoroutineScope(Dispatchers.Main).launch {
+        gameJob = CoroutineScope(Dispatchers.Main).launch {
             cardImageView.setImageResource(resources.getIdentifier("card_$number", "drawable", packageName))
             delay(2000)
 
@@ -125,7 +128,7 @@ class GameActivity : AppCompatActivity() {
             showCardForIncorrectAnswer(randomNumber)
             nextRoundOrEndGame()
         } else {
-            CoroutineScope(Dispatchers.Main).launch {
+            gameJob = CoroutineScope(Dispatchers.Main).launch {
                 delay(2000)
                 feedback.text = ""
             }
@@ -133,7 +136,7 @@ class GameActivity : AppCompatActivity() {
     }
 
     private fun showCardForIncorrectAnswer(number: Int) {
-        CoroutineScope(Dispatchers.Main).launch {
+        gameJob = CoroutineScope(Dispatchers.Main).launch {
             cardImageView.setImageResource(resources.getIdentifier("card_$number", "drawable", packageName))
             delay(2000)
             if (!gameEnded) {
@@ -153,7 +156,7 @@ class GameActivity : AppCompatActivity() {
             roundsNumber++
             startNewRound()
         } else {
-            //Fin de juego
+            // Fin de juego
             gameEnded = true
             feedback.text = "Fin de juego, tu puntuación es $points puntos"
             sendButton.isEnabled = false
@@ -163,6 +166,21 @@ class GameActivity : AppCompatActivity() {
 
             // Mostrar la carta final
             cardImageView.setImageResource(resources.getIdentifier("card_$randomNumber", "drawable", packageName))
+        }
+    }
+
+    // Manejo de pausa y reanudacion
+
+    override fun onPause() {
+        super.onPause()
+        gamePaused = true
+        gameJob?.cancel()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (gamePaused) {
+            gamePaused = false
         }
     }
 }
