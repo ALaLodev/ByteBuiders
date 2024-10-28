@@ -8,7 +8,7 @@ import com.example.bytebuilders.data.entitys.UserEntity
 /**
  *
  * ClASE ABASTRACTA
- * Version concada modificacion o insercion aumentará
+ * Version con cada modificacion o insercion aumentará
  */
 
 @Database(entities = [UserEntity::class],version = 1)

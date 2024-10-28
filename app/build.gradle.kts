@@ -51,12 +51,13 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
 
-    //para el viewModelScope si no da error MainViewModel
+    //livecycle y coroutines
     implementation (libs.androidx.lifecycle.viewmodel.ktx)
     implementation (libs.kotlinx.coroutines.android)
-    //BD
+    //Room
     implementation(libs.androidx.room.runtime)
     annotationProcessor(libs.androidx.room.compiler)
+    implementation ("androidx.room:room-ktx:$room_version")
 
     // To use Kotlin annotation processing tool (kapt)
     kapt("androidx.room:room-compiler:$room_version")

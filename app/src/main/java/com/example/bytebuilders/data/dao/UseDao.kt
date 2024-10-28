@@ -7,25 +7,26 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.bytebuilders.data.entitys.UserEntity
 
-
 @Dao
 interface UserDao {
 
-    /**
-     * AQUÍ PONEMOS LAS CONSULTAS
-     * **/
+    // Consulta suspend para obtener todos los usuarios
     @Query("SELECT * FROM UserEntity")
-    fun getAll(): List<UserEntity>
+    suspend fun getAll(): List<UserEntity>
 
+    // Consulta suspend para obtener un grupo de usuarios por sus IDs
     @Query("SELECT * FROM UserEntity WHERE uid IN (:userIds)")
-    fun loadAllUser(userIds: IntArray): List<UserEntity>
+    suspend fun loadAllUser(userIds: IntArray): List<UserEntity>
 
-
+    // Inserta uno o más usuarios de manera asíncrona
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insertUser(vararg users: UserEntity)
+    suspend fun insertUser(vararg users: UserEntity)
 
+    // Inserta una lista de usuarios de manera asíncrona
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insertAll(users: List<UserEntity>)
+    suspend fun insertAll(users: List<UserEntity>)
+
+    // Elimina un usuario de manera asíncrona
     @Delete
-    fun delete(user: UserEntity)
+    suspend fun delete(user: UserEntity)
 }

@@ -7,27 +7,31 @@ import com.example.bytebuilders.data.database.AppDataBase
 
 class RoomByteBuilders : Application() {
 
-    companion object {
-        lateinit var db: AppDataBase
-    }
-
     override fun onCreate() {
         super.onCreate()
-        try {
-            db = Room.databaseBuilder(
-                applicationContext,
-                AppDataBase::class.java,
-                "jugador-historico"
-            ).build()
-        } catch (e: Exception) {
-            // Maneja la excepción
-            Log.e("RoomByteBuilders", "Error al crear la base de datos", e)
-        }
+        // Inicializa la instancia de la base de datos
+        db = getDatabase(this)
     }
 
-    /* override fun onTerminate() {
-         super.onTerminate()
-         // Cierra la base de datos cuando la aplicación se detenga
-         db.close()
-     }*/
+    companion object {
+        @Volatile
+        private var INSTANCE: AppDataBase? = null
+
+        // Variable para acceder a la base de datos
+        lateinit var db: AppDataBase
+            private set
+
+        // Método para obtener la instancia de la base de datos de forma segura
+        fun getDatabase(application: Application): AppDataBase {
+            return INSTANCE ?: synchronized(this) {
+                val instance = Room.databaseBuilder(
+                    application.applicationContext,
+                    AppDataBase::class.java,
+                    "jugador-historico"
+                ).build()
+                INSTANCE = instance
+                instance
+            }
+        }
+    }
 }

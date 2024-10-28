@@ -57,6 +57,7 @@ class GameActivity : AppCompatActivity() {
         btnInicio = findViewById(R.id.player2)
         cardImageView = findViewById(R.id.hiddenCard)
 
+
         startNewRound()
         btnInicio.isEnabled = false
 
