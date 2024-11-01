@@ -17,5 +17,5 @@ data class UserEntity (
     @PrimaryKey(autoGenerate = true) val uid: Int = 0,
     @ColumnInfo(name = "nombrejugador") val namePlayer: String?,
     @ColumnInfo(name = "puntuacion") val puntuacion: String?,
-    @ColumnInfo(name = "fecha") val fecha: String?
+    @ColumnInfo(name = "fecha") val fecha: String?,
 )

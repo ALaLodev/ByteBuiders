@@ -159,7 +159,7 @@ class GameActivity : AppCompatActivity() {
             roundsNumber++
             startNewRound()
         } else {
-            //Fin de juego
+            // Fin de juego
             gameEnded = true
             feedback.text = "Fin de juego, tu puntuación es $points puntos"
             sendButton.isEnabled = false
@@ -169,11 +169,14 @@ class GameActivity : AppCompatActivity() {
 
             // Mostrar la carta final
             cardImageView.setImageResource(resources.getIdentifier("card_$randomNumber", "drawable", packageName))
+
+            // Registrar al ganador
             registerWinner()
         }
     }
 
     // Método para registrar al ganador
+    // Modificamos el método para pedir al jugador su nombre y luego registrar su puntuación?
     private fun registerWinner() {
         val winnerName = "jugador" // Cambia esto por el nombre del jugador real
         val winnerScore = points.toString()
@@ -182,4 +185,12 @@ class GameActivity : AppCompatActivity() {
         // Llamar al ViewModel para registrar el ganador
         modelo.insertUser (winnerName, winnerScore, winnerDateTime)
     }
+
+    private fun navigateToScores() {
+        val intent = Intent(this, ScoresActivity::class.java)
+        intent.putExtra("CURRENT_SCORE", points)
+        startActivity(intent)
+        finish() // Opcional: cierra GameActivity para evitar volver atrás
+    }
+
 }

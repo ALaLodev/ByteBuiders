@@ -29,4 +29,9 @@ interface UserDao {
     // Elimina un usuario de manera asíncrona
     @Delete
     suspend fun delete(user: UserEntity)
+
+    // Obtener los 4 mejores puntajes ordenados de mayor a menor
+    @Query("SELECT * FROM UserEntity ORDER BY puntuacion DESC LIMIT 4")
+    suspend fun getTopScores(): List<UserEntity>
+
 }
