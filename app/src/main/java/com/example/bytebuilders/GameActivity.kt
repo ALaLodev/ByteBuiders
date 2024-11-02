@@ -1,9 +1,13 @@
 package com.example.bytebuilders
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.SharedPreferences
 import android.content.Intent
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
@@ -11,10 +15,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.bytebuilders.vistaModelo.MainViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -27,6 +28,7 @@ class GameActivity : AppCompatActivity() {
     private lateinit var attempsText: TextView
     private lateinit var btnInicio: Button
     private lateinit var cardImageView: ImageView
+    private lateinit var pauseButton: ImageButton
 
     private lateinit var feedback: TextView
     private lateinit var roundtext: TextView
@@ -40,10 +42,20 @@ class GameActivity : AppCompatActivity() {
     private val totalRounds = 4
     private val modelo: MainViewModel by viewModels()
 
+    private lateinit var sharedPreferences: SharedPreferences
+    private var volumeLevel: Int = 50
+    private var mediaPlayer: MediaPlayer? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.player_activity)
+
+        sharedPreferences = getSharedPreferences("GameSettings", Context.MODE_PRIVATE)
+        volumeLevel = sharedPreferences.getInt("volumeLevel", 50)
+
+        // Configurar el MediaPlayer
+        //setupMediaPlayer()
 
         plusButton = findViewById(R.id.plusButton)
         minusButton = findViewById(R.id.minusButton)
@@ -54,6 +66,7 @@ class GameActivity : AppCompatActivity() {
         attempsText = findViewById(R.id.attemptText)
         btnInicio = findViewById(R.id.player2)
         cardImageView = findViewById(R.id.hiddenCard)
+        pauseButton = findViewById(R.id.pauseButton)
 
         startNewRound()
         btnInicio.isEnabled = false
@@ -77,6 +90,54 @@ class GameActivity : AppCompatActivity() {
             val intent = Intent(this, SelectPlayersActivity::class.java)
             startActivity(intent)
         }
+
+        pauseButton.setOnClickListener {
+            val intent = Intent(this, PauseActivity::class.java)
+            startActivity(intent)
+        }
+    }
+// Inicializa MediaPlayer para meterle musica
+//    private fun setupMediaPlayer() {
+//        mediaPlayer = MediaPlayer.create(this, R.raw.audio_file)
+//        setVolume(volumeLevel)
+//        mediaPlayer?.isLooping = true
+//        mediaPlayer?.start()
+//    }
+
+    private fun setVolume(volume: Int) {
+        val maxVolume = 100
+        val volumeAdjustment = (1 - (Math.log((maxVolume - volume).toDouble()) / Math.log(maxVolume.toDouble()))).toFloat()
+        mediaPlayer?.setVolume(volumeAdjustment, volumeAdjustment)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        volumeLevel = sharedPreferences.getInt("volumeLevel", 50)
+        setVolume(volumeLevel)
+        mediaPlayer?.start()
+        if (!gameEnded) {
+            resumeGame()
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        mediaPlayer?.pause()
+        pauseGame()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mediaPlayer?.release()
+        mediaPlayer = null
+    }
+
+    private fun pauseGame() {
+        // Pausar lógica del juego, por ejemplo, detener corrutinas
+    }
+
+    private fun resumeGame() {
+        // Reanudar lógica del juego
     }
 
     private fun startNewRound() {
@@ -174,7 +235,7 @@ class GameActivity : AppCompatActivity() {
     }
 
     private fun registerWinner() {
-        val winnerName = "Jugador" // Puedes solicitar el nombre al usuario si lo deseas
+        val winnerName = "Jugador"
         val winnerScore = points
         val winnerDateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
 

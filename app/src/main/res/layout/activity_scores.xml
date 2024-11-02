@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- Título de la pantalla -->
+        <!-- Titulo de la pantalla -->
         <TextView
             android:id="@+id/titleScores"
             android:layout_width="wrap_content"
@@ -22,18 +22,18 @@
             android:textStyle="bold"
             android:textColor="@android:color/white" />
 
-        <!-- Puntuación del jugador actual -->
+        <!-- Puntuacion del jugador actual -->
         <TextView
             android:id="@+id/currentPlayerScore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tu puntuación: X puntos"
+            android:text="Tu puntuacion: X puntos"
             android:textSize="24sp"
             android:textStyle="bold"
             android:textColor="@android:color/white"
             android:layout_marginTop="16dp" />
 
-        <!-- Botón para volver al inicio -->
+        <!-- Boton para volver al inicio -->
         <Button
             android:id="@+id/buttonBackToMain"
             android:layout_width="wrap_content"
@@ -41,7 +41,7 @@
             android:text="Volver al Inicio"
             android:layout_marginTop="16dp" />
 
-        <!-- Espacio entre el botón y los rankings -->
+        <!-- Espacio entre el boton y los rankings -->
         <View
             android:layout_width="match_parent"
             android:layout_height="16dp" />
@@ -53,7 +53,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- Rectángulo para el puesto 1 -->
+            <!-- Rectangulo para el puesto 1 -->
             <!-- Color dorado para el primer puesto -->
             <LinearLayout
                 android:id="@+id/position1Layout"
@@ -77,13 +77,13 @@
                     android:id="@+id/player1NameScore"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="NombreJugador1 - Puntuación"
+                    android:text="NombreJugador1 - Puntuacion"
                     android:textSize="20sp"
                     android:textColor="@android:color/black" />
 
             </LinearLayout>
 
-            <!-- Rectángulo para el puesto 2 -->
+            <!-- Rectangulo para el puesto 2 -->
             <!-- Color plateado para el segundo puesto -->
             <LinearLayout
                 android:id="@+id/position2Layout"
@@ -107,13 +107,13 @@
                     android:id="@+id/player2NameScore"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="NombreJugador2 - Puntuación"
+                    android:text="NombreJugador2 - Puntuacion"
                     android:textSize="20sp"
                     android:textColor="@android:color/black" />
 
             </LinearLayout>
 
-            <!-- Rectángulo para el puesto 3 -->
+            <!-- Rectangulo para el puesto 3 -->
             <!-- Color bronce para el tercer puesto -->
             <LinearLayout
                 android:id="@+id/position3Layout"
@@ -137,13 +137,13 @@
                     android:id="@+id/player3NameScore"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="NombreJugador3 - Puntuación"
+                    android:text="NombreJugador3 - Puntuacion"
                     android:textSize="20sp"
                     android:textColor="@android:color/black" />
 
             </LinearLayout>
 
-            <!-- Rectángulo para el puesto 4 -->
+            <!-- Rectangulo para el puesto 4 -->
             <!-- Color gris para el cuarto puesto -->
             <LinearLayout
                 android:id="@+id/position4Layout"
@@ -167,7 +167,7 @@
                     android:id="@+id/player4NameScore"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="NombreJugador4 - Puntuación"
+                    android:text="NombreJugador4 - Puntuacion"
                     android:textSize="20sp"
                     android:textColor="@android:color/black" />
 
