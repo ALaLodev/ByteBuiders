@@ -181,5 +181,13 @@ class GameActivity : AppCompatActivity() {
 
         // Llamar al ViewModel para registrar el ganador
         modelo.insertUser (winnerName, winnerScore, winnerDateTime)
+
+        //LLAMAR NUEVA ACTIVITY GRIDVIEW
+        val intent = Intent(this, DetallePartidas::class.java)
+        startActivity(intent)
+
+
+
+
     }
 }

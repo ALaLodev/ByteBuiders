@@ -1,5 +1,7 @@
 package com.example.bytebuilders.vistaModelo
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope // Ensure this import is present
 import com.example.bytebuilders.application.RoomByteBuilders
@@ -24,7 +26,8 @@ class MainViewModel : ViewModel() {
      * @param puntuacion Puntuación del jugador
      * @param fecha Fecha del registro
      */
-
+    private val _users = MutableLiveData<List<UserEntity>>()
+    val users: LiveData<List<UserEntity>> get() = _users
 
     fun insertUser(namePlayer: String, puntuacion: String, fecha: String) {
         val userEntity = UserEntity(
@@ -34,6 +37,14 @@ class MainViewModel : ViewModel() {
         )
         viewModelScope.launch(Dispatchers.IO) {
             RoomByteBuilders.db.userDao().insertUser(userEntity)
+        }
+    }
+
+    fun loadAllUser() {
+
+        viewModelScope.launch(Dispatchers.IO) {
+            val userList = RoomByteBuilders.db.userDao().getAll()
+            _users.postValue(userList)
         }
     }
 

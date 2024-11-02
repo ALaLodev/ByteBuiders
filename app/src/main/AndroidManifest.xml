@@ -29,6 +29,9 @@
         <activity android:name=".GameActivity"
             android:exported="false">
         </activity>
+        <activity android:name=".DetallePartidas"
+            android:exported="false">
+        </activity>
     </application>
 
 </manifest>
