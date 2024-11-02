@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.LinearLayout
-import android.widget.ScrollView
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -17,7 +16,7 @@ import kotlinx.coroutines.launch
 
 class ScoresActivity : AppCompatActivity() {
 
-    private lateinit var scoresLayout: LinearLayout
+    private lateinit var rankingsContainer: LinearLayout
     private lateinit var buttonBackToMain: Button
     private lateinit var currentPlayerScoreTextView: TextView
     private var currentScore: Int = 0
@@ -27,7 +26,7 @@ class ScoresActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_scores)
 
-        scoresLayout = findViewById(R.id.scoresLayout)
+        rankingsContainer = findViewById(R.id.rankingsContainer)
         buttonBackToMain = findViewById(R.id.buttonBackToMain)
         currentPlayerScoreTextView = findViewById(R.id.currentPlayerScore)
 
@@ -57,15 +56,15 @@ class ScoresActivity : AppCompatActivity() {
     }
 
     private fun displayScores(scores: List<UserEntity>) {
-        scoresLayout.removeAllViews()
+        rankingsContainer.removeAllViews()
 
         for ((index, user) in scores.withIndex()) {
             val textView = TextView(this)
-            textView.text = "${index + 1}. ${user.namePlayer} ${user.puntuacion}"
+            textView.text = "${index + 1}. ${user.namePlayer} - ${user.puntuacion} puntos - ${user.fecha}"
             textView.textSize = 20f
             textView.setTextColor(ContextCompat.getColor(this, android.R.color.white))
             textView.setPadding(0, 8, 0, 8)
-            scoresLayout.addView(textView)
+            rankingsContainer.addView(textView)
         }
     }
 }

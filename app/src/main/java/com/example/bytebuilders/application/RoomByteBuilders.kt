@@ -1,7 +1,6 @@
 package com.example.bytebuilders.application
 
 import android.app.Application
-import android.util.Log
 import androidx.room.Room
 import com.example.bytebuilders.data.database.AppDataBase
 
@@ -28,7 +27,9 @@ class RoomByteBuilders : Application() {
                     application.applicationContext,
                     AppDataBase::class.java,
                     "jugador-historico"
-                ).build()
+                )
+                    .fallbackToDestructiveMigration()
+                    .build()
                 INSTANCE = instance
                 instance
             }

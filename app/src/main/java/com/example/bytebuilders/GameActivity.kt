@@ -34,12 +34,13 @@ class GameActivity : AppCompatActivity() {
 
 
     private var randomNumber = 0
-    private var selectedNumberValue = 0
+    private var selectedNumberValue = 1
     private var attemptsLeft = 4
     private var roundsNumber = 1
     private var points = 0
     private var gameEnded = false
     private val modelo: MainViewModel by viewModels()
+    private val totalRounds = 4
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,15 +63,18 @@ class GameActivity : AppCompatActivity() {
         btnInicio.isEnabled = false
 
         plusButton.setOnClickListener {
-            val currentNumber = selectedNumber.text.toString().toInt()
-            if (currentNumber < 12) selectedNumber.text = (currentNumber + 1).toString()
-        }
-        minusButton.setOnClickListener {
-            val currentNumber = selectedNumber.text.toString().toInt()
-            if (currentNumber > 1) {
-                selectedNumber.text = (currentNumber - 1).toString()
+            if (selectedNumberValue < 12) {
+                selectedNumberValue++
+                selectedNumber.text = selectedNumberValue.toString()
             }
         }
+        minusButton.setOnClickListener {
+            if (selectedNumberValue > 1) {
+                selectedNumberValue--
+                selectedNumber.text = selectedNumberValue.toString()
+            }
+        }
+
         sendButton.setOnClickListener {
             checkAnswer()
         }
@@ -82,7 +86,7 @@ class GameActivity : AppCompatActivity() {
 
     private fun startNewRound() {
         randomNumber = (1..12).random()
-        selectedNumberValue = 0
+        selectedNumberValue = 1 // Valor inicial válido entre 1 y 12
         selectedNumber.text = selectedNumberValue.toString()
         attemptsLeft = 4
         roundtext.text = "Ronda $roundsNumber"
@@ -92,9 +96,7 @@ class GameActivity : AppCompatActivity() {
 
     @SuppressLint("DiscouragedApi")
     private fun checkAnswer() {
-        val selectedNumberValue = selectedNumber.text.toString().toInt()
-
-        if (selectedNumberValue == randomNumber && roundsNumber < 3) {
+        if (selectedNumberValue == randomNumber) {
             feedback.text = "Correcto"
             showCardForCorrectAnswer(selectedNumberValue)
             points += attemptsLeft
@@ -127,7 +129,7 @@ class GameActivity : AppCompatActivity() {
         attempsText.text = "Intento: $attemptsLeft/4"
 
         if (attemptsLeft == 0) {
-            feedback.text = "Has perdido, el número es $randomNumber"
+            feedback.text = "Has perdido esta ronda, el número era $randomNumber"
             showCardForIncorrectAnswer(randomNumber)
             nextRoundOrEndGame()
         } else {
@@ -155,7 +157,7 @@ class GameActivity : AppCompatActivity() {
 
     @SuppressLint("DiscouragedApi")
     private fun nextRoundOrEndGame() {
-        if (roundsNumber < 3) {
+        if (roundsNumber < totalRounds) {
             roundsNumber++
             startNewRound()
         } else {
@@ -178,19 +180,21 @@ class GameActivity : AppCompatActivity() {
     // Método para registrar al ganador
     // Modificamos el método para pedir al jugador su nombre y luego registrar su puntuación?
     private fun registerWinner() {
-        val winnerName = "jugador" // Cambia esto por el nombre del jugador real
-        val winnerScore = points.toString()
+        val winnerName = "Jugador" // Nombre predeterminado
+        val winnerScore = points
         val winnerDateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
 
         // Llamar al ViewModel para registrar el ganador
-        modelo.insertUser (winnerName, winnerScore, winnerDateTime)
+        modelo.insertUser(winnerName, winnerScore, winnerDateTime)
+
+        // Navegar a la pantalla de puntuaciones
+        navigateToScores()
     }
 
     private fun navigateToScores() {
         val intent = Intent(this, ScoresActivity::class.java)
         intent.putExtra("CURRENT_SCORE", points)
         startActivity(intent)
-        finish() // Opcional: cierra GameActivity para evitar volver atrás
     }
 
 }

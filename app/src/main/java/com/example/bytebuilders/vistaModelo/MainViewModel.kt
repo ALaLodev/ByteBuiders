@@ -1,39 +1,29 @@
 package com.example.bytebuilders.vistaModelo
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope // Ensure this import is present
+import androidx.lifecycle.viewModelScope
 import com.example.bytebuilders.application.RoomByteBuilders
 import com.example.bytebuilders.data.entitys.UserEntity
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch // Import launch for coroutine
+import kotlinx.coroutines.launch
 
-/**
- * hay que implementar estas rutinas en el build.grandle
- * implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1" // or the latest version
- * implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2" // or the latest version
- *
- * **/
 class MainViewModel : ViewModel() {
-    /**
-     * Prueba para añadir un registro
-     * Las consultas estan en USERDAO
-     * **/
-    /**
-     * Método para insertar un registro en la base de datos
-     * @param namePlayer Nombre del jugador
-     * @param puntuacion Puntuación del jugador
-     * @param fecha Fecha del registro
-     */
 
-
-    fun insertUser(namePlayer: String, puntuacion: String, fecha: String) {
+    fun insertUser(namePlayer: String, puntuacion: Int, fecha: String) {
         val userEntity = UserEntity(
             namePlayer = namePlayer,
             puntuacion = puntuacion,
-            fecha = fecha // Usa el parámetro de fecha pasado
+            fecha = fecha
         )
+
         viewModelScope.launch(Dispatchers.IO) {
-            RoomByteBuilders.db.userDao().insertUser(userEntity)
+            try {
+                RoomByteBuilders.db.userDao().insertUser(userEntity)
+            } catch (e: Exception) {
+                // Manejar la excepción (por ejemplo, mostrar un mensaje de error en el Logcat)
+                Log.e("MainViewModel", "Error al insertar usuario: ${e.message}")
+            }
         }
     }
 
