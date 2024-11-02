@@ -18,7 +18,6 @@ import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-
 class GameActivity : AppCompatActivity() {
 
     private lateinit var plusButton: FloatingActionButton
@@ -32,16 +31,14 @@ class GameActivity : AppCompatActivity() {
     private lateinit var feedback: TextView
     private lateinit var roundtext: TextView
 
-
     private var randomNumber = 0
     private var selectedNumberValue = 1
-    private var attemptsLeft = 4
+    private var attemptNumber = 1
     private var roundsNumber = 1
     private var points = 0
     private var gameEnded = false
-    private val modelo: MainViewModel by viewModels()
     private val totalRounds = 4
-
+    private val modelo: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,7 +55,6 @@ class GameActivity : AppCompatActivity() {
         btnInicio = findViewById(R.id.player2)
         cardImageView = findViewById(R.id.hiddenCard)
 
-
         startNewRound()
         btnInicio.isEnabled = false
 
@@ -74,7 +70,6 @@ class GameActivity : AppCompatActivity() {
                 selectedNumber.text = selectedNumberValue.toString()
             }
         }
-
         sendButton.setOnClickListener {
             checkAnswer()
         }
@@ -86,11 +81,11 @@ class GameActivity : AppCompatActivity() {
 
     private fun startNewRound() {
         randomNumber = (1..12).random()
-        selectedNumberValue = 1 // Valor inicial válido entre 1 y 12
+        selectedNumberValue = 1
         selectedNumber.text = selectedNumberValue.toString()
-        attemptsLeft = 4
+        attemptNumber = 1
         roundtext.text = "Ronda $roundsNumber"
-        attempsText.text = "Intento: $attemptsLeft/4"
+        attempsText.text = "Intento: $attemptNumber/4"
         cardImageView.setImageResource(R.drawable.spr_reverso)
     }
 
@@ -98,11 +93,34 @@ class GameActivity : AppCompatActivity() {
     private fun checkAnswer() {
         if (selectedNumberValue == randomNumber) {
             feedback.text = "Correcto"
+            val pointsEarned = 5 - attemptNumber
+            points += pointsEarned
             showCardForCorrectAnswer(selectedNumberValue)
-            points += attemptsLeft
             nextRoundOrEndGame()
         } else {
             processIncorrectAnswer(selectedNumberValue)
+        }
+    }
+
+    private fun processIncorrectAnswer(selectedNumberValue: Int) {
+        if (selectedNumberValue < randomNumber) {
+            feedback.text = "El número es mayor"
+        } else {
+            feedback.text = "El número es menor"
+        }
+
+        attemptNumber++
+        attempsText.text = "Intento: $attemptNumber/4"
+
+        if (attemptNumber > 4) {
+            feedback.text = "Has perdido esta ronda, el número era $randomNumber"
+            showCardForIncorrectAnswer(randomNumber)
+            nextRoundOrEndGame()
+        } else {
+            CoroutineScope(Dispatchers.Main).launch {
+                delay(2000)
+                feedback.text = ""
+            }
         }
     }
 
@@ -115,28 +133,6 @@ class GameActivity : AppCompatActivity() {
                 hideCard()
             }
             feedback.text = ""
-        }
-    }
-
-    private fun processIncorrectAnswer(selectedNumberValue: Int) {
-        if (selectedNumberValue < randomNumber) {
-            feedback.text = "El número es mayor"
-        } else {
-            feedback.text = "El número es menor"
-        }
-
-        attemptsLeft--
-        attempsText.text = "Intento: $attemptsLeft/4"
-
-        if (attemptsLeft == 0) {
-            feedback.text = "Has perdido esta ronda, el número era $randomNumber"
-            showCardForIncorrectAnswer(randomNumber)
-            nextRoundOrEndGame()
-        } else {
-            CoroutineScope(Dispatchers.Main).launch {
-                delay(2000)
-                feedback.text = ""
-            }
         }
     }
 
@@ -177,10 +173,8 @@ class GameActivity : AppCompatActivity() {
         }
     }
 
-    // Método para registrar al ganador
-    // Modificamos el método para pedir al jugador su nombre y luego registrar su puntuación?
     private fun registerWinner() {
-        val winnerName = "Jugador" // Nombre predeterminado
+        val winnerName = "Jugador" // Puedes solicitar el nombre al usuario si lo deseas
         val winnerScore = points
         val winnerDateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
 
@@ -196,5 +190,4 @@ class GameActivity : AppCompatActivity() {
         intent.putExtra("CURRENT_SCORE", points)
         startActivity(intent)
     }
-
 }
