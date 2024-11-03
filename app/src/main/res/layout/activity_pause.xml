@@ -19,9 +19,6 @@
         android:layout_marginTop="32dp" />
 
     <!-- Boton Reanudar -->
-
-    <!-- Boton Menu Principal -->
-
     <Button
         android:id="@+id/resumeButton"
         android:layout_width="wrap_content"
@@ -32,7 +29,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/pauseTitle" />
-
+    <!-- Boton Menu Principal -->
     <Button
         android:id="@+id/mainMenuButton"
         android:layout_width="wrap_content"

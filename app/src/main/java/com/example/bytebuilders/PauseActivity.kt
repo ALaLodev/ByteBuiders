@@ -28,21 +28,20 @@ class PauseActivity : AppCompatActivity() {
         exitButton = findViewById(R.id.exitButton)
 
         resumeButton.setOnClickListener {
-            // Finalizar PauseActivity para volver a GameActivity
+            // Finalizar PauseActivity para volver al GameActivity
             finish()
         }
 
         mainMenuButton.setOnClickListener {
             // Cerrar GameActivity y volver al MainActivity
             val intent = Intent(this, MainActivity::class.java)
-            // Limpiar el stack de actividades
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK // Limpiar el stack
             startActivity(intent)
             finish()
         }
 
         settingsButton.setOnClickListener {
-            // Ir a SettingsActivity
+            // Ir al SettingsActivity
             val intent = Intent(this, SettingsActivity::class.java)
             startActivity(intent)
         }

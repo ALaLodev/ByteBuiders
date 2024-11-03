@@ -35,13 +35,13 @@ class ScoresActivity : AppCompatActivity() {
             buttonBackToMain = findViewById(R.id.buttonBackToMain)
             currentPlayerScoreTextView = findViewById(R.id.currentPlayerScore)
 
-            // TextViews para los jugadores
+            // TextViews jugadores
             player1NameScore = findViewById(R.id.player1NameScore)
             player2NameScore = findViewById(R.id.player2NameScore)
             player3NameScore = findViewById(R.id.player3NameScore)
             player4NameScore = findViewById(R.id.player4NameScore)
 
-            // Obtener la puntuación actual desde el Intent
+            // Sacar la score actual desde el Intent
             currentScore = intent.getIntExtra("CURRENT_SCORE", 0)
             currentPlayerScoreTextView.text = "Tu puntuación: $currentScore puntos"
 
@@ -51,7 +51,7 @@ class ScoresActivity : AppCompatActivity() {
                 finish()
             }
 
-            // Cargar y mostrar las puntuaciones
+            // Cargar y mostrar las scores
             loadScores()
         } catch (e: Exception) {
             Log.e("ScoresActivity", "Error en onCreate: ${e.message}")
@@ -75,7 +75,7 @@ class ScoresActivity : AppCompatActivity() {
     }
 
     private fun displayScores(scores: List<UserEntity>) {
-        // Asegurarse de que la lista tenga al menos 4 elementos
+        // Nos aseguramos que la lista tenga al menos 4 elementos
         // Si no, rellenar con datos predeterminados
         val defaultUser = UserEntity(namePlayer = "N/A", puntuacion = 0, fecha = "")
         val topScores = scores.take(4).toMutableList()
@@ -83,7 +83,7 @@ class ScoresActivity : AppCompatActivity() {
             topScores.add(defaultUser)
         }
 
-        // Actualizar los TextViews con los datos de los jugadores
+        // Actualizar los TextViews con los datos de los jugadores. Cambiar usuario por fecha?
         player1NameScore.text = "${topScores[0].namePlayer} - ${topScores[0].puntuacion} puntos"
         player2NameScore.text = "${topScores[1].namePlayer} - ${topScores[1].puntuacion} puntos"
         player3NameScore.text = "${topScores[2].namePlayer} - ${topScores[2].puntuacion} puntos"

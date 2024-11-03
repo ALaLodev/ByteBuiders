@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Título Ajustes -->
+    <!-- Titulo -->
     <TextView
         android:id="@+id/settingsTitle"
         android:layout_width="wrap_content"
@@ -29,7 +29,7 @@
         android:layout_marginTop="24dp"
         android:layout_marginStart="16dp" />
 
-    <!-- SeekBar de Volumen -->
+    <!-- SeekBar -->
     <SeekBar
         android:id="@+id/volumeSeekBar"
         android:layout_width="0dp"
@@ -65,7 +65,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginStart="16dp" />
 
-    <!-- Botón Salir -->
+    <!-- Boton Salir -->
     <Button
         android:id="@+id/exitSettingsButton"
         android:layout_width="wrap_content"
