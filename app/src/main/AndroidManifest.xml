@@ -29,9 +29,10 @@
         <activity android:name=".GameActivity"
             android:exported="false">
         </activity>
-        <activity android:name=".DetallePartidas"
-            android:exported="false">
+        <activity android:name=".ScoresActivity">
         </activity>
+        <activity android:name=".PauseActivity"></activity>
+        <activity android:name=".SettingsActivity"></activity>
     </application>
 
 </manifest>

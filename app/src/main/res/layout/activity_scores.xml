@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scrollViewScores"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#151923"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:id="@+id/scoresLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Titulo de la pantalla -->
+        <TextView
+            android:id="@+id/titleScores"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fin del Juego"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/white" />
+
+        <!-- Puntuacion del jugador actual. Quitar? -->
+        <TextView
+            android:id="@+id/currentPlayerScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tu puntuacion: X puntos"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="16dp" />
+
+        <!-- volver al inicio -->
+        <Button
+            android:id="@+id/buttonBackToMain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Volver al Inicio"
+            android:layout_marginTop="16dp" />
+
+        <!-- Espacio entre el boton y los rankings -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
+
+        <!-- Contenedor de los rankings -->
+        <LinearLayout
+            android:id="@+id/rankingsContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Rectangulo para el puesto 1 -->
+            <!-- Color dorado para el primer puesto -->
+            <LinearLayout
+                android:id="@+id/position1Layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#FFD700"
+                android:padding="16dp"
+                android:layout_marginBottom="8dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/position1Text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1. "
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/black" />
+
+                <TextView
+                    android:id="@+id/player1NameScore"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="NombreJugador1 - Puntuacion"
+                    android:textSize="20sp"
+                    android:textColor="@android:color/black" />
+
+            </LinearLayout>
+
+            <!-- Rectangulo para el puesto 2 -->
+            <!-- Color plateado para el segundo puesto -->
+            <LinearLayout
+                android:id="@+id/position2Layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#C0C0C0"
+                android:padding="16dp"
+                android:layout_marginBottom="8dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/position2Text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2. "
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/black" />
+
+                <TextView
+                    android:id="@+id/player2NameScore"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="NombreJugador2 - Puntuacion"
+                    android:textSize="20sp"
+                    android:textColor="@android:color/black" />
+
+            </LinearLayout>
+
+            <!-- Rectangulo para el puesto 3 -->
+            <!-- Color bronce para el tercer puesto -->
+            <LinearLayout
+                android:id="@+id/position3Layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#CD7F32"
+                android:padding="16dp"
+                android:layout_marginBottom="8dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/position3Text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="3. "
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/black" />
+
+                <TextView
+                    android:id="@+id/player3NameScore"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="NombreJugador3 - Puntuacion"
+                    android:textSize="20sp"
+                    android:textColor="@android:color/black" />
+
+            </LinearLayout>
+
+            <!-- Rectangulo para el puesto 4 -->
+            <!-- Color gris para el cuarto puesto -->
+            <LinearLayout
+                android:id="@+id/position4Layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#8C8C8C"
+                android:padding="16dp"
+                android:layout_marginBottom="8dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/position4Text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="4. "
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/black" />
+
+                <TextView
+                    android:id="@+id/player4NameScore"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="NombreJugador4 - Puntuacion"
+                    android:textSize="20sp"
+                    android:textColor="@android:color/black" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

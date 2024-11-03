@@ -11,7 +11,7 @@ import com.example.bytebuilders.data.entitys.UserEntity
  * Version con cada modificacion o insercion aumentará
  */
 
-@Database(entities = [UserEntity::class],version = 1)
+@Database(entities = [UserEntity::class],version = 2)
 abstract class AppDataBase :RoomDatabase(){
     abstract fun userDao():UserDao// Nuestra interface
 }
