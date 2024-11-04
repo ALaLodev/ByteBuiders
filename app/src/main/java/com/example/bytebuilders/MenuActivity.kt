@@ -24,8 +24,19 @@ class MenuActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_menu)
 
+        // Establecer el texto subrayado en el TextView
+        val textView = findViewById<TextView>(R.id.titlePlayer)
+        val content = getString(R.string.menu_title)
+        val underlinedText = SpannableString(content)
+        underlinedText.setSpan(UnderlineSpan(), 0, content.length, 0)
+        textView.text = underlinedText
+        //---------------------------------------------------------
+
         settingsButtonMenu = findViewById(R.id.settingsButtonMenu)
         exitButtonMenu = findViewById(R.id.exitButtonMenu)
+        val btnPlayGame = findViewById<ImageButton>(R.id.playGame)
+        val btnScores = findViewById<Button>(R.id.scores)
+        val muteButtonMenu: ImageButton = findViewById(R.id.muteButtonMenu)
 
         points = intent.getIntExtra("Final_Score", 0)
 
@@ -40,19 +51,16 @@ class MenuActivity : AppCompatActivity() {
             finishAffinity()
         }
 
-        val textView = findViewById<TextView>(R.id.titlePlayer)
-        val content = getString(R.string.menu_title)
-        val underlinedText = SpannableString(content)
-        underlinedText.setSpan(UnderlineSpan(), 0, content.length, 0)
-        textView.text = underlinedText
-
-
-        val btnPlayGame = findViewById<ImageButton>(R.id.playGame)
-        val btnScores = findViewById<Button>(R.id.scores)
-
         btnPlayGame.setOnClickListener { navigateToSelectPlayers() }
         btnScores.setOnClickListener { navigateToScores() }
 
+        muteButtonMenu.setOnClickListener {
+            if (MusicPlayer.isPlaying()) {
+                MusicPlayer.pause()
+            } else {
+                MusicPlayer.resume()
+            }
+        }
     }
 
     private fun navigateToSelectPlayers() {

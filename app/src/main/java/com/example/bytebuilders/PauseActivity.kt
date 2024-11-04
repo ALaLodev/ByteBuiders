@@ -27,6 +27,8 @@ class PauseActivity : AppCompatActivity() {
         settingsButton = findViewById(R.id.settingsButton)
         exitButton = findViewById(R.id.exitButton)
 
+        val muteButton: ImageButton = findViewById(R.id.muteButton)
+
         resumeButton.setOnClickListener {
             // Finalizar PauseActivity para volver al GameActivity
             finish()
@@ -44,6 +46,13 @@ class PauseActivity : AppCompatActivity() {
             // Ir al SettingsActivity
             val intent = Intent(this, SettingsActivity::class.java)
             startActivity(intent)
+        }
+        muteButton.setOnClickListener {
+            if (MusicPlayer.isPlaying()) {
+                MusicPlayer.pause()
+            } else {
+                MusicPlayer.resume()
+            }
         }
 
         exitButton.setOnClickListener {

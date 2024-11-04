@@ -60,25 +60,38 @@
         app:layout_constraintTop_toBottomOf="@+id/mainMenuButton">
 
         <!-- Boton Ajustes (Icono) -->
+
+
+        <!-- Boton Salir (Icono) -->
         <ImageButton
             android:id="@+id/settingsButton"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_marginStart="100dp"
+            android:layout_marginStart="60dp"
+            android:layout_marginEnd="60dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/settings_description"
-            android:src="@drawable/ic_settings" />
+            android:scaleType="fitCenter"
+            android:src="@drawable/settings" />
 
-        <!-- Boton Salir (Icono) -->
+        <ImageButton
+            android:id="@+id/muteButton"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/settings_description"
+            android:scaleType="fitCenter"
+            android:src="@drawable/mute_2" />
+
         <ImageButton
             android:id="@+id/exitButton"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_marginStart="80dp"
+            android:layout_marginStart="50dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/exit_description"
             android:scaleType="fitCenter"
-            android:src="@drawable/exit_1" />
+            android:src="@drawable/exit_2" />
 
     </LinearLayout>
 
