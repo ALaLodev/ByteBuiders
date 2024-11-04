@@ -13,6 +13,9 @@ import androidx.appcompat.app.AppCompatActivity
 
 class MenuActivity : AppCompatActivity() {
 
+    private lateinit var exitButtonMenu: ImageButton
+    private lateinit var settingsButtonMenu: ImageButton
+
     private var points: Int = 0
 
     @SuppressLint("WrongViewCast", "MissingInflatedId")
@@ -21,7 +24,21 @@ class MenuActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_menu)
 
+        settingsButtonMenu = findViewById(R.id.settingsButtonMenu)
+        exitButtonMenu = findViewById(R.id.exitButtonMenu)
+
         points = intent.getIntExtra("Final_Score", 0)
+
+        settingsButtonMenu.setOnClickListener {
+            // Ir al SettingsActivity
+            val intent = Intent(this, SettingsActivity::class.java)
+            startActivity(intent)
+        }
+
+        exitButtonMenu.setOnClickListener {
+            // Salir de la app
+            finishAffinity()
+        }
 
         val textView = findViewById<TextView>(R.id.titlePlayer)
         val content = getString(R.string.Menu_title)
@@ -48,5 +65,6 @@ class MenuActivity : AppCompatActivity() {
         intent.putExtra("CURRENT_SCORE", points)
         startActivity(intent)
     }
+
 
 }

@@ -6,9 +6,11 @@ import android.content.SharedPreferences
 import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
@@ -49,7 +51,7 @@ class GameActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.player_activity)
+        setContentView(R.layout.game_activity)
 
         sharedPreferences = getSharedPreferences("GameSettings", Context.MODE_PRIVATE)
         volumeLevel = sharedPreferences.getInt("volumeLevel", 50)
@@ -69,7 +71,7 @@ class GameActivity : AppCompatActivity() {
         pauseButton = findViewById(R.id.pauseButton)
 
         startNewRound()
-        btnInicio.isEnabled = false
+        btnInicio.visibility = View.GONE
 
         plusButton.setOnClickListener {
             if (selectedNumberValue < 12) {
@@ -157,6 +159,7 @@ class GameActivity : AppCompatActivity() {
             feedback.text = "Correcto"
             val pointsEarned = 5 - attemptNumber
             points += pointsEarned
+
             showCardForCorrectAnswer(selectedNumberValue)
             nextRoundOrEndGame()
         } else {
@@ -223,13 +226,18 @@ class GameActivity : AppCompatActivity() {
             // Fin de juego
             gameEnded = true
             feedback.text = "Fin de juego, tu puntuación es $points puntos"
-            sendButton.isEnabled = false
-            plusButton.isEnabled = false
-            minusButton.isEnabled = false
-            btnInicio.isEnabled = true
+            sendButton.visibility = View.GONE
+            plusButton.visibility = View.GONE
+            minusButton.visibility = View.GONE
+            selectedNumber.visibility = View.GONE
+            btnInicio.visibility = View.VISIBLE
 
             // Mostrar la carta final
             cardImageView.setImageResource(resources.getIdentifier("card_$randomNumber", "drawable", packageName))
+
+            // Mostrar el layout de fin de juego
+            val endGameLayout = findViewById<LinearLayout>(R.id.endGameLayout)
+            endGameLayout.visibility = View.VISIBLE
 
             // Registrar al ganador
             registerWinner()

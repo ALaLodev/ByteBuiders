@@ -62,7 +62,7 @@
 
         <!-- Boton Ajustes (Icono) -->
         <ImageButton
-            android:id="@+id/settingsButton"
+            android:id="@+id/settingsButtonMenu"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginStart="100dp"
@@ -73,7 +73,7 @@
 
         <!-- Boton Salir (Icono) -->
         <ImageButton
-            android:id="@+id/exitButton"
+            android:id="@+id/exitButtonMenu"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:background="?attr/selectableItemBackgroundBorderless"

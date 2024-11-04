@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/metallicbackgroundtest"
     android:padding="20dp">
-
-    <!-- Botón de Pausa -->
 
     <!-- Layout para mostrar la ronda y el puntaje -->
     <LinearLayout
@@ -28,9 +25,7 @@
             android:layout_marginEnd="20dp"
             android:background="@null"
             android:contentDescription="Pause"
-            android:src="@drawable/ic_pause"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:src="@drawable/ic_pause" />
 
         <TextView
             android:id="@+id/roundText"
@@ -61,15 +56,9 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/roundScoreLayout">
-
-    </LinearLayout>
+        app:layout_constraintTop_toBottomOf="@id/roundScoreLayout" />
 
     <!-- Imagen de la carta oculta -->
-    <!-- Imagen de la carta oculta -->
-
-    <!-- Botón de Enviar -->
-
     <ImageView
         android:id="@+id/hiddenCard"
         android:layout_width="wrap_content"
@@ -85,37 +74,42 @@
         android:id="@+id/feedback"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
         android:gravity="center"
         android:text=""
         android:textColor="@color/black"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/sendButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hiddenCard" />
+
+
+    <!-- Botón de Enviar -->
+    <Button
+        android:id="@+id/sendButton"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="200dp"
+        android:text="Enviar"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:backgroundTint="#46464B"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-
     <!-- Control de Incremento/Decremento (botones + y - y número en medio) -->
-    <Button
-        android:id="@+id/sendButton"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
-        android:text="Enviar"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/hiddenCard" />
-
     <LinearLayout
         android:id="@+id/numberControlLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginBottom="120dp"
         android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/sendButton">
+        app:layout_constraintStart_toStartOf="parent">
 
         <!-- Botón de Restar (-) -->
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -132,7 +126,6 @@
             android:layout_gravity="center"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
-            android:text="8"
             android:textColor="@color/black"
             android:textSize="40sp"
             android:textStyle="bold" />
@@ -147,16 +140,28 @@
             app:tint="@color/white" />
     </LinearLayout>
 
-    <Button
-        android:id="@+id/scores"
-        android:layout_width="150dp"
+    <!-- Layout final de fin de juego (mensaje y botón) -->
+    <LinearLayout
+        android:id="@+id/endGameLayout"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:text="Volver al inicio"
-        android:textSize="18sp"
+        android:layout_marginBottom="160dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/sendButton" />
+        app:layout_constraintStart_toStartOf="parent">
+
+
+        <Button
+            android:id="@+id/scores"
+            style="@style/Widget.AppCompat.Button"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="VOLVER AL INICIO"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:backgroundTint="#423D3D" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
