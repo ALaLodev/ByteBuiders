@@ -41,7 +41,7 @@ class MenuActivity : AppCompatActivity() {
         }
 
         val textView = findViewById<TextView>(R.id.titlePlayer)
-        val content = getString(R.string.Menu_title)
+        val content = getString(R.string.menu_title)
         val underlinedText = SpannableString(content)
         underlinedText.setSpan(UnderlineSpan(), 0, content.length, 0)
         textView.text = underlinedText

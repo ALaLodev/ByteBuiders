@@ -86,9 +86,9 @@ class ScoresActivity : AppCompatActivity() {
         }
 
         // Actualizar los TextViews con los datos de los jugadores. Cambiar usuario por fecha?
-        player1NameScore.text = "${topScores[0].namePlayer} - ${topScores[0].puntuacion} puntos"
-        player2NameScore.text = "${topScores[1].namePlayer} - ${topScores[1].puntuacion} puntos"
-        player3NameScore.text = "${topScores[2].namePlayer} - ${topScores[2].puntuacion} puntos"
-        player4NameScore.text = "${topScores[3].namePlayer} - ${topScores[3].puntuacion} puntos"
+        player1NameScore.text = "${topScores[0].fecha} - ${topScores[0].puntuacion} puntos"
+        player2NameScore.text = "${topScores[1].fecha} - ${topScores[1].puntuacion} puntos"
+        player3NameScore.text = "${topScores[2].fecha} - ${topScores[2].puntuacion} puntos"
+        player4NameScore.text = "${topScores[3].fecha} - ${topScores[3].puntuacion} puntos"
     }
 }
