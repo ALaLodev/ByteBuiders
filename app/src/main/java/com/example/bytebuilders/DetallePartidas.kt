@@ -19,13 +19,13 @@ class DetallePartidas : AppCompatActivity()  {
         gridView = findViewById(R.id.griddetalle)
 
         // Observa los datos del ViewModel
-        modelo.users.observe(this) { users ->
+       /* modelo.users.observe(this) { users ->
             // Maneja el caso en que users puede ser nulo
             val adapter = MyGridAdapter(this, users ?: emptyList()) // Aquí pasamos la lista de usuarios
             gridView.adapter = adapter
-        }
+        } */
 
         // Carga todos los usuarios al iniciar
-        modelo.loadAllUser ()
+        //modelo.loadAllUser ()
     }
  }

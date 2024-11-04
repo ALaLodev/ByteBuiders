@@ -1,54 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#151923">
 
-    <!-- Titulo -->
     <TextView
-        android:id="@+id/pauseTitle"
+        android:id="@+id/titlePlayer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
-        android:text="PAUSA"
+        android:text="@string/Menu_title"
+        android:textColor="@color/white"
         android:textSize="36sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/resumeButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Boton Reanudar -->
-    <Button
-        android:id="@+id/resumeButton"
+    <ImageButton
+        android:id="@+id/playGame"
         style="@style/Widget.AppCompat.Button"
-        android:layout_width="190dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="180dp"
-        android:text="Reanudar"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        android:textStyle="bold"
+        android:layout_width="300sp"
+        android:layout_height="80sp"
+        android:layout_marginTop="100dp"
+        android:contentDescription="player1"
+        android:scaleType="fitCenter"
+        android:src="@drawable/xbox_control"
+        app:backgroundTint="#A20E0E"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/pauseTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/titlePlayer" />
 
-    <!-- Boton Menu Principal -->
+    <!-- Boton Score -->
     <Button
-        android:id="@+id/mainMenuButton"
+        android:id="@+id/scores"
         style="@style/Widget.AppCompat.Button"
-        android:layout_width="190dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="360dp"
-        android:text="Volver al inicio"
+        android:layout_width="300sp"
+        android:layout_height="80sp"
+        android:layout_marginTop="100dp"
+        android:contentDescription="scores"
+        android:scaleType="fitCenter"
+        android:text="Puntuaciones"
         android:textColor="@color/black"
-        android:textSize="16sp"
+        android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:backgroundTint="#FFD700"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/playGame" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -57,7 +58,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintEnd_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mainMenuButton">
+        app:layout_constraintTop_toBottomOf="@+id/scores">
 
         <!-- Boton Ajustes (Icono) -->
         <ImageButton
@@ -65,6 +66,7 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginStart="100dp"
+            android:layout_marginEnd="80dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="Ajustes"
             android:src="@drawable/ic_settings" />
@@ -74,12 +76,12 @@
             android:id="@+id/exitButton"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_marginStart="80dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="Salir"
             android:scaleType="fitCenter"
             android:src="@drawable/exit_1" />
 
     </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

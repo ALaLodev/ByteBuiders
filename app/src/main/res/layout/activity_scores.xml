@@ -15,31 +15,15 @@
         <!-- Titulo de la pantalla -->
         <TextView
             android:id="@+id/titleScores"
+            android:layout_marginTop="100dp"
+            android:layout_marginBottom="30dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Fin del Juego"
-            android:textSize="30sp"
+            android:text="Puntuaciones"
+            android:textSize="36sp"
             android:textStyle="bold"
             android:textColor="@android:color/white" />
 
-        <!-- Puntuacion del jugador actual. Quitar? -->
-        <TextView
-            android:id="@+id/currentPlayerScore"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Tu puntuacion: X puntos"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:textColor="@android:color/white"
-            android:layout_marginTop="16dp" />
-
-        <!-- volver al inicio -->
-        <Button
-            android:id="@+id/buttonBackToMain"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Volver al Inicio"
-            android:layout_marginTop="16dp" />
 
         <!-- Espacio entre el boton y los rankings -->
         <View
@@ -172,8 +156,18 @@
                     android:textColor="@android:color/black" />
 
             </LinearLayout>
-
         </LinearLayout>
 
+        <!-- volver al inicio -->
+        <Button
+            android:id="@+id/buttonBackToMain"
+            style="@style/Widget.AppCompat.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Volver al Menu"
+            android:layout_marginTop="36dp" />
+
     </LinearLayout>
+
+
 </ScrollView>

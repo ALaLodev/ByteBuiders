@@ -11,23 +11,30 @@ import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 
-class SelectPlayersActivity : AppCompatActivity() {
-    @SuppressLint("WrongViewCast")
+class MenuActivity : AppCompatActivity() {
+
+    private var points: Int = 0
+
+    @SuppressLint("WrongViewCast", "MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.select_players)
+        setContentView(R.layout.activity_menu)
+
+        points = intent.getIntExtra("Final_Score", 0)
 
         val textView = findViewById<TextView>(R.id.titlePlayer)
-        val content = getString(R.string.Players_title)
+        val content = getString(R.string.Menu_title)
         val underlinedText = SpannableString(content)
         underlinedText.setSpan(UnderlineSpan(), 0, content.length, 0)
         textView.text = underlinedText
 
 
-        val btnPlayer1 = findViewById<ImageButton>(R.id.player1)
+        val btnPlayGame = findViewById<ImageButton>(R.id.playGame)
+        val btnScores = findViewById<Button>(R.id.scores)
 
-        btnPlayer1.setOnClickListener { navigateToSelectPlayers() }
+        btnPlayGame.setOnClickListener { navigateToSelectPlayers() }
+        btnScores.setOnClickListener { navigateToScores() }
 
     }
 
@@ -36,5 +43,10 @@ class SelectPlayersActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+    private fun navigateToScores() {
+        val intent = Intent(this, ScoresActivity::class.java)
+        intent.putExtra("CURRENT_SCORE", points)
+        startActivity(intent)
+    }
 
 }

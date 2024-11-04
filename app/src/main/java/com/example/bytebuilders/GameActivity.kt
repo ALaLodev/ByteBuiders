@@ -64,7 +64,7 @@ class GameActivity : AppCompatActivity() {
         feedback = findViewById(R.id.feedback)
         roundtext = findViewById(R.id.roundText)
         attempsText = findViewById(R.id.attemptText)
-        btnInicio = findViewById(R.id.player2)
+        btnInicio = findViewById(R.id.scores)
         cardImageView = findViewById(R.id.hiddenCard)
         pauseButton = findViewById(R.id.pauseButton)
 
@@ -87,7 +87,8 @@ class GameActivity : AppCompatActivity() {
             checkAnswer()
         }
         btnInicio.setOnClickListener {
-            val intent = Intent(this, SelectPlayersActivity::class.java)
+            val intent = Intent(this, MenuActivity::class.java)
+            intent.putExtra("Final_Score", points) // Pasa la puntuación final al siguiente activity
             startActivity(intent)
         }
 
@@ -180,7 +181,7 @@ class GameActivity : AppCompatActivity() {
         } else {
             CoroutineScope(Dispatchers.Main).launch {
                 delay(2000)
-                feedback.text = ""
+                if (!gameEnded) { feedback.text = "" }
             }
         }
     }
@@ -192,8 +193,8 @@ class GameActivity : AppCompatActivity() {
 
             if (!gameEnded) {
                 hideCard()
+                feedback.text = ""
             }
-            feedback.text = ""
         }
     }
 
@@ -201,6 +202,7 @@ class GameActivity : AppCompatActivity() {
         CoroutineScope(Dispatchers.Main).launch {
             cardImageView.setImageResource(resources.getIdentifier("card_$number", "drawable", packageName))
             delay(2000)
+
             if (!gameEnded) {
                 hideCard()
                 feedback.text = ""
@@ -241,14 +243,5 @@ class GameActivity : AppCompatActivity() {
 
         // Llamar al ViewModel para registrar el ganador
         modelo.insertUser(winnerName, winnerScore, winnerDateTime)
-
-        // Navegar a la pantalla de puntuaciones
-        navigateToScores()
-    }
-
-    private fun navigateToScores() {
-        val intent = Intent(this, ScoresActivity::class.java)
-        intent.putExtra("CURRENT_SCORE", points)
-        startActivity(intent)
     }
 }

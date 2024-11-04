@@ -6,7 +6,7 @@
     <string name="btn_empezar">Empezar</string>
 
 <!--Pantalla Seleccion -->
-    <string name="Players_title">Número de jugadores</string>
+    <string name="Menu_title">Menu Principal</string>
 
 
 </resources>

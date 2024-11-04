@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun navigateToSelectPlayers() {
-        val intent = Intent(this, SelectPlayersActivity::class.java)
+        val intent = Intent(this, MenuActivity::class.java)
         startActivity(intent)
     }
 }

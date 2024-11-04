@@ -12,11 +12,12 @@ import com.example.bytebuilders.data.entitys.UserEntity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class ScoresActivity : AppCompatActivity() {
 
     private lateinit var buttonBackToMain: Button
-    private lateinit var currentPlayerScoreTextView: TextView
+    //private lateinit var currentPlayerScoreTextView: TextView
     private var currentScore: Int = 0
 
     // TextViews para las posiciones
@@ -33,7 +34,7 @@ class ScoresActivity : AppCompatActivity() {
         try {
             // Inicializar las vistas
             buttonBackToMain = findViewById(R.id.buttonBackToMain)
-            currentPlayerScoreTextView = findViewById(R.id.currentPlayerScore)
+            //currentPlayerScoreTextView = findViewById(R.id.currentPlayerScore)
 
             // TextViews jugadores
             player1NameScore = findViewById(R.id.player1NameScore)
@@ -43,10 +44,11 @@ class ScoresActivity : AppCompatActivity() {
 
             // Sacar la score actual desde el Intent
             currentScore = intent.getIntExtra("CURRENT_SCORE", 0)
-            currentPlayerScoreTextView.text = "Tu puntuación: $currentScore puntos"
+            //currentPlayerScoreTextView = findViewById(R.id.currentPlayerScore)
+            //currentPlayerScoreTextView.text = "Tu puntuación: $currentScore puntos"
 
             buttonBackToMain.setOnClickListener {
-                val intent = Intent(this, MainActivity::class.java)
+                val intent = Intent(this, MenuActivity::class.java)
                 startActivity(intent)
                 finish()
             }
@@ -60,7 +62,7 @@ class ScoresActivity : AppCompatActivity() {
 
     private fun loadScores() {
         CoroutineScope(Dispatchers.Main).launch {
-            val scores = getScoresFromDatabase()
+            val scores = withContext(Dispatchers.IO) { getScoresFromDatabase() } // con Dispatchers.IO aseguramos que se realice en un hilo secundario de E/S de datos
             displayScores(scores)
         }
     }

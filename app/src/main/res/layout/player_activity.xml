@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/woodbackground"
+    android:background="@drawable/metallicbackgroundtest"
     android:padding="20dp">
 
     <!-- Botón de Pausa -->
@@ -148,7 +148,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/player2"
+        android:id="@+id/scores"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
