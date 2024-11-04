@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#151923">
@@ -11,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
-        android:text="@string/Menu_title"
+        android:text="@string/menu_title"
         android:textColor="@color/white"
         android:textSize="36sp"
         android:textStyle="bold"
@@ -25,7 +24,7 @@
         android:layout_width="300sp"
         android:layout_height="80sp"
         android:layout_marginTop="100dp"
-        android:contentDescription="player1"
+        android:contentDescription="@string/play_description"
         android:scaleType="fitCenter"
         android:src="@drawable/xbox_control"
         app:backgroundTint="#A20E0E"
@@ -40,9 +39,9 @@
         android:layout_width="300sp"
         android:layout_height="80sp"
         android:layout_marginTop="100dp"
-        android:contentDescription="scores"
+        android:contentDescription="@string/scores_description"
         android:scaleType="fitCenter"
-        android:text="Puntuaciones"
+        android:text="@string/scores"
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -68,7 +67,7 @@
             android:layout_marginStart="100dp"
             android:layout_marginEnd="80dp"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Ajustes"
+            android:contentDescription="@string/settings_description"
             android:src="@drawable/ic_settings" />
 
         <!-- Boton Salir (Icono) -->
@@ -77,11 +76,10 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Salir"
+            android:contentDescription="@string/exit_description"
             android:scaleType="fitCenter"
             android:src="@drawable/exit_1" />
 
     </LinearLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

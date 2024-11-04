@@ -12,20 +12,20 @@
         android:id="@+id/textViewNamePlayer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:gravity="center" />
+        android:gravity="center"
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/textViewPuntuacion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="14sp"
-        android:gravity="center" />
+        android:gravity="center"
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/textViewFecha"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="14sp"
-        android:gravity="center" />
+        android:gravity="center"
+        android:textSize="14sp" />
 </LinearLayout>

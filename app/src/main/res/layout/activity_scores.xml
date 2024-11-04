@@ -61,7 +61,7 @@
                     android:id="@+id/player1NameScore"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="NombreJugador1 - Puntuacion"
+                    android:text="@string/player1_score"
                     android:textSize="20sp"
                     android:textColor="@android:color/black" />
 
@@ -91,7 +91,7 @@
                     android:id="@+id/player2NameScore"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="NombreJugador2 - Puntuacion"
+                    android:text="@string/player2_score"
                     android:textSize="20sp"
                     android:textColor="@android:color/black" />
 
@@ -121,7 +121,7 @@
                     android:id="@+id/player3NameScore"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="NombreJugador3 - Puntuacion"
+                    android:text="@string/player3_score"
                     android:textSize="20sp"
                     android:textColor="@android:color/black" />
 
@@ -151,7 +151,7 @@
                     android:id="@+id/player4NameScore"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="NombreJugador4 - Puntuacion"
+                    android:text="@string/player4_score"
                     android:textSize="20sp"
                     android:textColor="@android:color/black" />
 
@@ -164,7 +164,7 @@
             style="@style/Widget.AppCompat.Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Volver al Menu"
+            android:text="@string/main_to_menu"
             android:layout_marginTop="36dp" />
 
     </LinearLayout>

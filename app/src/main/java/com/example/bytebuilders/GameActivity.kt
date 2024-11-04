@@ -51,7 +51,7 @@ class GameActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.game_activity)
+        setContentView(R.layout.activity_game)
 
         sharedPreferences = getSharedPreferences("GameSettings", Context.MODE_PRIVATE)
         volumeLevel = sharedPreferences.getInt("volumeLevel", 50)

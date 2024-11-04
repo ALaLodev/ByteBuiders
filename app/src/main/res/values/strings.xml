@@ -1,12 +1,42 @@
 <resources>
-<!--Pantalla Inicio -->
+<!-- activity_main -->
     <string name="app_name">ByteBuilders</string>
     <string name="title">Juego de cartas</string>
     <string name="subtitle">Made by Bytebuilders</string>
     <string name="btn_empezar">Empezar</string>
 
+<!--Menu, activity_menu -->
+    <string name="menu_title">Menu Principal</string>
+    <string name="play_description">Jugar</string>
+    <string name="scores_description">Puntuaciones</string>
+    <string name="scores">Puntuaciones</string>
+    <string name="settings_description">Ajustes</string>
+    <string name="exit_description">Salir</string>
+
+<!--Pausa, activity_pause -->
+    <string name="pause_title">Pausa</string>
+    <string name="resume">Reanudar</string>
+    <string name="main_menu">Volver al inicio</string>
+
+<!--Puntuaciones, activity_scores -->
+    <string name="scores_title">Puntuaciones</string>
+    <string name="player1_score">NombreJugador1 - Puntuacion</string>
+    <string name="player2_score">NombreJugador2 - Puntuacion</string>
+    <string name="player3_score">NombreJugador3 - Puntuacion</string>
+    <string name="player4_score">NombreJugador4 - Puntuacion</string>
+    <string name="main_to_menu">Volver al Menu</string>
+
+<!--Ajustes, activity_settings -->
+    <string name="settings_title">Ajustes</string>
+    <string name="volume_label">Volumen</string>
+    <string name="language_label">Cambiar Idioma</string>
+    <string name="btn_exit">Salir</string>
+
+    <!--Pantalla de juego, activity_game -->
+
+
 <!--Pantalla Seleccion -->
-    <string name="Menu_title">Menu Principal</string>
+
 
 
 </resources>

@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
-        android:text="Pausa"
+        android:text="@string/pause_title"
         android:textSize="36sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/resumeButton"
@@ -26,7 +26,7 @@
         android:layout_width="190dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="180dp"
-        android:text="Reanudar"
+        android:text="@string/resume"
         android:textColor="@color/black"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -42,7 +42,7 @@
         android:layout_width="190dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="360dp"
-        android:text="Volver al inicio"
+        android:text="@string/main_menu"
         android:textColor="@color/black"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -66,7 +66,7 @@
             android:layout_height="60dp"
             android:layout_marginStart="100dp"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Ajustes"
+            android:contentDescription="@string/settings_description"
             android:src="@drawable/ic_settings" />
 
         <!-- Boton Salir (Icono) -->
@@ -76,7 +76,7 @@
             android:layout_height="60dp"
             android:layout_marginStart="80dp"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Salir"
+            android:contentDescription="@string/exit_description"
             android:scaleType="fitCenter"
             android:src="@drawable/exit_1" />
 
