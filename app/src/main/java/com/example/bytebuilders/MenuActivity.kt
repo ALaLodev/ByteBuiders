@@ -63,7 +63,6 @@ class MenuActivity : AppCompatActivity() {
         }
     }
 
-
     private fun navigateToSelectPlayers() {
         val intent = Intent(this, GameActivity::class.java)
         startActivity(intent)
@@ -76,10 +75,18 @@ class MenuActivity : AppCompatActivity() {
     }
 
 
+    override fun onResume() {
+        super.onResume()
+        MusicPlayer.resume()
+    }
+
+
+
     // Libera recursos al salir de la app
     override fun onDestroy() {
         super.onDestroy()
         MusicPlayer.release()
     }
+
 
 }

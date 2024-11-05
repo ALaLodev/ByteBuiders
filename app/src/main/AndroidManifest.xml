@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
+
     <application
         android:name=".application.RoomByteBuilders"
         android:allowBackup="true"
@@ -35,9 +37,7 @@
         </activity>
         <activity android:name=".SettingsActivity">
         </activity>
-        <activity android:name=".MyApp"
-            android:exported="false">
-        </activity>
+
     </application>
 
 </manifest>
