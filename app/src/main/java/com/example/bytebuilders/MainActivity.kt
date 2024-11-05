@@ -26,8 +26,5 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    override fun onDestroy() {
-        super.onDestroy()
-        MusicPlayer.release() // Libera recursos al salir de la app
-    }
+
 }

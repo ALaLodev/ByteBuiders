@@ -34,5 +34,9 @@ object MusicPlayer {
     fun isPlaying(): Boolean {
         return mediaPlayer?.isPlaying == true
     }
+
+    fun setVolume(volume: Float) {
+        mediaPlayer?.setVolume(volume, volume) // Establece volumen min y max
+    }
 }
 

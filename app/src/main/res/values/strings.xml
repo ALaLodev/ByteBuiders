@@ -31,6 +31,8 @@
     <string name="volume_label">Volumen</string>
     <string name="language_label">Cambiar Idioma</string>
     <string name="btn_exit">Salir</string>
+    <string name="change_music">Cambiar pista de audio</string>
+    <string name="music_folder">Abrir carpeta de pistas de audio</string>
 
     <!--Pantalla de juego, activity_game -->
 

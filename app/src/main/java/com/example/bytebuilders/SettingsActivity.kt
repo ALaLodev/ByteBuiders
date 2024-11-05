@@ -45,6 +45,10 @@ class SettingsActivity : AppCompatActivity() {
                 volumeLevel = progress
                 // Guardar el nuevo nivel de volumen
                 sharedPreferences.edit().putInt("volumeLevel", volumeLevel).apply()
+
+                // Ajustar el volumen del MusicPlayer
+                MusicPlayer.setVolume(volumeLevel / 100f) // Divide entre 100 para obtener un valor entre 0 y 1
+                volumeLabel.text = "Volumen: $volumeLevel" // Actualizar etiqueta del volumen
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {

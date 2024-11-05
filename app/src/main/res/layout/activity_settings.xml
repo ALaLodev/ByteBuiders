@@ -42,17 +42,54 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/volumeLabel" />
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constrainMusic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/volumeSeekBar">
+
+        <TextView
+            android:id="@+id/musicLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@string/change_music"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/music_folder_Button"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="100dp"
+            android:layout_marginTop="0dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/music_folder"
+            android:scaleType="fitCenter"
+            android:src="@drawable/music_folder_1"
+            app:layout_constraintStart_toEndOf="@+id/musicLabel"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
     <!-- Etiqueta Idioma -->
     <TextView
         android:id="@+id/languageLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="60dp"
         android:text="@string/language_label"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/volumeSeekBar" />
+        app:layout_constraintTop_toBottomOf="@id/constrainMusic" />
+
     <!-- Mensaje Pendiente -->
     <TextView
         android:id="@+id/languagePendingMessage"

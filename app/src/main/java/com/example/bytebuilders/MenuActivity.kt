@@ -15,7 +15,6 @@ class MenuActivity : AppCompatActivity() {
 
     private lateinit var exitButtonMenu: ImageButton
     private lateinit var settingsButtonMenu: ImageButton
-
     private var points: Int = 0
 
     @SuppressLint("WrongViewCast", "MissingInflatedId")
@@ -24,14 +23,14 @@ class MenuActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_menu)
 
-        // Establecer el texto subrayado en el TextView
+        // Configura el texto subrayado en el título del menu
         val textView = findViewById<TextView>(R.id.titlePlayer)
         val content = getString(R.string.menu_title)
         val underlinedText = SpannableString(content)
         underlinedText.setSpan(UnderlineSpan(), 0, content.length, 0)
         textView.text = underlinedText
-        //---------------------------------------------------------
 
+        // Inicializa los botones
         settingsButtonMenu = findViewById(R.id.settingsButtonMenu)
         exitButtonMenu = findViewById(R.id.exitButtonMenu)
         val btnPlayGame = findViewById<ImageButton>(R.id.playGame)
@@ -54,6 +53,7 @@ class MenuActivity : AppCompatActivity() {
         btnPlayGame.setOnClickListener { navigateToSelectPlayers() }
         btnScores.setOnClickListener { navigateToScores() }
 
+        // Configución botón mute
         muteButtonMenu.setOnClickListener {
             if (MusicPlayer.isPlaying()) {
                 MusicPlayer.pause()
@@ -62,6 +62,7 @@ class MenuActivity : AppCompatActivity() {
             }
         }
     }
+
 
     private fun navigateToSelectPlayers() {
         val intent = Intent(this, GameActivity::class.java)
@@ -74,5 +75,11 @@ class MenuActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+
+    // Libera recursos al salir de la app
+    override fun onDestroy() {
+        super.onDestroy()
+        MusicPlayer.release()
+    }
 
 }
