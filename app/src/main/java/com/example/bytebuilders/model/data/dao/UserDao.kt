@@ -1,11 +1,11 @@
-package com.example.bytebuilders.data.dao
+package com.example.bytebuilders.model.data.dao
 
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.bytebuilders.data.entitys.UserEntity
+import com.example.bytebuilders.model.data.entitys.UserEntity
 
 @Dao
 interface UserDao {

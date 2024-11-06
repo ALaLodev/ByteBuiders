@@ -1,4 +1,4 @@
-package com.example.bytebuilders
+package com.example.bytebuilders.view.activities
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,8 +7,9 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import com.example.bytebuilders.R
 import com.example.bytebuilders.application.RoomByteBuilders
-import com.example.bytebuilders.data.entitys.UserEntity
+import com.example.bytebuilders.model.data.entitys.UserEntity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

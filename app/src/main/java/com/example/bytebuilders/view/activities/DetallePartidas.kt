@@ -1,11 +1,11 @@
-package com.example.bytebuilders
+package com.example.bytebuilders.view.activities
 
 import android.os.Bundle
 import android.widget.GridView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.example.bytebuilders.vistaModelo.MainViewModel
-import com.example.bytebuilders.vistamodelo.MyGridAdapter
+import com.example.bytebuilders.R
+import com.example.bytebuilders.viewmodel.MainViewModel
 
 class DetallePartidas : AppCompatActivity()  {
 

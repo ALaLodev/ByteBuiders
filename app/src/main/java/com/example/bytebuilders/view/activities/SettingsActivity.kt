@@ -1,14 +1,12 @@
-package com.example.bytebuilders
+package com.example.bytebuilders.view.activities
 
 import android.Manifest
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.SeekBar
@@ -20,6 +18,8 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.example.bytebuilders.R
+import com.example.bytebuilders.view.activities.utils.MusicPlayer
 
 class SettingsActivity : AppCompatActivity() {
 

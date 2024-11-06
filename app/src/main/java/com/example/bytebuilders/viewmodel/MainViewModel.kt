@@ -1,10 +1,10 @@
-package com.example.bytebuilders.vistaModelo
+package com.example.bytebuilders.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.bytebuilders.application.RoomByteBuilders
-import com.example.bytebuilders.data.entitys.UserEntity
+import com.example.bytebuilders.model.data.entitys.UserEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 

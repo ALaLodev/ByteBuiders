@@ -1,4 +1,4 @@
-package com.example.bytebuilders
+package com.example.bytebuilders.view.activities
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -15,7 +15,8 @@ import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.example.bytebuilders.vistaModelo.MainViewModel
+import com.example.bytebuilders.R
+import com.example.bytebuilders.viewmodel.MainViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.*
 import java.time.LocalDateTime

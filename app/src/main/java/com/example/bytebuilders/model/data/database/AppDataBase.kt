@@ -1,9 +1,9 @@
-package com.example.bytebuilders.data.database
+package com.example.bytebuilders.model.data.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.example.bytebuilders.data.dao.UserDao
-import com.example.bytebuilders.data.entitys.UserEntity
+import com.example.bytebuilders.model.data.dao.UserDao
+import com.example.bytebuilders.model.data.entitys.UserEntity
 
 /**
  *
@@ -13,5 +13,5 @@ import com.example.bytebuilders.data.entitys.UserEntity
 
 @Database(entities = [UserEntity::class],version = 2)
 abstract class AppDataBase :RoomDatabase(){
-    abstract fun userDao():UserDao// Nuestra interface
+    abstract fun userDao(): UserDao// Nuestra interface
 }

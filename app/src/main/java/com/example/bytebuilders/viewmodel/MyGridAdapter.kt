@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
 import com.example.bytebuilders.R
-import com.example.bytebuilders.data.entitys.UserEntity
+import com.example.bytebuilders.model.data.entitys.UserEntity
 
 class MyGridAdapter(private val context: Context, private val users: List<UserEntity?>) : BaseAdapter() {
 

@@ -2,7 +2,7 @@ package com.example.bytebuilders.application
 
 import android.app.Application
 import androidx.room.Room
-import com.example.bytebuilders.data.database.AppDataBase
+import com.example.bytebuilders.model.data.database.AppDataBase
 
 class RoomByteBuilders : Application() {
 

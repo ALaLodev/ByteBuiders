@@ -1,4 +1,4 @@
-package com.example.bytebuilders.data.entitys
+package com.example.bytebuilders.model.data.entitys
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

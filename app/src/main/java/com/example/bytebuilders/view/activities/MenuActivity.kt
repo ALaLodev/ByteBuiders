@@ -1,4 +1,4 @@
-package com.example.bytebuilders
+package com.example.bytebuilders.view.activities
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -10,6 +10,8 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import com.example.bytebuilders.R
+import com.example.bytebuilders.view.activities.utils.MusicPlayer
 
 class MenuActivity : AppCompatActivity() {
 
