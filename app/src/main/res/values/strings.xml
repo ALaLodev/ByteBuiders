@@ -1,11 +1,11 @@
 <resources>
-<!-- activity_main -->
+    <!-- activity_main -->
     <string name="app_name">ByteBuilders</string>
     <string name="title">Juego de cartas</string>
     <string name="subtitle">Made by Bytebuilders</string>
     <string name="btn_empezar">Empezar</string>
 
-<!--Menu, activity_menu -->
+    <!--Menu, activity_menu -->
     <string name="menu_title">Menu Principal</string>
     <string name="play_description">Jugar</string>
     <string name="scores_description">Puntuaciones</string>
@@ -13,12 +13,12 @@
     <string name="settings_description">Ajustes</string>
     <string name="exit_description">Salir</string>
 
-<!--Pausa, activity_pause -->
+    <!--Pausa, activity_pause -->
     <string name="pause_title">Pausa</string>
     <string name="resume">Reanudar</string>
     <string name="main_menu">Volver al inicio</string>
 
-<!--Puntuaciones, activity_scores -->
+    <!--Puntuaciones, activity_scores -->
     <string name="scores_title">Puntuaciones</string>
     <string name="player1_score">NombreJugador1 - Puntuacion</string>
     <string name="player2_score">NombreJugador2 - Puntuacion</string>
@@ -26,19 +26,21 @@
     <string name="player4_score">NombreJugador4 - Puntuacion</string>
     <string name="main_to_menu">Volver al Menu</string>
 
-<!--Ajustes, activity_settings -->
-    <string name="settings_title">Ajustes</string>
+    <!--Ajustes, activity_settings -->
     <string name="volume_label">Volumen</string>
     <string name="language_label">Cambiar Idioma</string>
     <string name="btn_exit">Salir</string>
+    <string name="settings_title">Ajustes</string>
     <string name="change_music">Cambiar pista de audio</string>
     <string name="music_folder">Abrir carpeta de pistas de audio</string>
+    <string name="pause">Pause</string>
 
     <!--Pantalla de juego, activity_game -->
+    <string name="pack_of_cards">Imagen de la baraja</string>
+    <string name="send">Enviar</string>
+    <string name="start_return">VOLVER AL INICIO</string>
 
-
-<!--Pantalla Seleccion -->
-
+    <!--Pantalla Seleccion -->
 
 
 </resources>

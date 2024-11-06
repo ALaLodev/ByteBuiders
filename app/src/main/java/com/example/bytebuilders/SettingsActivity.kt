@@ -8,6 +8,7 @@ import android.content.pm.PackageManager
 import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.SeekBar
@@ -32,9 +33,8 @@ class SettingsActivity : AppCompatActivity() {
     private lateinit var languagePendingMessage: TextView
     private lateinit var exitSettingsButton: Button
     private lateinit var musicFolderButton: ImageButton
+
     private lateinit var getContentLauncher: ActivityResultLauncher<String>
-
-
     private var mediaPlayer: MediaPlayer? = null
 
     // Variable del volumen con valor predeterminado
@@ -51,14 +51,9 @@ class SettingsActivity : AppCompatActivity() {
             ActivityResultContracts.GetContent()
         ) { uri: Uri? ->
             uri?.let {
-                contentResolver.takePersistableUriPermission(
-                    it,
-                    Intent.FLAG_GRANT_READ_URI_PERMISSION
-                )
-                playAudio(it) // Reproduce la música seleccionada
+                playAudio(it) // Reproducir la pista seleccionada
             }
         }
-
 
         sharedPreferences = getSharedPreferences("GameSettings", Context.MODE_PRIVATE)
 
@@ -77,21 +72,16 @@ class SettingsActivity : AppCompatActivity() {
         volumeSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 volumeLevel = progress
-                // Guardar el nuevo nivel de volumen
-                sharedPreferences.edit().putInt("volumeLevel", volumeLevel).apply()
-
-                // Ajustar el volumen del MusicPlayer
-                MusicPlayer.setVolume(volumeLevel / 100f) // Divide entre 100 para obtener un valor entre 0 y 1
+                sharedPreferences.edit().putInt("volumeLevel", volumeLevel).apply() // Guardar el nuevo nivel de volumen
+                MusicPlayer.setVolume(volumeLevel / 100f) // Ajustar el volumen
                 volumeLabel.text = "Volumen: $volumeLevel" // Actualizar etiqueta del volumen
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {} // No es necesario implementar
-
             override fun onStopTrackingTouch(seekBar: SeekBar?) {} // No es necesario implementar
         })
 
         musicFolderButton.setOnClickListener {
-            Toast.makeText(this, "Botón presionado", Toast.LENGTH_SHORT).show()
             if (ContextCompat.checkSelfPermission(
                     this,
                     Manifest.permission.READ_MEDIA_AUDIO
@@ -116,10 +106,6 @@ class SettingsActivity : AppCompatActivity() {
         exitSettingsButton.setOnClickListener { finish() }
     }
 
-    private fun openFileChooser() {
-        getContentLauncher.launch("audio/*") // Lanza el ActivityResultLauncher
-    }
-
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -128,7 +114,6 @@ class SettingsActivity : AppCompatActivity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == PICK_AUDIO_REQUEST) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(this, "Permiso concedido", Toast.LENGTH_SHORT).show()
                 openFileChooser()
             } else {
                 Toast.makeText(this, "Permiso denegado para leer archivos", Toast.LENGTH_SHORT).show()
@@ -136,17 +121,16 @@ class SettingsActivity : AppCompatActivity() {
         }
     }
 
-    private fun playAudio(audioUri: Uri) {
-        mediaPlayer?.release() // Liberar el MediaPlayer anterior
+    private fun openFileChooser() {
+        getContentLauncher.launch("audio/*") // Lanza el ActivityResultLauncher
+    }
 
-        mediaPlayer = MediaPlayer().apply {
-            setDataSource(this@SettingsActivity, audioUri) // Establece el URI como fuente
-            setOnPreparedListener {
-                start()
-                isLooping = true
-            }
-            prepareAsync() // Prepara el MediaPlayer de forma asíncrona
-        }
+    private fun playAudio(audioUri: Uri) {
+        // Liberar el MediaPlayer anterior
+        mediaPlayer?.release()
+        mediaPlayer = null
+
+        MusicPlayer.startWithUri(this, audioUri)
     }
 
 }

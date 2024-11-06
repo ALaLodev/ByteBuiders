@@ -2,6 +2,7 @@ package com.example.bytebuilders
 
 import android.content.Context
 import android.media.MediaPlayer
+import android.net.Uri
 
 //Objeto Singleton para reproducir la música desde cualquier clase
 object MusicPlayer {
@@ -37,6 +38,16 @@ object MusicPlayer {
 
     fun setVolume(volume: Float) {
         mediaPlayer?.setVolume(volume, volume) // Establece volumen min y max
+    }
+
+    fun startWithUri(context: Context, audioUri: Uri) {
+        release()
+        mediaPlayer = MediaPlayer().apply {
+            setDataSource(context, audioUri)
+            isLooping = true
+            setOnPreparedListener { start() }
+            prepareAsync()
+        }
     }
 }
 
