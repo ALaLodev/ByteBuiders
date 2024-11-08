@@ -22,7 +22,7 @@ import kotlinx.coroutines.*
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-class GameActivity : AppCompatActivity() {
+class GameActivity : BaseActivity() {
 
     private lateinit var plusButton: FloatingActionButton
     private lateinit var minusButton: FloatingActionButton
@@ -56,10 +56,6 @@ class GameActivity : AppCompatActivity() {
 
         sharedPreferences = getSharedPreferences("GameSettings", Context.MODE_PRIVATE)
         volumeLevel = sharedPreferences.getInt("volumeLevel", 50)
-
-        // Configurar el MediaPlayer
-        //setupMediaPlayer()
-
         plusButton = findViewById(R.id.plusButton)
         minusButton = findViewById(R.id.minusButton)
         selectedNumber = findViewById(R.id.selectedNumber)
@@ -100,13 +96,6 @@ class GameActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
-// Inicializa MediaPlayer para meterle musica
-//    private fun setupMediaPlayer() {
-//        mediaPlayer = MediaPlayer.create(this, R.raw.audio_file)
-//        setVolume(volumeLevel)
-//        mediaPlayer?.isLooping = true
-//        mediaPlayer?.start()
-//    }
 
     private fun setVolume(volume: Int) {
         val maxVolume = 100

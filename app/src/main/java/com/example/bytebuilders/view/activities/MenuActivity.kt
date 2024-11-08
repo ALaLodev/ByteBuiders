@@ -13,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.bytebuilders.R
 import com.example.bytebuilders.view.activities.utils.MusicPlayer
 
-class MenuActivity : AppCompatActivity() {
+class MenuActivity : BaseActivity() {
 
     private lateinit var exitButtonMenu: ImageButton
     private lateinit var settingsButtonMenu: ImageButton

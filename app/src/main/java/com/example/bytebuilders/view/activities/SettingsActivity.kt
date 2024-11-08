@@ -19,9 +19,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.bytebuilders.R
+import com.example.bytebuilders.view.activities.utils.LocalHelper
 import com.example.bytebuilders.view.activities.utils.MusicPlayer
 
-class SettingsActivity : AppCompatActivity() {
+class SettingsActivity : BaseActivity() {
 
     companion object {
         private const val PICK_AUDIO_REQUEST = 1
@@ -30,9 +31,11 @@ class SettingsActivity : AppCompatActivity() {
     private lateinit var volumeSeekBar: SeekBar
     private lateinit var volumeLabel: TextView
     private lateinit var languageLabel: TextView
-    private lateinit var languagePendingMessage: TextView
     private lateinit var exitSettingsButton: Button
     private lateinit var musicFolderButton: ImageButton
+    private lateinit var changeToEnglishButton: ImageButton
+    private lateinit var changeToSpanishButton: ImageButton
+    private lateinit var changeToGermanButton: ImageButton
 
     private lateinit var getContentLauncher: ActivityResultLauncher<String>
     private var mediaPlayer: MediaPlayer? = null
@@ -49,20 +52,18 @@ class SettingsActivity : AppCompatActivity() {
         // Se inicializa el ActivityResultLauncher
         getContentLauncher = registerForActivityResult(
             ActivityResultContracts.GetContent()
-        ) { uri: Uri? ->
-            uri?.let {
-                playAudio(it) // Reproducir la pista seleccionada
-            }
-        }
+        ) { uri: Uri? -> uri?.let { playAudio(it) } }
 
         sharedPreferences = getSharedPreferences("GameSettings", Context.MODE_PRIVATE)
 
         volumeSeekBar = findViewById(R.id.volumeSeekBar)
         volumeLabel = findViewById(R.id.volumeLabel)
         languageLabel = findViewById(R.id.languageLabel)
-        languagePendingMessage = findViewById(R.id.languagePendingMessage)
         exitSettingsButton = findViewById(R.id.exitSettingsButton)
         musicFolderButton = findViewById(R.id.music_folder_Button)
+        changeToEnglishButton = findViewById(R.id.change_to_english_button)
+        changeToSpanishButton = findViewById(R.id.change_to_spanish_button)
+        changeToGermanButton = findViewById(R.id.change_to_german_button)
 
         // Obtener el nivel de volumen guardado
         volumeLevel = sharedPreferences.getInt("volumeLevel", 50)
@@ -97,10 +98,22 @@ class SettingsActivity : AppCompatActivity() {
             }
         }
 
-        // Listener del cambio de idioma (pendiente)
-        languageLabel.setOnClickListener {
-            // Pendiente de implementación
+        changeToEnglishButton.setOnClickListener{
+           LocalHelper.setLocale(this,"en")
+            recreate()
         }
+        changeToSpanishButton.setOnClickListener{
+            LocalHelper.setLocale(this,"es")
+            recreate()
+        }
+        changeToGermanButton.setOnClickListener{
+            LocalHelper.setLocale(this,"de")
+            recreate()
+        }
+        /*fun savePreferredLanguage(languageCode: String, context: Context) {
+            val sharedPreferences = context.getSharedPreferences("settings", Context.MODE_PRIVATE)
+            sharedPreferences.edit().putString("preferred_language", languageCode).apply()
+        }*/
 
         // Manejar el clic del botón de salir
         exitSettingsButton.setOnClickListener { finish() }
@@ -126,9 +139,9 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     private fun playAudio(audioUri: Uri) {
-        // Liberar el MediaPlayer anterior
-        mediaPlayer?.release()
-        mediaPlayer = null
+         //Liberar el MediaPlayer anterior
+        //mediaPlayer?.release()
+        //mediaPlayer = null
 
         MusicPlayer.startWithUri(this, audioUri)
     }

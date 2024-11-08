@@ -2,7 +2,7 @@
     <!-- activity_main -->
     <string name="app_name">ByteBuilders</string>
     <string name="title">Juego de cartas</string>
-    <string name="subtitle">Made by Bytebuilders</string>
+    <string name="subtitle">Creado por Bytebuilders</string>
     <string name="btn_empezar">Empezar</string>
 
     <!--Menu, activity_menu -->

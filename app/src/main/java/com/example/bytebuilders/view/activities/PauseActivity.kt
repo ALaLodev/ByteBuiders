@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.bytebuilders.R
 import com.example.bytebuilders.view.activities.utils.MusicPlayer
 
-class PauseActivity : AppCompatActivity() {
+class PauseActivity : BaseActivity() {
 
     private lateinit var resumeButton: Button
     private lateinit var mainMenuButton: Button

@@ -15,7 +15,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class ScoresActivity : AppCompatActivity() {
+class ScoresActivity : BaseActivity() {
 
     private lateinit var buttonBackToMain: Button
     //private lateinit var currentPlayerScoreTextView: TextView

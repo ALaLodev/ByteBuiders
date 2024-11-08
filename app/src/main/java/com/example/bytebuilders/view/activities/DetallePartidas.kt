@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.bytebuilders.R
 import com.example.bytebuilders.viewmodel.MainViewModel
 
-class DetallePartidas : AppCompatActivity()  {
+class DetallePartidas : BaseActivity()  {
 
     private val modelo: MainViewModel by viewModels()
     private lateinit var gridView: GridView

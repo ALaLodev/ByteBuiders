@@ -90,18 +90,50 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/constrainMusic" />
 
-    <!-- Mensaje Pendiente -->
-    <TextView
-        android:id="@+id/languagePendingMessage"
-        android:layout_width="wrap_content"
+    <!-- Layuot idiomas -->
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/languageIcons"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:text="Pendiente de implementacion"
-        android:textColor="#FF0000"
-        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/languageLabel" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/languageLabel">
+
+        <ImageButton
+            android:id="@+id/change_to_english_button"
+            android:layout_marginTop="30dp"
+            android:layout_marginStart="60dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Bandera USA "
+            android:scaleType="fitCenter"
+            android:src="@drawable/usa_flag"/>
+
+        <ImageButton
+            android:id="@+id/change_to_spanish_button"
+            android:layout_marginTop="30dp"
+            android:layout_marginStart="50dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Bandera España "
+            android:scaleType="fitCenter"
+            android:src="@drawable/es_flag"/>
+
+        <ImageButton
+            android:id="@+id/change_to_german_button"
+            android:layout_marginTop="30dp"
+            android:layout_marginStart="50dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Bandera Alemana "
+            android:scaleType="fitCenter"
+            android:src="@drawable/de_flag"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
 
     <!-- Boton Salir -->
     <Button
@@ -113,6 +145,6 @@
         android:text="@string/btn_exit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/languagePendingMessage" />
+        app:layout_constraintTop_toBottomOf="@id/languageIcons" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
