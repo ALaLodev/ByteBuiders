@@ -66,13 +66,13 @@
             android:id="@+id/music_folder_Button"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginStart="100dp"
+            android:layout_marginEnd="60dp"
             android:layout_marginTop="0dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/music_folder"
             android:scaleType="fitCenter"
             android:src="@drawable/music_folder_1"
-            app:layout_constraintStart_toEndOf="@+id/musicLabel"
+          app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -138,15 +138,15 @@ class GameActivity : BaseActivity() {
         selectedNumberValue = 1
         selectedNumber.text = selectedNumberValue.toString()
         attemptNumber = 1
-        roundtext.text = "Ronda $roundsNumber"
-        attempsText.text = "Intento: $attemptNumber/4"
+        roundtext.text = getString(R.string.round_text, roundsNumber)
+        attempsText.text = getString(R.string.attempt_text, attemptNumber)
         cardImageView.setImageResource(R.drawable.spr_reverso)
     }
 
     @SuppressLint("DiscouragedApi")
     private fun checkAnswer() {
         if (selectedNumberValue == randomNumber) {
-            feedback.text = "Correcto"
+            feedback.text = getString(R.string.feedback_correct)
             val pointsEarned = 5 - attemptNumber
             points += pointsEarned
 
@@ -159,16 +159,16 @@ class GameActivity : BaseActivity() {
 
     private fun processIncorrectAnswer(selectedNumberValue: Int) {
         if (selectedNumberValue < randomNumber) {
-            feedback.text = "El número es mayor"
+            feedback.text = getString(R.string.feedback_higher)
         } else {
-            feedback.text = "El número es menor"
+            feedback.text = getString(R.string.feedback_lower)
         }
 
         attemptNumber++
-        attempsText.text = "Intento: $attemptNumber/4"
+        attempsText.text = getString(R.string.attempt_text, attemptNumber)
 
         if (attemptNumber > 4) {
-            feedback.text = "Has perdido esta ronda, el número era $randomNumber"
+            feedback.text = getString(R.string.feedback_loss, randomNumber)
             showCardForIncorrectAnswer(randomNumber)
             nextRoundOrEndGame()
         } else {
@@ -215,7 +215,7 @@ class GameActivity : BaseActivity() {
         } else {
             // Fin de juego
             gameEnded = true
-            feedback.text = "Fin de juego, tu puntuación es $points puntos"
+            feedback.text = getString(R.string.game_over, points)
             sendButton.visibility = View.GONE
             plusButton.visibility = View.GONE
             minusButton.visibility = View.GONE

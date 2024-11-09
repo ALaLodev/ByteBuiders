@@ -47,6 +47,7 @@ object MusicPlayer {
             isLooping = true
             setOnPreparedListener { start() }
             prepareAsync()
+
         }
     }
 

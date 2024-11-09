@@ -128,6 +128,5 @@ class SettingsActivity : BaseActivity() {
         //mediaPlayer = null
 
         MusicPlayer.startWithUri(this, audioUri)
-
     }
 }

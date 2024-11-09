@@ -29,4 +29,12 @@
     <string name="pack_of_cards">Card deck image</string>
     <string name="send">Send</string>
     <string name="start_return">Home screen</string>
+    <string name="round_number">Round 1</string>
+    <string name="round_text">Round %1$d</string>
+    <string name="attempt_text">Attempt: %1$d/4</string>
+    <string name="feedback_higher">The number is higher</string>
+    <string name="feedback_lower">The number is lower</string>
+    <string name="feedback_correct">Correct</string>
+    <string name="feedback_loss">You lost this round, the number was %1$d</string>
+    <string name="game_over">Game over, your score is %1$d points</string>
 </resources>

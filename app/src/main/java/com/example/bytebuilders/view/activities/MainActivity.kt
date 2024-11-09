@@ -23,6 +23,10 @@ class MainActivity : BaseActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
 
+        if(!MusicPlayer.isPlaying()){
+            MusicPlayer.start(this, R.raw.solve_the_puzzle)
+        }
+
         val btnEmpezar = findViewById<Button>(R.id.empezar)
         btnEmpezar.setOnClickListener { navigateToSelectPlayers() }
 
