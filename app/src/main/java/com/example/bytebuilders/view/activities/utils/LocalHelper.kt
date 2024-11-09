@@ -13,7 +13,6 @@ object LocalHelper {
 
         val config = Configuration(context.resources.configuration)
         config.setLocale(locale)
-
         savePreferredLanguage(context, languageCode)
 
         return context.createConfigurationContext(config)

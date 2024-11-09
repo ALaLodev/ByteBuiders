@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageButton
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.example.bytebuilders.R
@@ -13,15 +14,34 @@ import com.example.bytebuilders.view.activities.utils.MusicPlayer
 
 class MainActivity : BaseActivity() {
 
+    private lateinit var changeToEnglishButton: ImageButton
+    private lateinit var changeToSpanishButton: ImageButton
+    private lateinit var changeToGermanButton: ImageButton
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
 
-        MusicPlayer.start(this, R.raw.solve_the_puzzle)
-
         val btnEmpezar = findViewById<Button>(R.id.empezar)
         btnEmpezar.setOnClickListener { navigateToSelectPlayers() }
+
+        changeToEnglishButton = findViewById(R.id.change_to_english_button)
+        changeToSpanishButton = findViewById(R.id.change_to_spanish_button)
+        changeToGermanButton = findViewById(R.id.change_to_german_button)
+
+        changeToEnglishButton.setOnClickListener{
+            LocalHelper.setLocale(this,"en")
+            recreate()
+        }
+        changeToSpanishButton.setOnClickListener{
+            LocalHelper.setLocale(this,"es")
+            recreate()
+        }
+        changeToGermanButton.setOnClickListener{
+            LocalHelper.setLocale(this,"de")
+            recreate()
+        }
     }
 
     private fun navigateToSelectPlayers() {

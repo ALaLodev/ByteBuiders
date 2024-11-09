@@ -49,5 +49,6 @@ object MusicPlayer {
             prepareAsync()
         }
     }
+
 }
 

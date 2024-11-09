@@ -30,15 +30,13 @@ class SettingsActivity : BaseActivity() {
 
     private lateinit var volumeSeekBar: SeekBar
     private lateinit var volumeLabel: TextView
-    private lateinit var languageLabel: TextView
+    //private lateinit var languageLabel: TextView
     private lateinit var exitSettingsButton: Button
     private lateinit var musicFolderButton: ImageButton
-    private lateinit var changeToEnglishButton: ImageButton
-    private lateinit var changeToSpanishButton: ImageButton
-    private lateinit var changeToGermanButton: ImageButton
+
 
     private lateinit var getContentLauncher: ActivityResultLauncher<String>
-    private var mediaPlayer: MediaPlayer? = null
+    //private var mediaPlayer: MediaPlayer? = null
 
     // Variable del volumen con valor predeterminado
     private var volumeLevel: Int = 50
@@ -58,12 +56,10 @@ class SettingsActivity : BaseActivity() {
 
         volumeSeekBar = findViewById(R.id.volumeSeekBar)
         volumeLabel = findViewById(R.id.volumeLabel)
-        languageLabel = findViewById(R.id.languageLabel)
+        //languageLabel = findViewById(R.id.languageLabel)
         exitSettingsButton = findViewById(R.id.exitSettingsButton)
         musicFolderButton = findViewById(R.id.music_folder_Button)
-        changeToEnglishButton = findViewById(R.id.change_to_english_button)
-        changeToSpanishButton = findViewById(R.id.change_to_spanish_button)
-        changeToGermanButton = findViewById(R.id.change_to_german_button)
+
 
         // Obtener el nivel de volumen guardado
         volumeLevel = sharedPreferences.getInt("volumeLevel", 50)
@@ -98,18 +94,6 @@ class SettingsActivity : BaseActivity() {
             }
         }
 
-        changeToEnglishButton.setOnClickListener{
-           LocalHelper.setLocale(this,"en")
-            recreate()
-        }
-        changeToSpanishButton.setOnClickListener{
-            LocalHelper.setLocale(this,"es")
-            recreate()
-        }
-        changeToGermanButton.setOnClickListener{
-            LocalHelper.setLocale(this,"de")
-            recreate()
-        }
         /*fun savePreferredLanguage(languageCode: String, context: Context) {
             val sharedPreferences = context.getSharedPreferences("settings", Context.MODE_PRIVATE)
             sharedPreferences.edit().putString("preferred_language", languageCode).apply()
@@ -144,6 +128,6 @@ class SettingsActivity : BaseActivity() {
         //mediaPlayer = null
 
         MusicPlayer.startWithUri(this, audioUri)
-    }
 
+    }
 }

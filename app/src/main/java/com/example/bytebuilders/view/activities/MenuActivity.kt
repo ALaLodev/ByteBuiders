@@ -25,6 +25,8 @@ class MenuActivity : BaseActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_menu)
 
+        MusicPlayer.start(this, R.raw.solve_the_puzzle)
+
         // Configura el texto subrayado en el título del menu
         val textView = findViewById<TextView>(R.id.titlePlayer)
         val content = getString(R.string.menu_title)
@@ -82,13 +84,9 @@ class MenuActivity : BaseActivity() {
         MusicPlayer.resume()
     }
 
-
-
     // Libera recursos al salir de la app
     override fun onDestroy() {
         super.onDestroy()
         MusicPlayer.release()
     }
-
-
 }
