@@ -47,6 +47,9 @@
     <string name="feedback_correct">Correcto</string>
     <string name="feedback_loss">Has perdido esta ronda, el número era %1$d</string>
     <string name="game_over">Fin de juego, tu puntuación es %1$d puntos</string>
+    <string name="de_flag_description">Bandera Alemana</string>
+    <string name="es_flag_description">Bandera España</string>
+    <string name="usa_flag_description">Bandera USA</string>
 
     <!--Pantalla Seleccion -->
 

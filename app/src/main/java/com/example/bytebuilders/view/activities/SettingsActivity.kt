@@ -4,39 +4,26 @@ import android.Manifest
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
-import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
-import android.widget.Button
-import android.widget.ImageButton
 import android.widget.SeekBar
-import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.example.bytebuilders.R
-import com.example.bytebuilders.view.activities.utils.LocalHelper
+import com.example.bytebuilders.databinding.ActivitySettingsBinding
 import com.example.bytebuilders.view.activities.utils.MusicPlayer
 
 class SettingsActivity : BaseActivity() {
 
+    private lateinit var binding : ActivitySettingsBinding
+    private lateinit var getContentLauncher: ActivityResultLauncher<String>
+
     companion object {
         private const val PICK_AUDIO_REQUEST = 1
     }
-
-    private lateinit var volumeSeekBar: SeekBar
-    private lateinit var volumeLabel: TextView
-    //private lateinit var languageLabel: TextView
-    private lateinit var exitSettingsButton: Button
-    private lateinit var musicFolderButton: ImageButton
-
-
-    private lateinit var getContentLauncher: ActivityResultLauncher<String>
-    //private var mediaPlayer: MediaPlayer? = null
 
     // Variable del volumen con valor predeterminado
     private var volumeLevel: Int = 50
@@ -44,8 +31,9 @@ class SettingsActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivitySettingsBinding.inflate(layoutInflater)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_settings)
+        setContentView(binding.root)
 
         // Se inicializa el ActivityResultLauncher
         getContentLauncher = registerForActivityResult(
@@ -54,31 +42,24 @@ class SettingsActivity : BaseActivity() {
 
         sharedPreferences = getSharedPreferences("GameSettings", Context.MODE_PRIVATE)
 
-        volumeSeekBar = findViewById(R.id.volumeSeekBar)
-        volumeLabel = findViewById(R.id.volumeLabel)
-        //languageLabel = findViewById(R.id.languageLabel)
-        exitSettingsButton = findViewById(R.id.exitSettingsButton)
-        musicFolderButton = findViewById(R.id.music_folder_Button)
-
-
         // Obtener el nivel de volumen guardado
         volumeLevel = sharedPreferences.getInt("volumeLevel", 50)
-        volumeSeekBar.progress = volumeLevel
+        binding.volumeSeekBar.progress = volumeLevel
 
         // Configurar SeekBar de volumen
-        volumeSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+        binding.volumeSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 volumeLevel = progress
                 sharedPreferences.edit().putInt("volumeLevel", volumeLevel).apply() // Guardar el nuevo nivel de volumen
                 MusicPlayer.setVolume(volumeLevel / 100f) // Ajustar el volumen
-                volumeLabel.text = "Volumen: $volumeLevel" // Actualizar etiqueta del volumen
+                binding.volumeLabel.text = "Volumen: $volumeLevel" // Actualizar etiqueta del volumen
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {} // No es necesario implementar
             override fun onStopTrackingTouch(seekBar: SeekBar?) {} // No es necesario implementar
         })
 
-        musicFolderButton.setOnClickListener {
+        binding.musicFolderButton.setOnClickListener {
             if (ContextCompat.checkSelfPermission(
                     this,
                     Manifest.permission.READ_MEDIA_AUDIO
@@ -94,13 +75,8 @@ class SettingsActivity : BaseActivity() {
             }
         }
 
-        /*fun savePreferredLanguage(languageCode: String, context: Context) {
-            val sharedPreferences = context.getSharedPreferences("settings", Context.MODE_PRIVATE)
-            sharedPreferences.edit().putString("preferred_language", languageCode).apply()
-        }*/
-
         // Manejar el clic del botón de salir
-        exitSettingsButton.setOnClickListener { finish() }
+        binding.exitSettingsButton.setOnClickListener { finish() }
     }
 
     override fun onRequestPermissionsResult(
@@ -123,10 +99,6 @@ class SettingsActivity : BaseActivity() {
     }
 
     private fun playAudio(audioUri: Uri) {
-         //Liberar el MediaPlayer anterior
-        //mediaPlayer?.release()
-        //mediaPlayer = null
-
         MusicPlayer.startWithUri(this, audioUri)
     }
 }

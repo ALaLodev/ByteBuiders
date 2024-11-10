@@ -9,6 +9,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.example.bytebuilders.R
 import com.example.bytebuilders.application.RoomByteBuilders
+import com.example.bytebuilders.databinding.ActivityScoresBinding
 import com.example.bytebuilders.model.data.entitys.UserEntity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -17,38 +18,22 @@ import kotlinx.coroutines.withContext
 
 class ScoresActivity : BaseActivity() {
 
-    private lateinit var buttonBackToMain: Button
-    //private lateinit var currentPlayerScoreTextView: TextView
-    private var currentScore: Int = 0
+    private lateinit var binding: ActivityScoresBinding
 
-    // TextViews para las posiciones
-    private lateinit var player1NameScore: TextView
-    private lateinit var player2NameScore: TextView
-    private lateinit var player3NameScore: TextView
-    private lateinit var player4NameScore: TextView
+    private var currentScore: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivityScoresBinding.inflate(layoutInflater)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_scores)
+        setContentView(binding.root)
 
         try {
-            // Inicializar las vistas
-            buttonBackToMain = findViewById(R.id.buttonBackToMain)
-            //currentPlayerScoreTextView = findViewById(R.id.currentPlayerScore)
-
-            // TextViews jugadores
-            player1NameScore = findViewById(R.id.player1NameScore)
-            player2NameScore = findViewById(R.id.player2NameScore)
-            player3NameScore = findViewById(R.id.player3NameScore)
-            player4NameScore = findViewById(R.id.player4NameScore)
 
             // Sacar la score actual desde el Intent
             currentScore = intent.getIntExtra("CURRENT_SCORE", 0)
-            //currentPlayerScoreTextView = findViewById(R.id.currentPlayerScore)
-            //currentPlayerScoreTextView.text = "Tu puntuación: $currentScore puntos"
 
-            buttonBackToMain.setOnClickListener {
+            binding.buttonBackToMain.setOnClickListener {
                 val intent = Intent(this, MenuActivity::class.java)
                 startActivity(intent)
                 finish()
@@ -87,9 +72,9 @@ class ScoresActivity : BaseActivity() {
         }
 
         // Actualizar los TextViews con los datos de los jugadores. Cambiar usuario por fecha?
-        player1NameScore.text = "${topScores[0].fecha} - ${topScores[0].puntuacion} puntos"
-        player2NameScore.text = "${topScores[1].fecha} - ${topScores[1].puntuacion} puntos"
-        player3NameScore.text = "${topScores[2].fecha} - ${topScores[2].puntuacion} puntos"
-        player4NameScore.text = "${topScores[3].fecha} - ${topScores[3].puntuacion} puntos"
+        binding.player1NameScore.text = "${topScores[0].fecha} - ${topScores[0].puntuacion} puntos"
+        binding.player2NameScore.text = "${topScores[1].fecha} - ${topScores[1].puntuacion} puntos"
+        binding.player3NameScore.text = "${topScores[2].fecha} - ${topScores[2].puntuacion} puntos"
+        binding.player4NameScore.text = "${topScores[3].fecha} - ${topScores[3].puntuacion} puntos"
     }
 }

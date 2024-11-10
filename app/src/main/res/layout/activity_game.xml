@@ -153,7 +153,7 @@
 
 
         <Button
-            android:id="@+id/scores"
+            android:id="@+id/return_to_start"
             style="@style/Widget.AppCompat.Button"
             android:layout_width="150dp"
             android:layout_height="wrap_content"

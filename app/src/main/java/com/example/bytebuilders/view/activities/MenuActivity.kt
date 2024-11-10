@@ -5,25 +5,24 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.style.UnderlineSpan
-import android.widget.Button
-import android.widget.ImageButton
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
 import com.example.bytebuilders.R
+import com.example.bytebuilders.databinding.ActivityMenuBinding
 import com.example.bytebuilders.view.activities.utils.MusicPlayer
 
 class MenuActivity : BaseActivity() {
 
-    private lateinit var exitButtonMenu: ImageButton
-    private lateinit var settingsButtonMenu: ImageButton
+    private lateinit var binding: ActivityMenuBinding
+
     private var points: Int = 0
 
     @SuppressLint("WrongViewCast", "MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivityMenuBinding.inflate(layoutInflater)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_menu)
+        setContentView(binding.root)
 
         MusicPlayer.start(this, R.raw.solve_the_puzzle)
 
@@ -34,31 +33,23 @@ class MenuActivity : BaseActivity() {
         underlinedText.setSpan(UnderlineSpan(), 0, content.length, 0)
         textView.text = underlinedText
 
-        // Inicializa los botones
-        settingsButtonMenu = findViewById(R.id.settingsButtonMenu)
-        exitButtonMenu = findViewById(R.id.exitButtonMenu)
-        val btnPlayGame = findViewById<ImageButton>(R.id.playGame)
-        val btnScores = findViewById<Button>(R.id.scores)
-        val muteButtonMenu: ImageButton = findViewById(R.id.muteButtonMenu)
-
         points = intent.getIntExtra("Final_Score", 0)
 
-        settingsButtonMenu.setOnClickListener {
-            // Ir al SettingsActivity
+        binding.settingsButtonMenu.setOnClickListener {
             val intent = Intent(this, SettingsActivity::class.java)
             startActivity(intent)
         }
 
-        exitButtonMenu.setOnClickListener {
+        binding.exitButtonMenu.setOnClickListener {
             // Salir de la app
             finishAffinity()
         }
 
-        btnPlayGame.setOnClickListener { navigateToSelectPlayers() }
-        btnScores.setOnClickListener { navigateToScores() }
+        binding.playGame.setOnClickListener { navigateToSelectPlayers() }
+        binding.btnScores.setOnClickListener { navigateToScores() }
 
         // Configución botón mute
-        muteButtonMenu.setOnClickListener {
+        binding.muteButtonMenu.setOnClickListener {
             if (MusicPlayer.isPlaying()) {
                 MusicPlayer.pause()
             } else {
@@ -77,7 +68,6 @@ class MenuActivity : BaseActivity() {
         intent.putExtra("CURRENT_SCORE", points)
         startActivity(intent)
     }
-
 
     override fun onResume() {
         super.onResume()

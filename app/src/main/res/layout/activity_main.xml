@@ -41,7 +41,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginBottom="100dp"
-        app:layout_constraintBottom_toTopOf="@+id/empezar">
+        app:layout_constraintBottom_toTopOf="@+id/btnStart">
 
         <ImageButton
             android:id="@+id/change_to_english_button"
@@ -50,7 +50,7 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Bandera USA "
+            android:contentDescription="@string/usa_flag_description"
             android:scaleType="fitCenter"
             android:src="@drawable/usa_flag"/>
 
@@ -61,7 +61,7 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Bandera España "
+            android:contentDescription="@string/es_flag_description"
             android:scaleType="fitCenter"
             android:src="@drawable/es_flag"/>
 
@@ -72,14 +72,14 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Bandera Alemana "
+            android:contentDescription="@string/de_flag_description"
             android:scaleType="fitCenter"
             android:src="@drawable/de_flag"/>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <Button
-        android:id="@+id/empezar"
+        android:id="@+id/btnStart"
         style="@style/Widget.AppCompat.Button"
         android:layout_width="0dp"
         android:layout_height="50dp"

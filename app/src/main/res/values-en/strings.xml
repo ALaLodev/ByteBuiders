@@ -37,4 +37,7 @@
     <string name="feedback_correct">Correct</string>
     <string name="feedback_loss">You lost this round, the number was %1$d</string>
     <string name="game_over">Game over, your score is %1$d points</string>
+    <string name="de_flag_description">German flag</string>
+    <string name="es_flag_description">Spanish flag</string>
+    <string name="usa_flag_description">USA flag</string>
 </resources>

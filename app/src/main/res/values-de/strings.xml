@@ -37,4 +37,7 @@
     <string name="feedback_correct">Richtig</string>
     <string name="feedback_loss">Sie haben diese Runde verloren, die Zahl war %1$d</string>
     <string name="game_over">Spiel vorbei, Ihre Punktzahl beträgt %1$d Punkte</string>
+    <string name="de_flag_description">Deutche Flagge</string>
+    <string name="es_flag_description">Spanishe Flagge</string>
+    <string name="usa_flag_description">USA Flagge</string>
 </resources>
