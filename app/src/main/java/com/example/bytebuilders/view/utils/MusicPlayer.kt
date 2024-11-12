@@ -5,20 +5,59 @@ import android.media.AudioManager
 import android.media.MediaPlayer
 import android.net.Uri
 
-//Objeto Singleton para reproducir la música desde cualquier clase
 object MusicPlayer {
     private var mediaPlayer: MediaPlayer? = null
     private var isPausedByFocusLoss = false
     private lateinit var audioManager: AudioManager
+    private var isMuted = false
+    private var currentVolume = 1.0f // Volumen actual para restaurarlo tras quitar el mute
+
+    private val audioFocusChangeListener = AudioManager.OnAudioFocusChangeListener { focusChange ->
+        when (focusChange) {
+            AudioManager.AUDIOFOCUS_LOSS, AudioManager.AUDIOFOCUS_LOSS_TRANSIENT -> {
+                isPausedByFocusLoss = true
+                pause()
+            }
+            AudioManager.AUDIOFOCUS_GAIN -> {
+                if (isPausedByFocusLoss) {
+                    resume()
+                    isPausedByFocusLoss = false
+                }
+            }
+        }
+    }
 
     fun start(context: Context, musicResId: Int) {
-        if (mediaPlayer == null) {
-            mediaPlayer = MediaPlayer.create(context, musicResId).apply {
-                isLooping = true
-                start()  // Inicia la música en el momento de creación
+        if (!::audioManager.isInitialized) {
+            audioManager = context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
+        }
+
+        val result = audioManager.requestAudioFocus(
+            audioFocusChangeListener,
+            AudioManager.STREAM_MUSIC,
+            AudioManager.AUDIOFOCUS_GAIN
+        )
+
+        if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
+            if (mediaPlayer == null) {
+                mediaPlayer = MediaPlayer.create(context, musicResId).apply {
+                    isLooping = true
+                    start()
+                }
+            } else if (!mediaPlayer!!.isPlaying) {
+                mediaPlayer!!.start()
             }
-        } else if (!mediaPlayer!!.isPlaying) {
-            mediaPlayer!!.start()
+        }
+    }
+
+    fun mute() {
+        if (!isMuted) {
+            currentVolume = 1.0f // Asegúrate de que el volumen sea el máximo antes de mutear
+            setVolume(0f) // Silencia la música
+            isMuted = true
+        } else {
+            setVolume(currentVolume) // Restaura el volumen original
+            isMuted = false
         }
     }
 
@@ -27,12 +66,15 @@ object MusicPlayer {
     }
 
     fun resume() {
-        mediaPlayer?.start()
+        if (mediaPlayer?.isPlaying == false && !isMuted) {
+            mediaPlayer?.start()
+        }
     }
 
     fun release() {
         mediaPlayer?.release()
         mediaPlayer = null
+        audioManager.abandonAudioFocus(audioFocusChangeListener)
     }
 
     fun isPlaying(): Boolean {
@@ -40,19 +82,33 @@ object MusicPlayer {
     }
 
     fun setVolume(volume: Float) {
-        mediaPlayer?.setVolume(volume, volume) // Establece volumen min y max
+        if (mediaPlayer != null) {
+            mediaPlayer?.setVolume(volume, volume)
+            if (volume > 0) currentVolume = volume
+        }
     }
 
     fun startWithUri(context: Context, audioUri: Uri) {
         release()
-        mediaPlayer = MediaPlayer().apply {
-            setDataSource(context, audioUri)
-            isLooping = true
-            setOnPreparedListener { start() }
-            prepareAsync()
+        if (!::audioManager.isInitialized) {
+            audioManager = context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
+        }
 
+        val result = audioManager.requestAudioFocus(
+            audioFocusChangeListener,
+            AudioManager.STREAM_MUSIC,
+            AudioManager.AUDIOFOCUS_GAIN
+        )
+
+        if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
+            mediaPlayer = MediaPlayer().apply {
+                setDataSource(context, audioUri)
+                isLooping = true
+                setOnPreparedListener { start() }
+                prepareAsync()
+            }
         }
     }
-
 }
+
 

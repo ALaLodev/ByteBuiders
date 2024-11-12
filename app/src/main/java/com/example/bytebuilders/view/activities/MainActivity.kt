@@ -20,30 +20,38 @@ class MainActivity : BaseActivity() {
         enableEdgeToEdge()
         setContentView(binding.root)
 
-        if(!MusicPlayer.isPlaying()){
+        // Solo inicia la música si no está reproduciéndose
+        if (!MusicPlayer.isPlaying()) {
             MusicPlayer.start(this, R.raw.solve_the_puzzle)
         }
 
         binding.btnStart.setOnClickListener { navigateToSelectPlayers() }
 
         binding.changeToEnglishButton.setOnClickListener{
-            LocalHelper.setLocale(this,"en")
+            LocalHelper.setLocale(this, "en")
             recreate()
         }
         binding.changeToSpanishButton.setOnClickListener{
-            LocalHelper.setLocale(this,"es")
+            LocalHelper.setLocale(this, "es")
             recreate()
         }
         binding.changeToGermanButton.setOnClickListener{
-            LocalHelper.setLocale(this,"de")
+            LocalHelper.setLocale(this, "de")
             recreate()
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        // Si quieres que la música se detenga completamente al salir de MainActivity:
+        // MusicPlayer.release()
     }
 
     private fun navigateToSelectPlayers() {
         val intent = Intent(this, MenuActivity::class.java)
         startActivity(intent)
     }
+
     override fun attachBaseContext(base: Context?) {
         super.attachBaseContext(base?.let { LocalHelper.applyPreferredLanguage(it) })
     }
