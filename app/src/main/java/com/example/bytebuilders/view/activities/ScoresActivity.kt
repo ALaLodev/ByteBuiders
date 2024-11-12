@@ -3,10 +3,7 @@ package com.example.bytebuilders.view.activities
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
-import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
 import com.example.bytebuilders.R
 import com.example.bytebuilders.application.RoomByteBuilders
 import com.example.bytebuilders.databinding.ActivityScoresBinding
@@ -72,9 +69,10 @@ class ScoresActivity : BaseActivity() {
         }
 
         // Actualizar los TextViews con los datos de los jugadores. Cambiar usuario por fecha?
-        binding.player1NameScore.text = "${topScores[0].fecha} - ${topScores[0].puntuacion} puntos"
-        binding.player2NameScore.text = "${topScores[1].fecha} - ${topScores[1].puntuacion} puntos"
-        binding.player3NameScore.text = "${topScores[2].fecha} - ${topScores[2].puntuacion} puntos"
-        binding.player4NameScore.text = "${topScores[3].fecha} - ${topScores[3].puntuacion} puntos"
+        binding.player1NameScore.text = "${topScores[0].fecha} - ${topScores[0].puntuacion} ${getString(R.string.points)}"
+        binding.player2NameScore.text = "${topScores[1].fecha} - ${topScores[1].puntuacion} ${getString(R.string.points)}"
+        binding.player2NameScore.text = "${topScores[1].fecha} - ${topScores[1].puntuacion} ${getString(R.string.points)}"
+        binding.player3NameScore.text = "${topScores[2].fecha} - ${topScores[2].puntuacion} ${getString(R.string.points)}"
+        binding.player4NameScore.text = "${topScores[3].fecha} - ${topScores[3].puntuacion} ${getString(R.string.points)}"
     }
 }

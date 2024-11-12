@@ -1,24 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- activity_main -->
     <string name="app_name">ByteBuilders</string>
     <string name="title">Card game</string>
     <string name="subtitle">Made by ByteBuilders</string>
     <string name="btn_empezar">Start</string>
+
+    <!--Menu, activity_menu -->
     <string name="menu_title">Main menu</string>
     <string name="play_description">Play</string>
     <string name="scores_description">Scores</string>
     <string name="scores">Scores</string>
     <string name="settings_description">Settings</string>
     <string name="exit_description">Exit</string>
+
+    <!--Pausa, activity_pause -->
     <string name="pause_title">Pause</string>
     <string name="resume">Resume</string>
     <string name="main_menu">Home screen</string>
+
+    <!--Puntuaciones, activity_scores -->
     <string name="scores_title">Scores</string>
+    <string name="points">Points</string>
     <string name="player1_score">PlayerName1</string>
     <string name="player2_score">PlayerName2</string>
     <string name="player3_score">PlayerName3</string>
     <string name="player4_score">PlayerName4</string>
     <string name="main_to_menu">Return to menu</string>
+
+    <!--Ajustes, activity_settings -->
     <string name="volume_label">Volume</string>
     <string name="language_label">Change language</string>
     <string name="btn_exit">Exit</string>
@@ -26,6 +36,8 @@
     <string name="change_music">Change audio track</string>
     <string name="music_folder">Browse audio track</string>
     <string name="pause">Pause</string>
+
+    <!--Pantalla de juego, activity_game -->
     <string name="pack_of_cards">Card deck image</string>
     <string name="send">Send</string>
     <string name="start_return">Home screen</string>
@@ -40,4 +52,5 @@
     <string name="de_flag_description">German flag</string>
     <string name="es_flag_description">Spanish flag</string>
     <string name="usa_flag_description">USA flag</string>
+    <string name="scores_settings">Score</string>
 </resources>

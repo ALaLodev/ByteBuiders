@@ -19,7 +19,7 @@
             android:layout_marginBottom="30dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Puntuaciones"
+            android:text="@string/scores_settings"
             android:textSize="36sp"
             android:textStyle="bold"
             android:textColor="@android:color/white" />
