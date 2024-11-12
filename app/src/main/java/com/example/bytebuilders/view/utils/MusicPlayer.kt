@@ -1,12 +1,15 @@
 package com.example.bytebuilders.view.utils
 
 import android.content.Context
+import android.media.AudioManager
 import android.media.MediaPlayer
 import android.net.Uri
 
 //Objeto Singleton para reproducir la música desde cualquier clase
 object MusicPlayer {
     private var mediaPlayer: MediaPlayer? = null
+    private var isPausedByFocusLoss = false
+    private lateinit var audioManager: AudioManager
 
     fun start(context: Context, musicResId: Int) {
         if (mediaPlayer == null) {

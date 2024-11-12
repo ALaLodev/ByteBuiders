@@ -53,4 +53,7 @@
     <string name="es_flag_description">Spanishe Flagge</string>
     <string name="usa_flag_description">USA Flagge</string>
     <string name="scores_settings">Punkte</string>
+    <string name="Attempt">Versucht: </string>
+    <string name="btn_minus_description">btn_minus</string>
+    <string name="btn_plus_description">btn_plus</string>
 </resources>

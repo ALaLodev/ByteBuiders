@@ -52,5 +52,8 @@
     <string name="es_flag_description">Bandera España</string>
     <string name="usa_flag_description">Bandera USA</string>
     <string name="scores_settings">Puntuaciones</string>
+    <string name="Attempt">Intento:</string>
+    <string name="btn_minus_description">btn_minus</string>
+    <string name="btn_plus_description">btn_plus</string>
 
 </resources>
