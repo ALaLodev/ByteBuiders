@@ -1,6 +1,8 @@
 package com.example.bytebuilders.viewmodel
 
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.bytebuilders.application.RoomByteBuilders
@@ -9,6 +11,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class MainViewModel : ViewModel() {
+    private val _users = MutableLiveData<List<UserEntity>>()
+    val users: LiveData<List<UserEntity>> get() = _users
 
     fun insertUser(namePlayer: String, puntuacion: Int, fecha: String) {
         val userEntity = UserEntity(
@@ -26,5 +30,12 @@ class MainViewModel : ViewModel() {
             }
         }
     }
+    fun loadAllUser() {
 
+           viewModelScope.launch(Dispatchers.IO) {
+            val userList = RoomByteBuilders.db.userDao().getAll()
+
+           _users.postValue(userList)
+        }
+    }
 }
