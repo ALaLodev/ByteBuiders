@@ -6,8 +6,8 @@ import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import com.example.bytebuilders.R
 import com.example.bytebuilders.databinding.ActivityMainBinding
-import com.example.bytebuilders.view.activities.utils.LocalHelper
-import com.example.bytebuilders.view.activities.utils.MusicPlayer
+import com.example.bytebuilders.view.utils.LocalHelper
+import com.example.bytebuilders.view.utils.MusicPlayer
 
 
 class MainActivity : BaseActivity() {

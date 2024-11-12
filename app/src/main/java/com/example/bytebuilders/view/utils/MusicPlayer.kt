@@ -1,4 +1,4 @@
-package com.example.bytebuilders.view.activities.utils
+package com.example.bytebuilders.view.utils
 
 import android.content.Context
 import android.media.MediaPlayer

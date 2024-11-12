@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import com.example.bytebuilders.databinding.ActivityPauseBinding
-import com.example.bytebuilders.view.activities.utils.MusicPlayer
+import com.example.bytebuilders.view.utils.MusicPlayer
 
 class PauseActivity : BaseActivity() {
 

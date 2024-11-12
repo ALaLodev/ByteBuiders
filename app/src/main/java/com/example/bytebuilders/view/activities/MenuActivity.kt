@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import com.example.bytebuilders.R
 import com.example.bytebuilders.databinding.ActivityMenuBinding
-import com.example.bytebuilders.view.activities.utils.MusicPlayer
+import com.example.bytebuilders.view.utils.MusicPlayer
 
 class MenuActivity : BaseActivity() {
 

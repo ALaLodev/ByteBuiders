@@ -14,7 +14,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.bytebuilders.databinding.ActivitySettingsBinding
-import com.example.bytebuilders.view.activities.utils.MusicPlayer
+import com.example.bytebuilders.view.utils.MusicPlayer
 
 class SettingsActivity : BaseActivity() {
 
