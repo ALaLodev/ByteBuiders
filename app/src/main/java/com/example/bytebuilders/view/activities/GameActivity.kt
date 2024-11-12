@@ -229,8 +229,8 @@ class GameActivity : BaseActivity() {
             binding.hiddenCard.setImageResource(resources.getIdentifier("card_$randomNumber", "drawable", packageName))
 
             // Mostrar el layout de fin de juego
-            val endGameLayout = findViewById<LinearLayout>(R.id.endGameLayout)
-            endGameLayout.visibility = View.VISIBLE
+            //val endGameLayout = findViewById<LinearLayout>(R.id.endGameLayout)
+             //endGameLayout.visibility = View.VISIBLE
 
             // Registrar al ganador
             registerWinner()
@@ -244,5 +244,8 @@ class GameActivity : BaseActivity() {
 
         // Llamar al ViewModel para registrar el ganador
         modelo.insertUser(winnerName, winnerScore, winnerDateTime)
+        val intent = Intent(this, DetallePartidas::class.java)
+        startActivity(intent)
+
     }
 }
