@@ -29,7 +29,7 @@ class GameActivity : BaseActivity() {
     private lateinit var selectedNumber: TextView
     private lateinit var sendButton: Button
     private lateinit var attempsText: TextView
-    private lateinit var btnInicio: Button
+    //private lateinit var btnInicio: Button
     private lateinit var cardImageView: ImageView
     private lateinit var pauseButton: ImageButton
 
@@ -63,12 +63,12 @@ class GameActivity : BaseActivity() {
         feedback = findViewById(R.id.feedback)
         roundtext = findViewById(R.id.roundText)
         attempsText = findViewById(R.id.attemptText)
-        btnInicio = findViewById(R.id.scores)
+        //btnInicio = findViewById(R.id.scores)
         cardImageView = findViewById(R.id.hiddenCard)
         pauseButton = findViewById(R.id.pauseButton)
 
         startNewRound()
-        btnInicio.visibility = View.GONE
+        //btnInicio.visibility = View.GONE
 
         plusButton.setOnClickListener {
             if (selectedNumberValue < 12) {
@@ -85,11 +85,11 @@ class GameActivity : BaseActivity() {
         sendButton.setOnClickListener {
             checkAnswer()
         }
-        btnInicio.setOnClickListener {
+       /* btnInicio.setOnClickListener {
             val intent = Intent(this, MenuActivity::class.java)
             intent.putExtra("Final_Score", points) // Pasa la puntuación final al siguiente activity
             startActivity(intent)
-        }
+        }*/
 
         pauseButton.setOnClickListener {
             val intent = Intent(this, PauseActivity::class.java)
@@ -220,19 +220,23 @@ class GameActivity : BaseActivity() {
             plusButton.visibility = View.GONE
             minusButton.visibility = View.GONE
             selectedNumber.visibility = View.GONE
-            btnInicio.visibility = View.VISIBLE
+            //btnInicio.visibility = View.VISIBLE
 
             // Mostrar la carta final
             cardImageView.setImageResource(resources.getIdentifier("card_$randomNumber", "drawable", packageName))
 
             // Mostrar el layout de fin de juego
-            val endGameLayout = findViewById<LinearLayout>(R.id.endGameLayout)
-            endGameLayout.visibility = View.VISIBLE
+            //val endGameLayout = findViewById<LinearLayout>(R.id.endGameLayout)
+            //endGameLayout.visibility = View.VISIBLE
+
 
             // Registrar al ganador
             registerWinner()
         }
     }
+    /**
+     * Funciones varias registros varios
+     * **/
 
     private fun registerWinner() {
         val winnerName = "Jugador"
@@ -241,5 +245,18 @@ class GameActivity : BaseActivity() {
 
         // Llamar al ViewModel para registrar el ganador
         modelo.insertUser(winnerName, winnerScore, winnerDateTime)
+        // Llamar a calendario para registrar el resultado
+        CallCalendar()
+        //Llamar a ventana detalle partidas
+        val intent = Intent(this, DetallePartidas::class.java)
+        startActivity(intent)
     }
+
+    private fun CallCalendar(){
+
+
+
+    }
+
+
 }
