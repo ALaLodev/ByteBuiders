@@ -2,7 +2,7 @@ package com.example.bytebuilders.view.activities
 
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
-import com.example.bytebuilders.view.activities.utils.LocalHelper
+import com.example.bytebuilders.view.utils.LocalHelper
 
 open class BaseActivity: AppCompatActivity() {
     private var currentLanguageCode: String? = null

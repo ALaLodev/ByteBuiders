@@ -24,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="64dp"
         android:text="@string/volume_label"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -36,7 +36,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -46,7 +46,7 @@
         android:id="@+id/constrainMusic"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="64dp"
         android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintTop_toBottomOf="@id/volumeSeekBar">
@@ -66,73 +66,16 @@
             android:id="@+id/music_folder_Button"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginStart="100dp"
+            android:layout_marginEnd="60dp"
             android:layout_marginTop="0dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/music_folder"
             android:scaleType="fitCenter"
             android:src="@drawable/music_folder_1"
-            app:layout_constraintStart_toEndOf="@+id/musicLabel"
+          app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    <!-- Etiqueta Idioma -->
-    <TextView
-        android:id="@+id/languageLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="60dp"
-        android:text="@string/language_label"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/constrainMusic" />
-
-    <!-- Layuot idiomas -->
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/languageIcons"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/languageLabel">
-
-        <ImageButton
-            android:id="@+id/change_to_english_button"
-            android:layout_marginTop="30dp"
-            android:layout_marginStart="60dp"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Bandera USA "
-            android:scaleType="fitCenter"
-            android:src="@drawable/usa_flag"/>
-
-        <ImageButton
-            android:id="@+id/change_to_spanish_button"
-            android:layout_marginTop="30dp"
-            android:layout_marginStart="50dp"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Bandera España "
-            android:scaleType="fitCenter"
-            android:src="@drawable/es_flag"/>
-
-        <ImageButton
-            android:id="@+id/change_to_german_button"
-            android:layout_marginTop="30dp"
-            android:layout_marginStart="50dp"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Bandera Alemana "
-            android:scaleType="fitCenter"
-            android:src="@drawable/de_flag"/>
-
-    </androidx.appcompat.widget.LinearLayoutCompat>
 
 
     <!-- Boton Salir -->
@@ -141,10 +84,10 @@
         style="@style/Widget.AppCompat.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="64dp"
         android:text="@string/btn_exit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/languageIcons" />
+        app:layout_constraintTop_toBottomOf="@+id/constrainMusic" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,24 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- activity_main -->
     <string name="app_name">ByteBuilders</string>
     <string name="title">Kartenspiel</string>
     <string name="subtitle">Erstellt von ByteBuilders</string>
     <string name="btn_empezar">Anfangen</string>
+
+    <!--Menu, activity_menu -->
     <string name="menu_title">Hauptmenü</string>
     <string name="play_description">Spiele</string>
     <string name="scores_description">Punkte</string>
     <string name="scores">Punkte</string>
     <string name="settings_description">Einstellungen</string>
     <string name="exit_description">Beenden</string>
+
+    <!--Pausa, activity_pause -->
     <string name="pause_title">Pause</string>
     <string name="resume">Wieterspielen</string>
     <string name="main_menu">Zurück zum Anfang</string>
+
+    <!--Puntuaciones, activity_scores -->
     <string name="scores_title">Punkte</string>
+    <string name="points">Punkte</string>
     <string name="player1_score">Spielername1</string>
     <string name="player2_score">Spielername2</string>
     <string name="player3_score">Spielername3</string>
     <string name="player4_score">Spielername4</string>
     <string name="main_to_menu">Zurück zum Menü</string>
+
+    <!--Ajustes, activity_settings -->
     <string name="volume_label">Lautstärke</string>
     <string name="language_label">Sprache ändern</string>
     <string name="btn_exit">Beenden</string>
@@ -26,7 +36,21 @@
     <string name="change_music">Audiospur wechseln</string>
     <string name="music_folder">Musick-Ordner öfnen</string>
     <string name="pause">Pause</string>
+
+    <!--Pantalla de juego, activity_game -->
     <string name="pack_of_cards">Bild des Decks</string>
     <string name="send">Senden</string>
     <string name="start_return">Zurück zum Anfang</string>
+    <string name="round_number">Runde 1</string>
+    <string name="round_text">Runde %1$d</string>
+    <string name="attempt_text">Versuch: %1$d/4</string>
+    <string name="feedback_higher">Die Zahl ist höher</string>
+    <string name="feedback_lower">Die Zahl ist niedriger</string>
+    <string name="feedback_correct">Richtig</string>
+    <string name="feedback_loss">Sie haben diese Runde verloren, die Zahl war %1$d</string>
+    <string name="game_over">Spiel vorbei, Ihre Punktzahl beträgt %1$d Punkte</string>
+    <string name="de_flag_description">Deutche Flagge</string>
+    <string name="es_flag_description">Spanishe Flagge</string>
+    <string name="usa_flag_description">USA Flagge</string>
+    <string name="scores_settings">Punkte</string>
 </resources>

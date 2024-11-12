@@ -12,9 +12,10 @@
     <ImageView
         android:id="@+id/ImageTitle"
         android:layout_width="match_parent"
-        android:layout_height="600dp"
+        android:layout_height="550dp"
         android:src="@drawable/guesswarslogo"
         app:layout_constraintEnd_toEndOf="parent"
+        android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -30,9 +31,55 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5" />
+    <!-- Etiqueta Idioma -->
+
+    <!-- Layuot idiomas -->
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/languageIcons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="100dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnStart">
+
+        <ImageButton
+            android:id="@+id/change_to_english_button"
+            android:layout_marginTop="30dp"
+            android:layout_marginStart="60dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/usa_flag_description"
+            android:scaleType="fitCenter"
+            android:src="@drawable/usa_flag"/>
+
+        <ImageButton
+            android:id="@+id/change_to_spanish_button"
+            android:layout_marginTop="30dp"
+            android:layout_marginStart="50dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/es_flag_description"
+            android:scaleType="fitCenter"
+            android:src="@drawable/es_flag"/>
+
+        <ImageButton
+            android:id="@+id/change_to_german_button"
+            android:layout_marginTop="30dp"
+            android:layout_marginStart="50dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/de_flag_description"
+            android:scaleType="fitCenter"
+            android:src="@drawable/de_flag"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
     <Button
-        android:id="@+id/empezar"
+        android:id="@+id/btnStart"
         style="@style/Widget.AppCompat.Button"
         android:layout_width="0dp"
         android:layout_height="50dp"

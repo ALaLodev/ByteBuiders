@@ -3,25 +3,41 @@ package com.example.bytebuilders.view.activities
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
 import com.example.bytebuilders.R
-import com.example.bytebuilders.view.activities.utils.LocalHelper
-import com.example.bytebuilders.view.activities.utils.MusicPlayer
+import com.example.bytebuilders.databinding.ActivityMainBinding
+import com.example.bytebuilders.view.utils.LocalHelper
+import com.example.bytebuilders.view.utils.MusicPlayer
 
 
 class MainActivity : BaseActivity() {
 
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivityMainBinding.inflate(layoutInflater)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_main)
+        setContentView(binding.root)
 
-        MusicPlayer.start(this, R.raw.solve_the_puzzle)
+        if(!MusicPlayer.isPlaying()){
+            MusicPlayer.start(this, R.raw.solve_the_puzzle)
+        }
 
-        val btnEmpezar = findViewById<Button>(R.id.empezar)
-        btnEmpezar.setOnClickListener { navigateToSelectPlayers() }
+        binding.btnStart.setOnClickListener { navigateToSelectPlayers() }
+
+        binding.changeToEnglishButton.setOnClickListener{
+            LocalHelper.setLocale(this,"en")
+            recreate()
+        }
+        binding.changeToSpanishButton.setOnClickListener{
+            LocalHelper.setLocale(this,"es")
+            recreate()
+        }
+        binding.changeToGermanButton.setOnClickListener{
+            LocalHelper.setLocale(this,"de")
+            recreate()
+        }
     }
 
     private fun navigateToSelectPlayers() {
@@ -31,9 +47,4 @@ class MainActivity : BaseActivity() {
     override fun attachBaseContext(base: Context?) {
         super.attachBaseContext(base?.let { LocalHelper.applyPreferredLanguage(it) })
     }
-    /*fun applyPreferredLanguage(context: Context): Context {
-        val sharedPreferences = context.getSharedPreferences("settings", Context.MODE_PRIVATE)
-        val languageCode = sharedPreferences.getString("preferred_language", "en") ?: "en"
-        return LocalHelper.setLocale(languageCode, context)
-    }*/
 }

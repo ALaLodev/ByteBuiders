@@ -19,11 +19,12 @@
     <string name="main_menu">Volver al inicio</string>
 
     <!--Puntuaciones, activity_scores -->
+    <string name="points">Puntos</string>
     <string name="scores_title">Puntuaciones</string>
-    <string name="player1_score">NombreJugador1 - Puntuacion</string>
-    <string name="player2_score">NombreJugador2 - Puntuacion</string>
-    <string name="player3_score">NombreJugador3 - Puntuacion</string>
-    <string name="player4_score">NombreJugador4 - Puntuacion</string>
+    <string name="player1_score">NombreJugador1</string>
+    <string name="player2_score">NombreJugador2</string>
+    <string name="player3_score">NombreJugador3</string>
+    <string name="player4_score">NombreJugador4</string>
     <string name="main_to_menu">Volver al Menu</string>
 
     <!--Ajustes, activity_settings -->
@@ -39,8 +40,17 @@
     <string name="pack_of_cards">Imagen de la baraja</string>
     <string name="send">Enviar</string>
     <string name="start_return">VOLVER AL INICIO</string>
-
-    <!--Pantalla Seleccion -->
-
+    <string name="round_number">Ronda 1</string>
+    <string name="round_text">Ronda %1$d</string>
+    <string name="attempt_text">Intento: %1$d/4</string>
+    <string name="feedback_higher">El número es mayor</string>
+    <string name="feedback_lower">El número es menor</string>
+    <string name="feedback_correct">Correcto</string>
+    <string name="feedback_loss">Has perdido esta ronda, el número era %1$d</string>
+    <string name="game_over">Fin de juego, tu puntuación es %1$d puntos</string>
+    <string name="de_flag_description">Bandera Alemana</string>
+    <string name="es_flag_description">Bandera España</string>
+    <string name="usa_flag_description">Bandera USA</string>
+    <string name="scores_settings">Puntuaciones</string>
 
 </resources>

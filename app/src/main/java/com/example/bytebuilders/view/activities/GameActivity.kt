@@ -2,39 +2,27 @@ package com.example.bytebuilders.view.activities
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.SharedPreferences
 import android.content.Intent
+import android.content.SharedPreferences
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.ImageView
 import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import com.example.bytebuilders.R
+import com.example.bytebuilders.databinding.ActivityGameBinding
 import com.example.bytebuilders.viewmodel.MainViewModel
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 class GameActivity : BaseActivity() {
 
-    private lateinit var plusButton: FloatingActionButton
-    private lateinit var minusButton: FloatingActionButton
-    private lateinit var selectedNumber: TextView
-    private lateinit var sendButton: Button
-    private lateinit var attempsText: TextView
-    //private lateinit var btnInicio: Button
-    private lateinit var cardImageView: ImageView
-    private lateinit var pauseButton: ImageButton
-
-    private lateinit var feedback: TextView
-    private lateinit var roundtext: TextView
+    private lateinit var binding: ActivityGameBinding
 
     private var randomNumber = 0
     private var selectedNumberValue = 1
@@ -51,47 +39,40 @@ class GameActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivityGameBinding.inflate(layoutInflater)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_game)
+        setContentView(binding.root)
 
         sharedPreferences = getSharedPreferences("GameSettings", Context.MODE_PRIVATE)
         volumeLevel = sharedPreferences.getInt("volumeLevel", 50)
-        plusButton = findViewById(R.id.plusButton)
-        minusButton = findViewById(R.id.minusButton)
-        selectedNumber = findViewById(R.id.selectedNumber)
-        sendButton = findViewById(R.id.sendButton)
-        feedback = findViewById(R.id.feedback)
-        roundtext = findViewById(R.id.roundText)
-        attempsText = findViewById(R.id.attemptText)
-        //btnInicio = findViewById(R.id.scores)
-        cardImageView = findViewById(R.id.hiddenCard)
-        pauseButton = findViewById(R.id.pauseButton)
+
+        binding.attemptText
 
         startNewRound()
-        //btnInicio.visibility = View.GONE
+        binding.returnToStart.visibility = View.GONE
 
-        plusButton.setOnClickListener {
+        binding.plusButton.setOnClickListener {
             if (selectedNumberValue < 12) {
                 selectedNumberValue++
-                selectedNumber.text = selectedNumberValue.toString()
+                binding.selectedNumber.text = selectedNumberValue.toString()
             }
         }
-        minusButton.setOnClickListener {
+        binding.minusButton.setOnClickListener {
             if (selectedNumberValue > 1) {
                 selectedNumberValue--
-                selectedNumber.text = selectedNumberValue.toString()
+                binding.selectedNumber.text = selectedNumberValue.toString()
             }
         }
-        sendButton.setOnClickListener {
+        binding.sendButton.setOnClickListener {
             checkAnswer()
         }
-       /* btnInicio.setOnClickListener {
+        binding.returnToStart.setOnClickListener {
             val intent = Intent(this, MenuActivity::class.java)
             intent.putExtra("Final_Score", points) // Pasa la puntuación final al siguiente activity
             startActivity(intent)
-        }*/
+        }
 
-        pauseButton.setOnClickListener {
+        binding.pauseButton.setOnClickListener {
             val intent = Intent(this, PauseActivity::class.java)
             startActivity(intent)
         }
@@ -136,17 +117,17 @@ class GameActivity : BaseActivity() {
     private fun startNewRound() {
         randomNumber = (1..12).random()
         selectedNumberValue = 1
-        selectedNumber.text = selectedNumberValue.toString()
+        binding.selectedNumber.text = selectedNumberValue.toString()
         attemptNumber = 1
-        roundtext.text = "Ronda $roundsNumber"
-        attempsText.text = "Intento: $attemptNumber/4"
-        cardImageView.setImageResource(R.drawable.spr_reverso)
+        binding.roundText.text = getString(R.string.round_text, roundsNumber)
+        binding.attemptText.text = getString(R.string.attempt_text, attemptNumber)
+        binding.hiddenCard.setImageResource(R.drawable.spr_reverso)
     }
 
     @SuppressLint("DiscouragedApi")
     private fun checkAnswer() {
         if (selectedNumberValue == randomNumber) {
-            feedback.text = "Correcto"
+            binding.feedback.text = getString(R.string.feedback_correct)
             val pointsEarned = 5 - attemptNumber
             points += pointsEarned
 
@@ -159,52 +140,52 @@ class GameActivity : BaseActivity() {
 
     private fun processIncorrectAnswer(selectedNumberValue: Int) {
         if (selectedNumberValue < randomNumber) {
-            feedback.text = "El número es mayor"
+            binding.feedback.text = getString(R.string.feedback_higher)
         } else {
-            feedback.text = "El número es menor"
+            binding.feedback.text = getString(R.string.feedback_lower)
         }
 
         attemptNumber++
-        attempsText.text = "Intento: $attemptNumber/4"
+        binding.attemptText.text = getString(R.string.attempt_text, attemptNumber)
 
         if (attemptNumber > 4) {
-            feedback.text = "Has perdido esta ronda, el número era $randomNumber"
+            binding.feedback.text = getString(R.string.feedback_loss, randomNumber)
             showCardForIncorrectAnswer(randomNumber)
             nextRoundOrEndGame()
         } else {
             CoroutineScope(Dispatchers.Main).launch {
                 delay(2000)
-                if (!gameEnded) { feedback.text = "" }
+                if (!gameEnded) { binding.feedback.text = "" }
             }
         }
     }
 
     private fun showCardForCorrectAnswer(number: Int) {
         CoroutineScope(Dispatchers.Main).launch {
-            cardImageView.setImageResource(resources.getIdentifier("card_$number", "drawable", packageName))
+            binding.hiddenCard.setImageResource(resources.getIdentifier("card_$number", "drawable", packageName))
             delay(2000)
 
             if (!gameEnded) {
                 hideCard()
-                feedback.text = ""
+                binding.feedback.text = ""
             }
         }
     }
 
     private fun showCardForIncorrectAnswer(number: Int) {
         CoroutineScope(Dispatchers.Main).launch {
-            cardImageView.setImageResource(resources.getIdentifier("card_$number", "drawable", packageName))
+            binding.hiddenCard.setImageResource(resources.getIdentifier("card_$number", "drawable", packageName))
             delay(2000)
 
             if (!gameEnded) {
                 hideCard()
-                feedback.text = ""
+                binding.feedback.text = ""
             }
         }
     }
 
     private fun hideCard() {
-        cardImageView.setImageResource(R.drawable.spr_reverso)
+        binding.hiddenCard.setImageResource(R.drawable.spr_reverso)
     }
 
     @SuppressLint("DiscouragedApi")
@@ -215,28 +196,24 @@ class GameActivity : BaseActivity() {
         } else {
             // Fin de juego
             gameEnded = true
-            feedback.text = "Fin de juego, tu puntuación es $points puntos"
-            sendButton.visibility = View.GONE
-            plusButton.visibility = View.GONE
-            minusButton.visibility = View.GONE
-            selectedNumber.visibility = View.GONE
-            //btnInicio.visibility = View.VISIBLE
+            binding.feedback.text = getString(R.string.game_over, points)
+            binding.sendButton.visibility = View.GONE
+            binding.plusButton.visibility = View.GONE
+            binding.minusButton.visibility = View.GONE
+            binding.selectedNumber.visibility = View.GONE
+            binding.returnToStart.visibility = View.VISIBLE
 
             // Mostrar la carta final
-            cardImageView.setImageResource(resources.getIdentifier("card_$randomNumber", "drawable", packageName))
+            binding.hiddenCard.setImageResource(resources.getIdentifier("card_$randomNumber", "drawable", packageName))
 
             // Mostrar el layout de fin de juego
-            //val endGameLayout = findViewById<LinearLayout>(R.id.endGameLayout)
-            //endGameLayout.visibility = View.VISIBLE
-
+            val endGameLayout = findViewById<LinearLayout>(R.id.endGameLayout)
+            endGameLayout.visibility = View.VISIBLE
 
             // Registrar al ganador
             registerWinner()
         }
     }
-    /**
-     * Funciones varias registros varios
-     * **/
 
     private fun registerWinner() {
         val winnerName = "Jugador"
@@ -245,18 +222,5 @@ class GameActivity : BaseActivity() {
 
         // Llamar al ViewModel para registrar el ganador
         modelo.insertUser(winnerName, winnerScore, winnerDateTime)
-        // Llamar a calendario para registrar el resultado
-        CallCalendar()
-        //Llamar a ventana detalle partidas
-        val intent = Intent(this, DetallePartidas::class.java)
-        startActivity(intent)
     }
-
-    private fun CallCalendar(){
-
-
-
-    }
-
-
 }

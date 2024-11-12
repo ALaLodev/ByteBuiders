@@ -1,4 +1,4 @@
-package com.example.bytebuilders.view.activities.utils
+package com.example.bytebuilders.view.utils
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -13,7 +13,6 @@ object LocalHelper {
 
         val config = Configuration(context.resources.configuration)
         config.setLocale(locale)
-
         savePreferredLanguage(context, languageCode)
 
         return context.createConfigurationContext(config)
