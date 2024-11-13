@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.bytebuilders.application.RoomByteBuilders
 import com.example.bytebuilders.model.data.entitys.UserEntity
+import com.example.bytebuilders.view.activities.LocationData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -15,18 +16,20 @@ class MainViewModel : ViewModel() {
     private val _users = MutableLiveData<List<UserEntity>>()
     val users: LiveData<List<UserEntity>> get() = _users
 
-    fun insertUser(namePlayer: String, puntuacion: Int, fecha: String) {
+    fun insertUser(namePlayer: String, puntuacion: Int, fecha: String, locationData: LocationData) {
         val userEntity = UserEntity(
             namePlayer = namePlayer,
             puntuacion = puntuacion,
-            fecha = fecha
+            fecha = fecha,
+            latitude = locationData.latitude,
+            longitude = locationData.longitude,
         )
 
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 RoomByteBuilders.db.userDao().insertUser(userEntity)
             } catch (e: Exception) {
-                // Manejar la excepción (por ejemplo, mostrar un mensaje de error en el Logcat)
+                // excepción (por ejemplo, mostrar un mensaje de error en el Logcat)
                 Log.e("MainViewModel", "Error al insertar usuario: ${e.message}")
             }
         }

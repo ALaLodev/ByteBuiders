@@ -31,4 +31,19 @@
         android:layout_columnWeight="1"
         android:gravity="center"
         android:textSize="14sp" />
+    <TextView
+        android:id="@+id/textViewLatitud"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_columnWeight="1"
+        android:gravity="center"
+        android:text="Latitud" />
+
+    <TextView
+        android:id="@+id/textViewLongitud"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_columnWeight="1"
+        android:gravity="center"
+        android:text="Longitud" />
 </GridLayout>

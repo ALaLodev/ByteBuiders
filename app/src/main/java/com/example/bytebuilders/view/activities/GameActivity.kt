@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.health.connect.datatypes.ExerciseRoute
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.view.View
@@ -13,20 +15,27 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import com.example.bytebuilders.R
 import com.example.bytebuilders.databinding.ActivityGameBinding
 import com.example.bytebuilders.viewmodel.MainViewModel
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.*
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import android.Manifest
+import android.location.Location
+import android.widget.Toast
 
 class GameActivity : BaseActivity() {
 
     private lateinit var binding: ActivityGameBinding
-
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
     //private lateinit var plusButton: FloatingActionButton
     //private lateinit var minusButton: FloatingActionButton
    // private lateinit var selectedNumber: TextView
@@ -52,6 +61,15 @@ class GameActivity : BaseActivity() {
     private var volumeLevel: Int = 50
     private var mediaPlayer: MediaPlayer? = null
 
+
+    private val requestPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
+            if (isGranted) {
+                 registerWinner()
+            } else {
+                // mostrar un mensaje al usuario
+            }
+        }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityGameBinding.inflate(layoutInflater)
@@ -60,6 +78,8 @@ class GameActivity : BaseActivity() {
 
         sharedPreferences = getSharedPreferences("GameSettings", Context.MODE_PRIVATE)
         volumeLevel = sharedPreferences.getInt("volumeLevel", 50)
+        // Inicializar FusedLocationProviderClient
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         //plusButton = findViewById(R.id.plusButton)
         //minusButton = findViewById(R.id.minusButton)
         //selectedNumber = findViewById(R.id.selectedNumber)
@@ -236,16 +256,42 @@ class GameActivity : BaseActivity() {
             registerWinner()
         }
     }
-
+    //Llamada a ganador suceden varias cosas
+    //Lllamar pantalla detalle y
+    //Llamar a latitud longitud
     private fun registerWinner() {
         val winnerName = "Jugador"
         val winnerScore = points
         val winnerDateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
 
-        // Llamar al ViewModel para registrar el ganador
-        modelo.insertUser(winnerName, winnerScore, winnerDateTime)
-        val intent = Intent(this, DetallePartidas::class.java)
-        startActivity(intent)
+        // Obtener la ubicación
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
+                if (location != null) {
+                    val locationData = LocationData(location.latitude, location.longitude)
+                    // Llamar al ViewModel para registrar el ganador
+                    modelo.insertUser (winnerName, winnerScore, winnerDateTime,locationData)
+                    val intent = Intent(this, DetallePartidas::class.java)
+                    startActivity(intent)
+                } else {
+                    // Manejar el caso en que no se pudo obtener la ubicación
+                    Toast.makeText(this, "No se pudo obtener la ubicación. Intenta nuevamente.", Toast.LENGTH_SHORT).show()
+                }
+            }.addOnFailureListener { e ->
+                // Manejar el caso en que hubo un error al obtener la ubicación
+                Toast.makeText(this, "Error al obtener la ubicación: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
+        } else {
+            // Solicitar permiso de ubicación
+            requestLocationPermission()
+        }
 
+    }
+
+    //Parte de registro latitud longitud
+    private fun requestLocationPermission() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
+        }
     }
 }

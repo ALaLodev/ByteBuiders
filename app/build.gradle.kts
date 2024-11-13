@@ -43,6 +43,7 @@ android {
 dependencies {
 
     implementation(libs.androidx.room.common)
+    implementation(libs.play.services.location)
     val room_version = "2.6.1"
 
     implementation(libs.firebase.firestore.ktx)
@@ -59,7 +60,9 @@ dependencies {
     implementation(libs.androidx.room.runtime)
     annotationProcessor(libs.androidx.room.compiler)
     implementation (libs.androidx.room.ktx)
-
+    //LOCALIZACION
+    implementation(libs.androidx.activity)
+    implementation(libs.play.services.location)
     // To use Kotlin annotation processing tool (kapt)
     kapt("androidx.room:room-compiler:$room_version")
     // optional - RxJava2 support for Room
