@@ -5,13 +5,11 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.GridView
-
 import android.widget.LinearLayout
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import com.example.bytebuilders.R
 import com.example.bytebuilders.viewmodel.MainViewModel
-import com.example.bytebuilders.vistamodelo.MyGridAdapter
+import com.example.bytebuilders.viewmodel.MyGridAdapter
 
 class DetallePartidas : BaseActivity()  {
 
@@ -42,7 +40,5 @@ class DetallePartidas : BaseActivity()  {
         // Mostrar el layout de fin de juego
         val endGameLayout = findViewById<LinearLayout>(R.id.endGameLayout)
         endGameLayout.visibility = View.VISIBLE
-
     }
-
  }

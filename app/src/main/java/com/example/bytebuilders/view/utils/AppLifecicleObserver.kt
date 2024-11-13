@@ -1,10 +1,8 @@
 package com.example.bytebuilders.view.utils
 
-import android.app.Application
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
-import androidx.lifecycle.ProcessLifecycleOwner
 
 class AppLifecycleObserver : LifecycleObserver {
 

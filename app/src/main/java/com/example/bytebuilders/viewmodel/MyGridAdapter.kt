@@ -1,4 +1,4 @@
-package com.example.bytebuilders.vistamodelo
+package com.example.bytebuilders.viewmodel
 
 import android.content.Context
 import android.view.LayoutInflater

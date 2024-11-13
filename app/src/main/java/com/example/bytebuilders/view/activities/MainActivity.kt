@@ -43,8 +43,6 @@ class MainActivity : BaseActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        // Si quieres que la música se detenga completamente al salir de MainActivity:
-        // MusicPlayer.release()
     }
 
     private fun navigateToSelectPlayers() {
