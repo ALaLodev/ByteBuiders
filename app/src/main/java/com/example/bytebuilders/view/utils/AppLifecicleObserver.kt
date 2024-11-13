@@ -4,7 +4,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 
-class AppLifecycleObserver : LifecycleObserver {
+ class AppLifecycleObserver : LifecycleObserver {
 
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
     fun onAppBackgrounded() {
@@ -22,3 +22,5 @@ class AppLifecycleObserver : LifecycleObserver {
         }
     }
 }
+
+
