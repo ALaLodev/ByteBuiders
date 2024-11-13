@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.style.UnderlineSpan
+import android.view.MenuItem
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import com.example.bytebuilders.R
@@ -56,6 +57,10 @@ class MenuActivity : BaseActivity() {
                 MusicPlayer.resume()
             }
         }
+        // Configurar el botón de ayuda
+        binding.helpButton.setOnClickListener {
+            startActivity(Intent(this, HelpActivity::class.java))
+        }
     }
 
     private fun navigateToSelectPlayers() {
@@ -79,4 +84,16 @@ class MenuActivity : BaseActivity() {
         super.onDestroy()
         MusicPlayer.release()
     }
+
+   /* // En tu MainActivity o MenuActivity
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.helpButton -> {
+                startActivity(Intent(this, HelpActivity::class.java))
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }*/
+
 }
