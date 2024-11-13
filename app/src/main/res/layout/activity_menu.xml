@@ -95,13 +95,14 @@
 
     <Button
         android:id="@+id/helpButton"
+        style="@style/Widget.AppCompat.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:text="help"
+        android:layout_marginBottom="32dp"
+        android:text="@string/help"
         android:textColor="@color/white"
         android:textSize="16sp"
-        android:backgroundTint="#4CAF50"
+        app:backgroundTint="#4CAF50"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

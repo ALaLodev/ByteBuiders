@@ -55,5 +55,6 @@
     <string name="Attempt">Intento:</string>
     <string name="btn_minus_description">btn_minus</string>
     <string name="btn_plus_description">btn_plus</string>
+    <string name="help">HELP</string>
 
 </resources>
