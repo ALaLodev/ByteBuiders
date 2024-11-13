@@ -43,6 +43,7 @@ android {
 dependencies {
 
     implementation(libs.androidx.room.common)
+    implementation(libs.androidx.lifecycle.process)
     val room_version = "2.6.1"
 
     implementation(libs.firebase.firestore.ktx)

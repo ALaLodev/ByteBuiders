@@ -36,9 +36,9 @@ class PauseActivity : BaseActivity() {
         }
         binding.muteButton.setOnClickListener {
             if (MusicPlayer.isPlaying()) {
-                MusicPlayer.pause()
+                MusicPlayer.mute()
             } else {
-                MusicPlayer.resume()
+                MusicPlayer.mute()
             }
         }
 

@@ -10,7 +10,7 @@ object MusicPlayer {
     private var isPausedByFocusLoss = false
     private lateinit var audioManager: AudioManager
     private var isMuted = false
-    private var currentVolume = 1.0f // Volumen actual para restaurarlo tras quitar el mute
+    private var currentVolume = 0.5f // Volumen actual para restaurarlo tras quitar el mute
 
     private val audioFocusChangeListener = AudioManager.OnAudioFocusChangeListener { focusChange ->
         when (focusChange) {
@@ -52,7 +52,7 @@ object MusicPlayer {
 
     fun mute() {
         if (!isMuted) {
-            currentVolume = 1.0f // Asegúrate de que el volumen sea el máximo antes de mutear
+            currentVolume // Asegúrate de que el volumen sea el máximo antes de mutear
             setVolume(0f) // Silencia la música
             isMuted = true
         } else {
