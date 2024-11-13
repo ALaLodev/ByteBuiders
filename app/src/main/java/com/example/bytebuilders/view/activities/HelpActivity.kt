@@ -19,7 +19,5 @@ class HelpActivity : AppCompatActivity() {
 
         binding.webViewHelp.settings.javaScriptEnabled = true
         binding.webViewHelp.loadUrl("file:///android_asset/help.html") // Carga un HTML local
-
-
     }
 }
