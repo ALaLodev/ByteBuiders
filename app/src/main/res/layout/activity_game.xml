@@ -31,7 +31,7 @@
             android:id="@+id/roundText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="30dp"
+            android:layout_marginEnd="20dp"
             android:text="@string/round_number"
             android:textColor="@color/black"
             android:textSize="30sp"
@@ -41,7 +41,7 @@
             android:id="@+id/attemptText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Intento: 1/4"
+            android:text="@string/Attempt"
             android:textColor="@color/black"
             android:textSize="30sp"
             android:textStyle="bold" />
@@ -74,7 +74,7 @@
         android:id="@+id/feedback"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="80dp"
         android:gravity="center"
         android:text=""
         android:textColor="@color/black"
@@ -116,6 +116,7 @@
             android:id="@+id/minusButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/btn_minus_description"
             android:src="@drawable/ic_subtract" />
 
         <!-- Número seleccionado -->
@@ -136,6 +137,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/black"
+            android:contentDescription="@string/btn_plus_description"
             android:src="@drawable/ic_plus"
             app:tint="@color/white" />
     </LinearLayout>

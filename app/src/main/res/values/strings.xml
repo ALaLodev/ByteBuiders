@@ -19,11 +19,12 @@
     <string name="main_menu">Volver al inicio</string>
 
     <!--Puntuaciones, activity_scores -->
+    <string name="points">Puntos</string>
     <string name="scores_title">Puntuaciones</string>
-    <string name="player1_score">NombreJugador1 - Puntuacion</string>
-    <string name="player2_score">NombreJugador2 - Puntuacion</string>
-    <string name="player3_score">NombreJugador3 - Puntuacion</string>
-    <string name="player4_score">NombreJugador4 - Puntuacion</string>
+    <string name="player1_score">NombreJugador1</string>
+    <string name="player2_score">NombreJugador2</string>
+    <string name="player3_score">NombreJugador3</string>
+    <string name="player4_score">NombreJugador4</string>
     <string name="main_to_menu">Volver al Menu</string>
 
     <!--Ajustes, activity_settings -->
@@ -50,8 +51,9 @@
     <string name="de_flag_description">Bandera Alemana</string>
     <string name="es_flag_description">Bandera España</string>
     <string name="usa_flag_description">Bandera USA</string>
-
-    <!--Pantalla Seleccion -->
-
+    <string name="scores_settings">Puntuaciones</string>
+    <string name="Attempt">Intento:</string>
+    <string name="btn_minus_description">btn_minus</string>
+    <string name="btn_plus_description">btn_plus</string>
 
 </resources>

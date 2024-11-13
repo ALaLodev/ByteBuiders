@@ -2,18 +2,14 @@ package com.example.bytebuilders.view.activities
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.SharedPreferences
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.health.connect.datatypes.ExerciseRoute
+import android.content.SharedPreferences
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.ImageView
 import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
@@ -26,6 +22,10 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import android.Manifest
@@ -35,18 +35,8 @@ import android.widget.Toast
 class GameActivity : BaseActivity() {
 
     private lateinit var binding: ActivityGameBinding
-    private lateinit var fusedLocationClient: FusedLocationProviderClient
-    //private lateinit var plusButton: FloatingActionButton
-    //private lateinit var minusButton: FloatingActionButton
-   // private lateinit var selectedNumber: TextView
-    //private lateinit var sendButton: Button
-    //private lateinit var attempsText: TextView
-    //private lateinit var btnInicio: Button
-    //private lateinit var cardImageView: ImageView
-    //private lateinit var pauseButton: ImageButton
 
-   // private lateinit var feedback: TextView
-    //private lateinit var roundtext: TextView
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
 
     private var randomNumber = 0
     private var selectedNumberValue = 1
@@ -78,17 +68,8 @@ class GameActivity : BaseActivity() {
 
         sharedPreferences = getSharedPreferences("GameSettings", Context.MODE_PRIVATE)
         volumeLevel = sharedPreferences.getInt("volumeLevel", 50)
-        // Inicializar FusedLocationProviderClient
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-        //plusButton = findViewById(R.id.plusButton)
-        //minusButton = findViewById(R.id.minusButton)
-        //selectedNumber = findViewById(R.id.selectedNumber)
-        //sendButton = findViewById(R.id.sendButton)
-        //feedback = findViewById(R.id.feedback)
-        //roundtext = findViewById(R.id.roundText)
         binding.attemptText
-        //btnInicio = findViewById(R.id.scores)
-        //binding.hiddenCard = findViewById(R.id.hiddenCard)
 
         startNewRound()
         binding.returnToStart.visibility = View.GONE

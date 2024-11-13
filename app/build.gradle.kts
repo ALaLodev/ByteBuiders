@@ -7,7 +7,7 @@ plugins {
 
 android {
     namespace = "com.example.bytebuilders"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.bytebuilders"
@@ -43,6 +43,7 @@ android {
 dependencies {
 
     implementation(libs.androidx.room.common)
+    implementation(libs.androidx.lifecycle.process)
     implementation(libs.play.services.location)
     val room_version = "2.6.1"
 

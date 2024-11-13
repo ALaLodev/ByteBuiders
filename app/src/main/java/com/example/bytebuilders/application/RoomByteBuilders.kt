@@ -1,8 +1,10 @@
 package com.example.bytebuilders.application
 
 import android.app.Application
+import androidx.lifecycle.ProcessLifecycleOwner
 import androidx.room.Room
 import com.example.bytebuilders.model.data.database.AppDataBase
+import com.example.bytebuilders.view.utils.AppLifecycleObserver
 
 class RoomByteBuilders : Application() {
 
@@ -10,6 +12,9 @@ class RoomByteBuilders : Application() {
         super.onCreate()
         // Inicializa la instancia de la base de datos
         db = getDatabase(this)
+
+        // Registra el observador del ciclo de vida global para manejar el estado de la música
+        ProcessLifecycleOwner.get().lifecycle.addObserver(AppLifecycleObserver())
     }
 
     companion object {
