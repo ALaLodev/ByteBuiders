@@ -166,7 +166,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/main_to_menu"
-            android:layout_marginTop="36dp" />
+            android:layout_marginTop="350dp"
+            android:layout_gravity="center"/>
 
     </LinearLayout>
 
