@@ -210,6 +210,7 @@ class GameActivity : BaseActivity() {
             binding.plusButton.visibility = View.GONE
             binding.minusButton.visibility = View.GONE
             binding.selectedNumber.visibility = View.GONE
+            binding.roundScoreLayout.visibility = View.GONE
             binding.returnToStart.visibility = View.VISIBLE
 
             // Mostrar la carta final

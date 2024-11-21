@@ -63,12 +63,12 @@
         android:id="@+id/hiddenCard"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="90dp"
+        android:layout_marginTop="160dp"
         android:contentDescription="@string/pack_of_cards"
         android:src="@drawable/spr_reverso"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/attemptsLayout" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/feedback"
