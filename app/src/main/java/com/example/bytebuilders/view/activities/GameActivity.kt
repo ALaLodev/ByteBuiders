@@ -1,15 +1,23 @@
 package com.example.bytebuilders.view.activities
 
 import android.annotation.SuppressLint
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.media.MediaPlayer
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
+import android.graphics.BitmapFactory
 import com.example.bytebuilders.R
 import com.example.bytebuilders.databinding.ActivityGameBinding
 import com.example.bytebuilders.viewmodel.MainViewModel
@@ -17,6 +25,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.time.Duration
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -36,17 +45,19 @@ class GameActivity : BaseActivity() {
     private lateinit var sharedPreferences: SharedPreferences
     private var volumeLevel: Int = 50
     private var mediaPlayer: MediaPlayer? = null
+    private var startTime: LocalDateTime? = null // Registro del tiempo de inicio del juego
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        createNotificationChannel() // Crear el canal de notificaciones
         binding = ActivityGameBinding.inflate(layoutInflater)
         enableEdgeToEdge()
         setContentView(binding.root)
 
+        startTime = LocalDateTime.now() // Registrar el tiempo de inicio del juego
+
         sharedPreferences = getSharedPreferences("GameSettings", Context.MODE_PRIVATE)
         volumeLevel = sharedPreferences.getInt("volumeLevel", 50)
-
-        binding.attemptText
 
         startNewRound()
         binding.returnToStart.visibility = View.GONE
@@ -220,7 +231,54 @@ class GameActivity : BaseActivity() {
         val winnerScore = points
         val winnerDateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
 
-        // Llamar al ViewModel para registrar el ganador
+        // Calcular tiempo transcurrido
+        val elapsedTime = Duration.between(startTime, LocalDateTime.now()).seconds
+        val formattedTime = "${elapsedTime / 60}m ${elapsedTime % 60}s"
+
+        // Registrar datos en el ViewModel
         modelo.insertUser(winnerName, winnerScore, winnerDateTime)
+
+        // Mostrar notificación
+        showVictoryNotification(formattedTime)
+
+        // Mostrar el tiempo de resolución en un Toast
+        showTimeToast(formattedTime)
+    }
+
+    private fun createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = NotificationChannel(
+                "game_notifications",
+                "Game Notifications",
+                NotificationManager.IMPORTANCE_DEFAULT
+            ).apply {
+                description = "Notifications for game events"
+            }
+            val notificationManager = getSystemService(NotificationManager::class.java)
+            notificationManager.createNotificationChannel(channel)
+        }
+    }
+
+    private fun showVictoryNotification(elapsedTime: String) {
+        // Cargar el logo de la notificación desde los recursos
+        val logoBitmap = BitmapFactory.decodeResource(resources, R.drawable.guesswarslogo) // Asegúrate de que "logo" sea el nombre del archivo sin la extensión
+
+        val notification = NotificationCompat.Builder(this, "game_notifications")
+            .setSmallIcon(R.drawable.ic_launcher_foreground) // Ícono pequeño de la notificación
+            .setLargeIcon(logoBitmap) // Ícono grande de la notificación
+            .setContentTitle("¡Victoria!")
+            .setContentText("La partida ha durado $elapsedTime.")
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setAutoCancel(true)
+            .build()
+
+        with(NotificationManagerCompat.from(this)) {
+            notify(1001, notification)
+        }
+    }
+
+    private fun showTimeToast(elapsedTime: String) {
+        // Muestra un Toast con el tiempo de resolución
+        Toast.makeText(this, "¡Se acabó! La partida ha durado: $elapsedTime", Toast.LENGTH_LONG).show()
     }
 }
