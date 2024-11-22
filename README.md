@@ -6,7 +6,7 @@ Este proyecto es un **juego de cartas para Android** desarrollado en equipo por 
 <p align="center">
   <img src="/screenShots/Screenshot_1.png" alt="Principal Screen" width="15%" style="margin-right: 40dp">
    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <!-- 5 espacios no separables -->
-  <img src="/screenShots/Screenshot_2.png" alt="Principal Screen" width="15%" style="margin-right: 100dp, margin-left:100dp">
+  <img src="/screenShots/Screenshot_2.png" alt="Principal Screen" width="15%" style="margin-right: 100dp">
    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <!-- 5 espacios no separables -->
   <img src="/screenShots/Screenshot_3.png" alt="Detail Screen" width="15%">
 </p>
