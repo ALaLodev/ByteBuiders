@@ -1,4 +1,4 @@
-```markdown
+
 # Proyecto Horóscopo
 
 El proyecto **Horóscopo** utiliza una combinación de tecnologías modernas para Android que destacan tanto en el desarrollo funcional como en la optimización del rendimiento. A continuación, se detallan las principales tecnologías y herramientas utilizadas:
@@ -45,6 +45,3 @@ El proyecto **Horóscopo** utiliza una combinación de tecnologías modernas par
 - **Capacidad para construir interfaces visualmente atractivas y usables.**  
 - **Experiencia en integración de servicios externos y manejo eficiente de datos locales.**  
 - **Competencia en pruebas para asegurar fiabilidad y calidad del software.**
-
-Este conjunto de tecnologías refleja un enfoque profesional y actualizado, ideal para destacar en proyectos de desarrollo Android.
-```
