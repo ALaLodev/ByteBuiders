@@ -3,9 +3,10 @@
 Este proyecto es un **juego de cartas para Android** desarrollado en equipo por cuatro estudiantes. Su objetivo principal es que los jugadores adivinen una carta oculta, recibiendo pistas en cada intento para mejorar su estrategia. Destaca por integrar **funcionalidades avanzadas** que optimizan la experiencia del usuario y el rendimiento de la aplicación.
 
 ---
-<p align="center">
-  <img src="/screenShots/Screenshot_1.png" alt="Principal Screen" width="15%" style="margin-right: 80px;">
-  <img src="/screenShots/Screenshot_2.png" alt="Principal Screen" width="15%" style="margin-left: 150px; margin-right: 150px;">
+<img src="/screenShots/Screenshot_1.png" alt="Principal Screen" width="15%" ">
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <!-- 5 espacios no separables -->
+  <img src="/screenShots/Screenshot_2.png" alt="Principal Screen" width="15%" ">
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <!-- 5 espacios no separables -->
   <img src="/screenShots/Screenshot_3.png" alt="Detail Screen" width="15%">
 </p>
 
