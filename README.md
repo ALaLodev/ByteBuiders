@@ -1,47 +1,55 @@
+# 🃏 Juego de Cartas para Android
 
-# Proyecto Horóscopo
+Este proyecto es un **juego de cartas para Android** desarrollado en equipo por cuatro estudiantes. Su objetivo principal es que los jugadores adivinen una carta oculta, recibiendo pistas en cada intento para mejorar su estrategia. Destaca por integrar **funcionalidades avanzadas** que optimizan la experiencia del usuario y el rendimiento de la aplicación.
 
-El proyecto **Horóscopo** utiliza una combinación de tecnologías modernas para Android que destacan tanto en el desarrollo funcional como en la optimización del rendimiento. A continuación, se detallan las principales tecnologías y herramientas utilizadas:
+---
 
-## Tecnologías Utilizadas
+## ✨ **Funcionalidades Principales**
 
-- **Arquitectura: MVVM (Model-View-ViewModel)**  
-  Garantiza la separación de responsabilidades, facilitando la escalabilidad y el mantenimiento del código.
+### 🎵 **Manejo de Música de Fondo**  
+- Música dinámica que se detiene automáticamente al recibir llamadas o al pasar otra aplicación al primer plano.  
+- Se reanuda automáticamente al recuperar el foco.  
+- Controles intuitivos para silenciar o activar la música.
 
-- **Inyección de Dependencias: Dagger/Hilt**  
-  Simplifica la gestión de dependencias, mejorando la modularidad y reduciendo el acoplamiento.
+### 🔔 **Notificaciones Push**  
+- Notificación automática al finalizar cada partida.  
+- Muestra el tiempo transcurrido de la partida de forma atractiva.
 
-- **Programación Asíncrona: Kotlin Coroutines & StateFlow**  
-  Facilita el manejo de tareas en segundo plano de manera eficiente, asegurando una experiencia de usuario fluida.
+### 📸 **Captura de Pantalla**  
+- Permite a los usuarios tomar capturas del juego.  
+- Almacena las imágenes en el dispositivo, con opción de elegir la ubicación.
 
-- **Consumo de APIs: Retrofit**  
-  Framework utilizado para realizar solicitudes HTTP/HTTPS, permitiendo una integración sencilla con servicios externos para obtener los datos del horóscopo.
+### 🗺️ **Almacenamiento y Base de Datos**  
+- Guarda la ubicación del jugador al finalizar la partida.  
+- Las victorias se registran automáticamente en el calendario del dispositivo.
 
-- **Persistencia de Datos: Room Database**  
-  Proporciona una base de datos local para almacenar datos en caché, permitiendo que la aplicación funcione sin conexión.
+### 🔐 **Autenticación con Firebase**  
+- Inicia sesión de forma segura mediante una cuenta de Google.  
+- Integra un sistema de autenticación confiable y moderno.
 
-- **UI Dinámica: RecyclerView**  
-  Permite mostrar listas de datos de manera eficiente y escalable.
+### 🏆 **Clasificación Global**  
+- Sistema de **Top 10 de puntuaciones altas**, gestionado con Firebase.  
+- Fomenta la competitividad entre los jugadores.
 
-- **Navegación: Navigation Component**  
-  Gestiona la navegación entre fragmentos y actividades, asegurando transiciones suaves e intuitivas.
+### 🌍 **Interfaz Multilingüe**  
+- Adapta automáticamente el idioma del juego según la configuración del dispositivo.  
+- Opción para configurar el idioma manualmente desde el menú.
 
-- **Gradle Kotlin DSL (KTS)**  
-  Herramienta para la configuración y construcción del proyecto de forma declarativa y optimizada.
+### 🌐 **WebView Integrado**  
+- Página de ayuda en formato HTML embebida dentro de la aplicación.  
+- Diseñada para ser intuitiva y acorde con la estética del juego.
 
-- **Testing: JUnit, Mockito y Espresso**  
-  Conjunto de herramientas para escribir pruebas unitarias y de interfaz de usuario, asegurando la estabilidad del código.
+### 🚀 **Programación Concurrente y Servicios**  
+- Uso eficiente de hilos y servicios para la gestión de música y almacenamiento.  
+- Optimización de rendimiento, reduciendo el consumo de CPU y memoria.
 
-## Características Clave
+---
 
-- **Modern UI:** Diseño atractivo y centrado en la experiencia del usuario.  
-- **Soporte Offline:** Implementación de mecanismos de caché para garantizar funcionalidad sin conexión.  
-- **Optimización de Rendimiento:** Uso de corrutinas y prácticas modernas para reducir el consumo de recursos.  
-- **Integración API:** Manejo robusto de solicitudes, errores y estados de carga.
+## 🎯 **Destacado por...**
+- Diseño atractivo y centrado en la **experiencia del usuario**.  
+- Uso de tecnologías avanzadas como **Firebase**, programación concurrente y arquitectura modular.  
+- Funcionalidades modernas que combinan diversión, accesibilidad y rendimiento.
 
-## Habilidades Demostradas
+---
 
-- **Dominio de principios SOLID y buenas prácticas de desarrollo.**  
-- **Capacidad para construir interfaces visualmente atractivas y usables.**  
-- **Experiencia en integración de servicios externos y manejo eficiente de datos locales.**  
-- **Competencia en pruebas para asegurar fiabilidad y calidad del software.**
+Este proyecto refleja un enfoque profesional en el desarrollo móvil y la colaboración en equipo, implementando prácticas modernas para una experiencia de usuario fluida y entretenida. 🎉
