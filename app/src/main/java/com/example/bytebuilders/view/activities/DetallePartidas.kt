@@ -4,15 +4,11 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.GridView
-import android.widget.LinearLayout
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
-import com.example.bytebuilders.R
-import com.example.bytebuilders.databinding.ActivityGameBinding
 import com.example.bytebuilders.databinding.DetallePartidasBinding
 import com.example.bytebuilders.viewmodel.MainViewModel
-import com.example.bytebuilders.vistamodelo.MyGridAdapter
+import com.example.bytebuilders.viewmodel.MyGridAdapter
+
 
 class DetallePartidas : BaseActivity()  {
     private lateinit var binding: DetallePartidasBinding

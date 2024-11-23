@@ -56,7 +56,7 @@ class GameActivity : BaseActivity() {
     private var volumeLevel: Int = 50
     private var mediaPlayer: MediaPlayer? = null
     private val PERMISSION_REQUEST_CODE = 1
-
+    private var startTime: LocalDateTime? = null // Registro del tiempo de inicio del juego
 
     // Lanzador para solicitar permisos de ubicación
     private val requestPermissionLauncher =
@@ -81,7 +81,7 @@ class GameActivity : BaseActivity() {
         binding = ActivityGameBinding.inflate(layoutInflater)
         enableEdgeToEdge()
         setContentView(binding.root)
-
+        startTime = LocalDateTime.now() // Registrar el tiempo de inicio del juego
         sharedPreferences = getSharedPreferences("GameSettings", Context.MODE_PRIVATE)
         volumeLevel = sharedPreferences.getInt("volumeLevel", 50)
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
