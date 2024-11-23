@@ -15,15 +15,15 @@
         <!-- Titulo de la pantalla -->
         <TextView
             android:id="@+id/titleScores"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="100dp"
             android:layout_marginBottom="30dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:text="@string/scores_settings"
+            android:textColor="@android:color/white"
             android:textSize="36sp"
-            android:textStyle="bold"
-            android:textColor="@android:color/white" />
+            android:textStyle="bold" />
 
 
         <!-- Espacio entre el boton y los rankings -->
@@ -44,27 +44,27 @@
                 android:id="@+id/position1Layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#FFD700"
-                android:padding="16dp"
                 android:layout_marginBottom="8dp"
-                android:orientation="horizontal">
+                android:background="#FFD700"
+                android:orientation="horizontal"
+                android:padding="16dp">
 
                 <TextView
                     android:id="@+id/position1Text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="1. "
+                    android:textColor="@android:color/black"
                     android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:textColor="@android:color/black" />
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/player1NameScore"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/player1_score"
-                    android:textSize="20sp"
-                    android:textColor="@android:color/black" />
+                    android:textColor="@android:color/black"
+                    android:textSize="20sp" />
 
             </LinearLayout>
 
@@ -74,27 +74,27 @@
                 android:id="@+id/position2Layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#C0C0C0"
-                android:padding="16dp"
                 android:layout_marginBottom="8dp"
-                android:orientation="horizontal">
+                android:background="#C0C0C0"
+                android:orientation="horizontal"
+                android:padding="16dp">
 
                 <TextView
                     android:id="@+id/position2Text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="2. "
+                    android:textColor="@android:color/black"
                     android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:textColor="@android:color/black" />
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/player2NameScore"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/player2_score"
-                    android:textSize="20sp"
-                    android:textColor="@android:color/black" />
+                    android:textColor="@android:color/black"
+                    android:textSize="20sp" />
 
             </LinearLayout>
 
@@ -104,27 +104,27 @@
                 android:id="@+id/position3Layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#CD7F32"
-                android:padding="16dp"
                 android:layout_marginBottom="8dp"
-                android:orientation="horizontal">
+                android:background="#CD7F32"
+                android:orientation="horizontal"
+                android:padding="16dp">
 
                 <TextView
                     android:id="@+id/position3Text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="3. "
+                    android:textColor="@android:color/black"
                     android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:textColor="@android:color/black" />
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/player3NameScore"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/player3_score"
-                    android:textSize="20sp"
-                    android:textColor="@android:color/black" />
+                    android:textColor="@android:color/black"
+                    android:textSize="20sp" />
 
             </LinearLayout>
 
@@ -134,27 +134,27 @@
                 android:id="@+id/position4Layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#8C8C8C"
-                android:padding="16dp"
                 android:layout_marginBottom="8dp"
-                android:orientation="horizontal">
+                android:background="#8C8C8C"
+                android:orientation="horizontal"
+                android:padding="16dp">
 
                 <TextView
                     android:id="@+id/position4Text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="4. "
+                    android:textColor="@android:color/black"
                     android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:textColor="@android:color/black" />
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/player4NameScore"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/player4_score"
-                    android:textSize="20sp"
-                    android:textColor="@android:color/black" />
+                    android:textColor="@android:color/black"
+                    android:textSize="20sp" />
 
             </LinearLayout>
         </LinearLayout>
@@ -165,9 +165,10 @@
             style="@style/Widget.AppCompat.Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/main_to_menu"
+            android:layout_gravity="center"
             android:layout_marginTop="350dp"
-            android:layout_gravity="center"/>
+            android:text="@string/main_to_menu"
+            android:textStyle="bold" />
 
     </LinearLayout>
 

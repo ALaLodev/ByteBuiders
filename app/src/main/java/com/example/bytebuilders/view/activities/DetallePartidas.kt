@@ -47,7 +47,7 @@ class DetallePartidas : BaseActivity()  {
 
         //val endGameLayout = findViewById<LinearLayout>(R.id.endGameLayout)
 
-        binding.endGameLayout.visibility = View.VISIBLE
+        //binding.endGameLayout.visibility = View.VISIBLE
 
 
     }
