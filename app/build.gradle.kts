@@ -63,7 +63,7 @@ dependencies {
     implementation (libs.androidx.room.ktx)
     //LOCALIZACION
     implementation(libs.androidx.activity)
-    implementation(libs.play.services.location)
+   // implementation(libs.play.services.location)
     // To use Kotlin annotation processing tool (kapt)
     kapt("androidx.room:room-compiler:$room_version")
     // optional - RxJava2 support for Room

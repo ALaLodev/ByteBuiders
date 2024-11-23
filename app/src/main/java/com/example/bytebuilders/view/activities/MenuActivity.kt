@@ -47,7 +47,8 @@ class MenuActivity : BaseActivity() {
 
         binding.playGame.setOnClickListener { navigateToSelectPlayers() }
         binding.btnScores.setOnClickListener { navigateToScores() }
-
+        //Llamada Detalle partida
+        binding.btnDetalle.setOnClickListener{navigateDetailGame()}
         // Configución botón mute
         binding.muteButtonMenu.setOnClickListener {
             if (MusicPlayer.isPlaying()) {
@@ -68,6 +69,14 @@ class MenuActivity : BaseActivity() {
         intent.putExtra("CURRENT_SCORE", points)
         startActivity(intent)
     }
+    //Boton Detalle Partida
+    private fun navigateDetailGame(){
+
+        val intent = Intent(this, DetallePartidas::class.java)
+        startActivity(intent)
+
+    }
+
 
     override fun onResume() {
         super.onResume()

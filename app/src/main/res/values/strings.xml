@@ -12,6 +12,7 @@
     <string name="scores">Puntuaciones</string>
     <string name="settings_description">Ajustes</string>
     <string name="exit_description">Salir</string>
+    <string name="detallePuntuacion">Detalle Puntuacion</string>
 
     <!--Pausa, activity_pause -->
     <string name="pause_title">Pausa</string>

@@ -1,6 +1,8 @@
 package com.example.bytebuilders.viewmodel
 
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.bytebuilders.application.RoomByteBuilders
@@ -27,17 +29,27 @@ class MainViewModel : ViewModel() {
             try {
                 RoomByteBuilders.db.userDao().insertUser(userEntity)
             } catch (e: Exception) {
-                // excepción (por ejemplo, mostrar un mensaje de error en el Logcat)
+                //  mostrar un mensaje de error en el Logcat
                 Log.e("MainViewModel", "Error al insertar usuario: ${e.message}")
             }
         }
     }
-    fun loadAllUser() {
+    private val _errorMessage = MutableLiveData<String>()
+    val errorMessage: LiveData<String> get() = _errorMessage
 
+    fun loadAllUser () {
         viewModelScope.launch(Dispatchers.IO) {
-            val userList = RoomByteBuilders.db.userDao().getAll()
-            _users.postValue(userList)
+            try {
+                // obtener la lista de usuarios desde la base de datos
+                val userList = RoomByteBuilders.db.userDao().getAll()
+                _users.postValue(userList)
+            } catch (e: Exception) {
+                // Manejo de errores: captura cualquier excepción y establece un mensaje de error
+                Log.e("User ViewModel", "Error al cargar usuarios: ${e.message}")
+                _errorMessage.postValue("No se pudo cargar la lista de usuarios. Intenta nuevamente.")
+            }
         }
     }
+
 
 }

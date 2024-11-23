@@ -18,25 +18,22 @@ class DetallePartidas : BaseActivity()  {
     private lateinit var binding: DetallePartidasBinding
 
     private val modelo: MainViewModel by viewModels()
-    private lateinit var gridView: GridView
-    private var points = 10
+    //private lateinit var gridView: GridView
+   // private var points = 10
 
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.detalle_partidas)
         binding = DetallePartidasBinding.inflate(layoutInflater)
+        super.onCreate(savedInstanceState)
+        //setContentView(R.layout.detalle_partidas)
         setContentView(binding.root)
-
-        //gridView = findViewById(R.id.griddetalle)
-
         binding.griddetalle
 
 
         binding.returnToStart.setOnClickListener {
             val intent = Intent(this, MenuActivity::class.java)
-            intent.putExtra("Final_Score", points) // Pasa la puntuación final al siguiente activity
+            //intent.putExtra("Final_Score", points) // Pasa la puntuación final al siguiente activity
             startActivity(intent)
         }
 

@@ -1,36 +1,35 @@
 package com.example.bytebuilders.view.activities
 
+import android.Manifest
 import android.annotation.SuppressLint
+import android.app.AlertDialog
+import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.health.connect.datatypes.ExerciseRoute
 import android.content.SharedPreferences
+import android.content.pm.PackageManager
+import android.location.Location
 import android.media.MediaPlayer
 import android.os.Bundle
+import android.provider.CalendarContract
+import android.util.Log
 import android.view.View
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.example.bytebuilders.R
 import com.example.bytebuilders.databinding.ActivityGameBinding
 import com.example.bytebuilders.viewmodel.MainViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-import android.Manifest
-import android.location.Location
-import android.widget.Toast
+import java.util.TimeZone
 
 class GameActivity : BaseActivity() {
 
@@ -50,14 +49,25 @@ class GameActivity : BaseActivity() {
     private lateinit var sharedPreferences: SharedPreferences
     private var volumeLevel: Int = 50
     private var mediaPlayer: MediaPlayer? = null
+    private val PERMISSION_REQUEST_CODE = 1
 
 
+    // Lanzador para solicitar permisos de ubicación
     private val requestPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
             if (isGranted) {
-                 registerWinner()
+                registerWinner()
             } else {
-                // mostrar un mensaje al usuario
+                Toast.makeText(this, "No entra donde debe ", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+    private val requestCalendarPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
+            if (isGranted) {
+                createCalendarEvent()
+            } else {
+                Toast.makeText(this, "Permiso de calendario denegado", Toast.LENGTH_SHORT).show()
             }
         }
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -99,8 +109,49 @@ class GameActivity : BaseActivity() {
             val intent = Intent(this, PauseActivity::class.java)
             startActivity(intent)
         }
+        // A partir de Android 6.0 (API nivel 23),
+        //  solicitar permisos en tiempo de ejecución
+        // Solicitar permisos de ubicación
+        requestLocationPermission()
+
+
+        // Solicitar permisos de calendario
+        requestCalendarPermission()
+
+    }//fin oncreate
+
+    private fun requestCalendarPermission() {
+        when {
+            ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_CALENDAR) == PackageManager.PERMISSION_GRANTED -> {
+                createCalendarEvent() // Si ya se tiene el permiso, crear el evento
+            }
+            else -> {
+                requestCalendarPermissionLauncher.launch(Manifest.permission.WRITE_CALENDAR) // Solicitar permiso
+            }
+        }
     }
 
+    private fun createCalendarEvent() {
+        val contentResolver = contentResolver
+        val values = ContentValues().apply {
+            put(CalendarContract.Events.DTSTART, System.currentTimeMillis()) // Fecha y hora de inicio del evento
+            put(CalendarContract.Events.DTEND, System.currentTimeMillis() + 60 * 60 * 1000) // Duración del evento (1 hora)
+            put(CalendarContract.Events.TITLE, "Victoria de ${"Jugador"}")
+            put(CalendarContract.Events.DESCRIPTION, "Puntuación final: $points puntos")
+            put(CalendarContract.Events.CALENDAR_ID, 1) // Calendario predeterminado
+            put(CalendarContract.Events.EVENT_TIMEZONE, TimeZone.getDefault().id)
+        }
+
+        // Insertar el evento en el calendario
+        val uri = contentResolver.insert(CalendarContract.Events.CONTENT_URI, values)
+
+        if (uri != null) {
+            Log.d("Calendar", "Evento registrado: $uri")
+            Toast.makeText(this, "Evento registrado en el calendario", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(this, "No se pudo registrar el evento", Toast.LENGTH_SHORT).show()
+        }
+    }
     private fun setVolume(volume: Int) {
         val maxVolume = 100
         val volumeAdjustment = (1 - (Math.log((maxVolume - volume).toDouble()) / Math.log(maxVolume.toDouble()))).toFloat()
@@ -230,8 +281,8 @@ class GameActivity : BaseActivity() {
             binding.hiddenCard.setImageResource(resources.getIdentifier("card_$randomNumber", "drawable", packageName))
 
             // Mostrar el layout de fin de juego
-            //val endGameLayout = findViewById<LinearLayout>(R.id.endGameLayout)
-             //endGameLayout.visibility = View.VISIBLE
+            val endGameLayout = findViewById<LinearLayout>(R.id.endGameLayout)
+            endGameLayout.visibility = View.VISIBLE
 
             // Registrar al ganador
             registerWinner()
@@ -240,6 +291,7 @@ class GameActivity : BaseActivity() {
     //Llamada a ganador suceden varias cosas
     //Lllamar pantalla detalle y
     //Llamar a latitud longitud
+    //Llamar a calendario
     private fun registerWinner() {
         val winnerName = "Jugador"
         val winnerScore = points
@@ -249,17 +301,21 @@ class GameActivity : BaseActivity() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
                 if (location != null) {
-                    val locationData = LocationData(location.latitude, location.longitude)
+                    val locationData = LocationData(
+                        location.latitude,
+                        location.longitude
+                    )
                     // Llamar al ViewModel para registrar el ganador
                     modelo.insertUser (winnerName, winnerScore, winnerDateTime,locationData)
-                    val intent = Intent(this, DetallePartidas::class.java)
-                    startActivity(intent)
+                   // val intent = Intent(this, DetallePartidas::class.java)
+                   // startActivity(intent)
+                    requestCalendarPermission() // Llama a la función para solicitar permiso de calendario
                 } else {
-                    // Manejar el caso en que no se pudo obtener la ubicación
+                    //  caso en que no se pudo obtener la ubicación
                     Toast.makeText(this, "No se pudo obtener la ubicación. Intenta nuevamente.", Toast.LENGTH_SHORT).show()
                 }
             }.addOnFailureListener { e ->
-                // Manejar el caso en que hubo un error al obtener la ubicación
+                //  caso en que hubo un error al obtener la ubicación
                 Toast.makeText(this, "Error al obtener la ubicación: ${e.message}", Toast.LENGTH_SHORT).show()
             }
         } else {
@@ -271,8 +327,36 @@ class GameActivity : BaseActivity() {
 
     //Parte de registro latitud longitud
     private fun requestLocationPermission() {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
+        when {
+            // Si ya se tiene el permiso
+            ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED -> {
+                // Ya tienes permiso, registra al ganador
+                registerWinner()
+            }
+            // Si no se tiene el permiso, se solicita
+            else -> {
+                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), PERMISSION_REQUEST_CODE)
+            }
         }
     }
+    //PARTE DE LOCALIZACION
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == PERMISSION_REQUEST_CODE) {
+            if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                // Permiso concedido, registra al ganador
+                registerWinner()
+            } else {
+                // Permiso denegado, informa al usuario
+                Toast.makeText(this, "Permiso de ubicación denegado", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+
+
+
+
+
+
 }
