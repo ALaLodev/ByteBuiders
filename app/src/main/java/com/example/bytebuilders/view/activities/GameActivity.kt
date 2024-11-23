@@ -12,6 +12,7 @@ import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
 import android.location.Location
 import android.media.MediaPlayer
+import android.os.Build
 import android.os.Bundle
 import android.provider.CalendarContract
 import android.util.Log
@@ -136,10 +137,33 @@ class GameActivity : BaseActivity() {
         when {
             ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_CALENDAR) == PackageManager.PERMISSION_GRANTED -> {
                 createCalendarEvent() // Si ya se tiene el permiso, crear el evento
+                showCalendarNotification()
             }
             else -> {
                 requestCalendarPermissionLauncher.launch(Manifest.permission.WRITE_CALENDAR) // Solicitar permiso
             }
+        }
+    }
+
+    private fun showCalendarNotification() {
+
+        // Verificar permisos de notificación en Android 13+ (API 33)
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+            // Si el permiso no está otorgado, mostrar un mensaje o solicitar permiso
+            Toast.makeText(this, "Permiso de notificaciones denegado. No se puede mostrar la notificación.", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val notification = NotificationCompat.Builder(this, "game_notifications")
+            .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .setContentTitle("Evento registrado")
+            .setContentText("Se ha registrado correctamente el evento en el calendario.")
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setAutoCancel(true)
+            .build()
+
+        with(NotificationManagerCompat.from(this)) {
+            notify(1002, notification) // ID único para esta notificación
         }
     }
 
@@ -292,9 +316,7 @@ class GameActivity : BaseActivity() {
             // Mostrar la carta final
             binding.hiddenCard.setImageResource(resources.getIdentifier("card_$randomNumber", "drawable", packageName))
 
-            // Mostrar el layout de fin de juego
-            val endGameLayout = findViewById<LinearLayout>(R.id.endGameLayout)
-            endGameLayout.visibility = View.VISIBLE
+            binding.endGameLayout.visibility = View.VISIBLE
 
             // Registrar al ganador
             registerWinner()
@@ -305,41 +327,35 @@ class GameActivity : BaseActivity() {
     //Llamar a latitud longitud
     //Llamar a calendario
     private fun registerWinner() {
-        val winnerName = "Jugador"
-        val winnerScore = points
-        val winnerDateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
-        // Calcular tiempo transcurrido
+        if (!gameEnded) return
+
         val elapsedTime = Duration.between(startTime, LocalDateTime.now()).seconds
         val formattedTime = "${elapsedTime / 60}m ${elapsedTime % 60}s"
 
-        // Obtener la ubicación
+        // Verificar permisos antes de llamar a fusedLocationClient.lastLocation
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
                 if (location != null) {
-                    val locationData = LocationData(
-                        location.latitude,
-                        location.longitude
-                    )
-
-                    // Mostrar notificación
+                    // Notificar la victoria con tiempo transcurrido
                     showVictoryNotification(formattedTime)
-                    // Mostrar el tiempo de resolución en un Toast
                     showTimeToast(formattedTime)
-                    requestCalendarPermission() // Llama a la función para solicitar permiso de calendario
                 } else {
-                    //  caso en que no se pudo obtener la ubicación
-                    Toast.makeText(this, "No se pudo obtener la ubicación. Intenta nuevamente.", Toast.LENGTH_SHORT).show()
+                    // Manejo cuando no se obtiene la ubicación
+                    Toast.makeText(this, "No se pudo obtener la ubicación.", Toast.LENGTH_SHORT).show()
                 }
-            }.addOnFailureListener { e ->
-                //  caso en que hubo un error al obtener la ubicación
-                Toast.makeText(this, "Error al obtener la ubicación: ${e.message}", Toast.LENGTH_SHORT).show()
+            }.addOnFailureListener {
+                // Manejo de errores al obtener la ubicación
+                Toast.makeText(this, "Error al obtener la ubicación.", Toast.LENGTH_SHORT).show()
             }
         } else {
-            // Solicitar permiso de ubicación
+            // Manejo si los permisos no están garantizados
+            Toast.makeText(this, "Permiso de ubicación no disponible.", Toast.LENGTH_SHORT).show()
+            // Puedes solicitar los permisos nuevamente si lo deseas
             requestLocationPermission()
         }
-
     }
+
+
     //crear notificación
     private fun createNotificationChannel() {
         val channel = NotificationChannel(
@@ -354,8 +370,14 @@ class GameActivity : BaseActivity() {
     }
     //compartir victoria y notificación
     private fun showVictoryNotification(elapsedTime: String) {
+        // Verificar permisos de notificación en Android 13+ (API 33)
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+            // Si el permiso no está otorgado, mostrar un mensaje o solicitar permiso
+            Toast.makeText(this, "Permiso de notificaciones denegado. No se puede mostrar la notificación.", Toast.LENGTH_SHORT).show()
+            return
+        }
         // Cargar el logo de la notificación desde los recursos
-        val logoBitmap = BitmapFactory.decodeResource(resources, R.drawable.guesswarslogo) // Asegúrate de que "logo" sea el nombre del archivo sin la extensión
+        val logoBitmap = BitmapFactory.decodeResource(resources, R.drawable.guesswarslogo)
 
         val notification = NotificationCompat.Builder(this, "game_notifications")
             .setSmallIcon(R.drawable.ic_launcher_foreground) // Ícono pequeño de la notificación
