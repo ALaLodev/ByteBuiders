@@ -62,7 +62,7 @@ class ScoresActivity : BaseActivity() {
     private fun displayScores(scores: List<UserEntity>) {
         // Nos aseguramos que la lista tenga al menos 4 elementos
         // Si no, rellenar con datos predeterminados
-        val defaultUser = UserEntity(namePlayer = "N/A", puntuacion = 0, fecha = "")
+        val defaultUser = UserEntity(namePlayer = "N/A", puntuacion = 0, fecha = "",latitude = 0.0, longitude = 0.0)
         val topScores = scores.take(4).toMutableList()
         while (topScores.size < 4) {
             topScores.add(defaultUser)

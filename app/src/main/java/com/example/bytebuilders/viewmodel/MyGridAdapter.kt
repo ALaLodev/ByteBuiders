@@ -29,12 +29,15 @@ class MyGridAdapter(private val context: Context, private val users: List<UserEn
         val textViewNamePlayer: TextView = view.findViewById(R.id.textViewNamePlayer)
         val textViewPuntuacion: TextView = view.findViewById(R.id.textViewPuntuacion)
         val textViewFecha: TextView = view.findViewById(R.id.textViewFecha)
+        val textViewLatitud: TextView = view.findViewById(R.id.textViewLatitud)
+        val textViewLongitud: TextView = view.findViewById(R.id.textViewLongitud)
 
         val user = users[position]
         textViewNamePlayer.text = user?.namePlayer ?: "Nombre desconocido"
         textViewPuntuacion.text = user?.puntuacion?.toString() ?: "Puntuación desconocida"
         textViewFecha.text = user?.fecha ?: "Fecha desconocida"
-
+        textViewLatitud.text = user?.latitude?.toString()?: "Latitud"
+        textViewLongitud.text= user?.longitude?.toString()?: "Longitud"
         return view
     }
 }

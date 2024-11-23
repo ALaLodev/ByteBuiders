@@ -2,45 +2,48 @@
 
 
 <!-- res/layout/grid_item_layout.xml -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:orientation="vertical"
-android:padding="8dp">
-
-<!-- Contenedor para los TextView -->
-<LinearLayout
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:padding="8dp"
+    android:columnCount="3">
 
     <TextView
         android:id="@+id/textViewNamePlayer"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_columnWeight="1"
         android:gravity="center"
-        android:textSize="16sp"
-        android:layout_weight="1"
-         />
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/textViewPuntuacion"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_columnWeight="1"
         android:gravity="center"
-        android:textSize="14sp"
-        android:layout_weight="1"
-       />
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/textViewFecha"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_columnWeight="1"
         android:gravity="center"
-        android:textSize="14sp"
-        android:layout_weight="1"
-         />
-</LinearLayout>
+        android:textSize="14sp" />
+    <TextView
+        android:id="@+id/textViewLatitud"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_columnWeight="1"
+        android:gravity="center"
+        android:text="Latitud" />
 
-
-    </LinearLayout>
+    <TextView
+        android:id="@+id/textViewLongitud"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_columnWeight="1"
+        android:gravity="center"
+        android:text="Longitud" />
+</GridLayout>

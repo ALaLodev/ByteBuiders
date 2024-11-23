@@ -38,7 +38,7 @@
         style="@style/Widget.AppCompat.Button"
         android:layout_width="300sp"
         android:layout_height="80sp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="10dp"
         android:contentDescription="@string/scores_description"
         android:scaleType="fitCenter"
         android:text="@string/scores"
@@ -49,7 +49,23 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/playGame" />
-
+    <!-- Nuevo botón debajo de btnScores -->
+    <Button
+        android:id="@+id/btnDetalle"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="300sp"
+        android:layout_height="80sp"
+        android:layout_marginTop="10dp"
+        android:contentDescription="Detalle Puntuación"
+        android:scaleType="fitCenter"
+        android:text="@string/detallePuntuacion"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:backgroundTint="#00FF00"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnScores" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

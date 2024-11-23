@@ -1,35 +1,47 @@
 package com.example.bytebuilders.view.activities
 
+import android.Manifest
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
+import android.location.Location
 import android.media.MediaPlayer
 import android.os.Bundle
+import android.provider.CalendarContract
+import android.util.Log
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContextCompat
 import com.example.bytebuilders.R
 import com.example.bytebuilders.databinding.ActivityGameBinding
 import com.example.bytebuilders.viewmodel.MainViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
+import kotlinx.coroutines.*
 import java.time.Duration
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import java.util.TimeZone
 
 class GameActivity : BaseActivity() {
 
     private lateinit var binding: ActivityGameBinding
+
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
 
     private var randomNumber = 0
     private var selectedNumberValue = 1
@@ -43,19 +55,37 @@ class GameActivity : BaseActivity() {
     private lateinit var sharedPreferences: SharedPreferences
     private var volumeLevel: Int = 50
     private var mediaPlayer: MediaPlayer? = null
-    private var startTime: LocalDateTime? = null // Registro del tiempo de inicio del juego
+    private val PERMISSION_REQUEST_CODE = 1
 
+
+    // Lanzador para solicitar permisos de ubicación
+    private val requestPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
+            if (isGranted) {
+                registerWinner()
+            } else {
+                Toast.makeText(this, "No entra donde debe ", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+    private val requestCalendarPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
+            if (isGranted) {
+                createCalendarEvent()
+            } else {
+                Toast.makeText(this, "Permiso de calendario denegado", Toast.LENGTH_SHORT).show()
+            }
+        }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        createNotificationChannel() // Crear el canal de notificaciones
         binding = ActivityGameBinding.inflate(layoutInflater)
         enableEdgeToEdge()
         setContentView(binding.root)
 
-        startTime = LocalDateTime.now() // Registrar el tiempo de inicio del juego
-
         sharedPreferences = getSharedPreferences("GameSettings", Context.MODE_PRIVATE)
         volumeLevel = sharedPreferences.getInt("volumeLevel", 50)
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+        binding.attemptText
 
         startNewRound()
         binding.returnToStart.visibility = View.GONE
@@ -85,8 +115,49 @@ class GameActivity : BaseActivity() {
             val intent = Intent(this, PauseActivity::class.java)
             startActivity(intent)
         }
+        // A partir de Android 6.0 (API nivel 23),
+        //  solicitar permisos en tiempo de ejecución
+        // Solicitar permisos de ubicación
+        requestLocationPermission()
+
+
+        // Solicitar permisos de calendario
+        requestCalendarPermission()
+
+    }//fin oncreate
+
+    private fun requestCalendarPermission() {
+        when {
+            ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_CALENDAR) == PackageManager.PERMISSION_GRANTED -> {
+                createCalendarEvent() // Si ya se tiene el permiso, crear el evento
+            }
+            else -> {
+                requestCalendarPermissionLauncher.launch(Manifest.permission.WRITE_CALENDAR) // Solicitar permiso
+            }
+        }
     }
 
+    private fun createCalendarEvent() {
+        val contentResolver = contentResolver
+        val values = ContentValues().apply {
+            put(CalendarContract.Events.DTSTART, System.currentTimeMillis()) // Fecha y hora de inicio del evento
+            put(CalendarContract.Events.DTEND, System.currentTimeMillis() + 60 * 60 * 1000) // Duración del evento (1 hora)
+            put(CalendarContract.Events.TITLE, "Victoria de ${"Jugador"}")
+            put(CalendarContract.Events.DESCRIPTION, "Puntuación final: $points puntos")
+            put(CalendarContract.Events.CALENDAR_ID, 1) // Calendario predeterminado
+            put(CalendarContract.Events.EVENT_TIMEZONE, TimeZone.getDefault().id)
+        }
+
+        // Insertar el evento en el calendario
+        val uri = contentResolver.insert(CalendarContract.Events.CONTENT_URI, values)
+
+        if (uri != null) {
+            Log.d("Calendar", "Evento registrado: $uri")
+            Toast.makeText(this, "Evento registrado en el calendario", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(this, "No se pudo registrar el evento", Toast.LENGTH_SHORT).show()
+        }
+    }
     private fun setVolume(volume: Int) {
         val maxVolume = 100
         val volumeAdjustment = (1 - (Math.log((maxVolume - volume).toDouble()) / Math.log(maxVolume.toDouble()))).toFloat()
@@ -210,7 +281,6 @@ class GameActivity : BaseActivity() {
             binding.plusButton.visibility = View.GONE
             binding.minusButton.visibility = View.GONE
             binding.selectedNumber.visibility = View.GONE
-            binding.roundScoreLayout.visibility = View.GONE
             binding.returnToStart.visibility = View.VISIBLE
 
             // Mostrar la carta final
@@ -224,26 +294,48 @@ class GameActivity : BaseActivity() {
             registerWinner()
         }
     }
-
+    //Llamada a ganador suceden varias cosas
+    //Lllamar pantalla detalle y
+    //Llamar a latitud longitud
+    //Llamar a calendario
     private fun registerWinner() {
         val winnerName = "Jugador"
         val winnerScore = points
         val winnerDateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
-
         // Calcular tiempo transcurrido
         val elapsedTime = Duration.between(startTime, LocalDateTime.now()).seconds
         val formattedTime = "${elapsedTime / 60}m ${elapsedTime % 60}s"
 
-        // Registrar datos en el ViewModel
-        modelo.insertUser(winnerName, winnerScore, winnerDateTime)
+        // Obtener la ubicación
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
+                if (location != null) {
+                    val locationData = LocationData(
+                        location.latitude,
+                        location.longitude
+                    )
+                    // Llamar al ViewModel para registrar el ganador
+                    modelo.insertUser (winnerName, winnerScore, winnerDateTime,locationData)
+                    // Mostrar notificación
+                    showVictoryNotification(formattedTime)
+                    // Mostrar el tiempo de resolución en un Toast
+                    showTimeToast(formattedTime)
+                    requestCalendarPermission() // Llama a la función para solicitar permiso de calendario
+                } else {
+                    //  caso en que no se pudo obtener la ubicación
+                    Toast.makeText(this, "No se pudo obtener la ubicación. Intenta nuevamente.", Toast.LENGTH_SHORT).show()
+                }
+            }.addOnFailureListener { e ->
+                //  caso en que hubo un error al obtener la ubicación
+                Toast.makeText(this, "Error al obtener la ubicación: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
+        } else {
+            // Solicitar permiso de ubicación
+            requestLocationPermission()
+        }
 
-        // Mostrar notificación
-        showVictoryNotification(formattedTime)
-
-        // Mostrar el tiempo de resolución en un Toast
-        showTimeToast(formattedTime)
     }
-
+    //crear notificación
     private fun createNotificationChannel() {
         val channel = NotificationChannel(
             "game_notifications",
@@ -255,7 +347,7 @@ class GameActivity : BaseActivity() {
         val notificationManager = getSystemService(NotificationManager::class.java)
         notificationManager.createNotificationChannel(channel)
     }
-
+    //compartir victoria y notificación
     private fun showVictoryNotification(elapsedTime: String) {
         // Cargar el logo de la notificación desde los recursos
         val logoBitmap = BitmapFactory.decodeResource(resources, R.drawable.guesswarslogo) // Asegúrate de que "logo" sea el nombre del archivo sin la extensión
@@ -274,8 +366,43 @@ class GameActivity : BaseActivity() {
         }
     }
 
-    private fun showTimeToast(elapsedTime: String) {
-        // Muestra un Toast con el tiempo de resolución
-        Toast.makeText(this, "¡Se acabó! La partida ha durado: $elapsedTime", Toast.LENGTH_LONG).show()
+//Mostrar el tiempo transcurrido
+private fun showTimeToast(elapsedTime: String) {
+    // Muestra un Toast con el tiempo de resolución
+    Toast.makeText(this, "¡Se acabó! La partida ha durado: $elapsedTime", Toast.LENGTH_LONG).show()
+}
+    //Parte de registro latitud longitud
+    private fun requestLocationPermission() {
+        when {
+            // Si ya se tiene el permiso
+            ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED -> {
+                // Ya tienes permiso, registra al ganador
+                registerWinner()
+            }
+            // Si no se tiene el permiso, se solicita
+            else -> {
+                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), PERMISSION_REQUEST_CODE)
+            }
+        }
     }
+    //PARTE DE LOCALIZACION
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == PERMISSION_REQUEST_CODE) {
+            if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                // Permiso concedido, registra al ganador
+                registerWinner()
+            } else {
+                // Permiso denegado, informa al usuario
+                Toast.makeText(this, "Permiso de ubicación denegado", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+
+
+
+
+
+
 }

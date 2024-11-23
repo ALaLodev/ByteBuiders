@@ -9,9 +9,10 @@ import com.example.bytebuilders.model.data.entitys.UserEntity
  *
  * ClASE ABASTRACTA
  * Version con cada modificacion o insercion aumentará
+ * Version 3 añadimos longitud y latitud
  */
 
-@Database(entities = [UserEntity::class],version = 2)
+@Database(entities = [UserEntity::class],version = 3)
 abstract class AppDataBase :RoomDatabase(){
     abstract fun userDao(): UserDao// Nuestra interface
 }
