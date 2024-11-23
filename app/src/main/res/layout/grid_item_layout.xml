@@ -6,13 +6,15 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="8dp"
-    android:columnCount="3">
+    android:columnCount="3"
+    android:background="#151923">
 
     <TextView
         android:id="@+id/textViewNamePlayer"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_columnWeight="1"
+        android:textColor="@color/white"
         android:gravity="center"
         android:textSize="16sp" />
 
@@ -21,6 +23,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_columnWeight="1"
+        android:textColor="@color/white"
         android:gravity="center"
         android:textSize="14sp" />
 
@@ -29,10 +32,12 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_columnWeight="1"
+        android:textColor="@color/white"
         android:gravity="center"
         android:textSize="14sp" />
     <TextView
         android:id="@+id/textViewLatitud"
+        android:textColor="@color/white"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_columnWeight="1"
@@ -40,6 +45,7 @@
         android:text="Latitud" />
 
     <TextView
+        android:textColor="@color/white"
         android:id="@+id/textViewLongitud"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

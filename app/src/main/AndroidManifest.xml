@@ -47,7 +47,9 @@
         <activity android:name=".view.activities.ScoresActivity" />
         <activity android:name=".view.activities.PauseActivity" />
         <activity android:name=".view.activities.SettingsActivity" />
-        <activity android:name=".view.activities.DetallePartidas" />
+        <activity android:name=".view.activities.DetallePartidas"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        </activity>
     </application>
 
 </manifest>

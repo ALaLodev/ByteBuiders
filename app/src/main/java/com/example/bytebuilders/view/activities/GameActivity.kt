@@ -2,7 +2,6 @@ package com.example.bytebuilders.view.activities
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.app.AlertDialog
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.ContentValues
@@ -31,7 +30,10 @@ import com.example.bytebuilders.databinding.ActivityGameBinding
 import com.example.bytebuilders.viewmodel.MainViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.time.Duration
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -78,6 +80,7 @@ class GameActivity : BaseActivity() {
         }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        createNotificationChannel() // Crear el canal de notificaciones
         binding = ActivityGameBinding.inflate(layoutInflater)
         enableEdgeToEdge()
         setContentView(binding.root)
@@ -85,6 +88,7 @@ class GameActivity : BaseActivity() {
         sharedPreferences = getSharedPreferences("GameSettings", Context.MODE_PRIVATE)
         volumeLevel = sharedPreferences.getInt("volumeLevel", 50)
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+
         binding.attemptText
 
         startNewRound()
@@ -102,9 +106,11 @@ class GameActivity : BaseActivity() {
                 binding.selectedNumber.text = selectedNumberValue.toString()
             }
         }
+
         binding.sendButton.setOnClickListener {
             checkAnswer()
         }
+
         binding.returnToStart.setOnClickListener {
             val intent = Intent(this, MenuActivity::class.java)
             intent.putExtra("Final_Score", points) // Pasa la puntuación final al siguiente activity
@@ -314,8 +320,7 @@ class GameActivity : BaseActivity() {
                         location.latitude,
                         location.longitude
                     )
-                    // Llamar al ViewModel para registrar el ganador
-                    modelo.insertUser (winnerName, winnerScore, winnerDateTime,locationData)
+
                     // Mostrar notificación
                     showVictoryNotification(formattedTime)
                     // Mostrar el tiempo de resolución en un Toast
