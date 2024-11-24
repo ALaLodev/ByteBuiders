@@ -78,9 +78,11 @@ class GameActivity : BaseActivity() {
         }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        createNotificationChannel() // Crear el canal de notificaciones
         binding = ActivityGameBinding.inflate(layoutInflater)
         enableEdgeToEdge()
         setContentView(binding.root)
+
         startTime = LocalDateTime.now() // Registrar el tiempo de inicio del juego
         sharedPreferences = getSharedPreferences("GameSettings", Context.MODE_PRIVATE)
         volumeLevel = sharedPreferences.getInt("volumeLevel", 50)
@@ -102,9 +104,7 @@ class GameActivity : BaseActivity() {
                 binding.selectedNumber.text = selectedNumberValue.toString()
             }
         }
-        binding.sendButton.setOnClickListener {
-            checkAnswer()
-        }
+        binding.sendButton.setOnClickListener { checkAnswer() }
         binding.returnToStart.setOnClickListener {
             val intent = Intent(this, MenuActivity::class.java)
             intent.putExtra("Final_Score", points) // Pasa la puntuación final al siguiente activity
@@ -115,11 +115,9 @@ class GameActivity : BaseActivity() {
             val intent = Intent(this, PauseActivity::class.java)
             startActivity(intent)
         }
-        // A partir de Android 6.0 (API nivel 23),
-        //  solicitar permisos en tiempo de ejecución
+        // A partir de Android 6.0 (API nivel 23), se deben solicitar permisos en tiempo de ejecución
         // Solicitar permisos de ubicación
         requestLocationPermission()
-
 
         // Solicitar permisos de calendario
         requestCalendarPermission()
@@ -130,10 +128,34 @@ class GameActivity : BaseActivity() {
         when {
             ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_CALENDAR) == PackageManager.PERMISSION_GRANTED -> {
                 createCalendarEvent() // Si ya se tiene el permiso, crear el evento
+                // Notificación de evento registrado
+                showCalendarNotification()
             }
             else -> {
                 requestCalendarPermissionLauncher.launch(Manifest.permission.WRITE_CALENDAR) // Solicitar permiso
             }
+        }
+    }
+
+    private fun showCalendarNotification() {
+
+        // Verificar permisos de notificación en Android 13+ (API 33)
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+            // Si el permiso no está otorgado, mostrar un mensaje o solicitar permiso
+            Toast.makeText(this, "Permiso de notificaciones denegado. No se puede mostrar la notificación.", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val notification = NotificationCompat.Builder(this, "game_notifications")
+            .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .setContentTitle("Evento registrado")
+            .setContentText("Se ha registrado correctamente el evento en el calendario.")
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setAutoCancel(true)
+            .build()
+
+        with(NotificationManagerCompat.from(this)) {
+            notify(1002, notification) // ID único para esta notificación
         }
     }
 
@@ -147,7 +169,6 @@ class GameActivity : BaseActivity() {
             put(CalendarContract.Events.CALENDAR_ID, 1) // Calendario predeterminado
             put(CalendarContract.Events.EVENT_TIMEZONE, TimeZone.getDefault().id)
         }
-
         // Insertar el evento en el calendario
         val uri = contentResolver.insert(CalendarContract.Events.CONTENT_URI, values)
 
@@ -286,9 +307,7 @@ class GameActivity : BaseActivity() {
             // Mostrar la carta final
             binding.hiddenCard.setImageResource(resources.getIdentifier("card_$randomNumber", "drawable", packageName))
 
-            // Mostrar el layout de fin de juego
-            val endGameLayout = findViewById<LinearLayout>(R.id.endGameLayout)
-            endGameLayout.visibility = View.VISIBLE
+            binding.endGameLayout.visibility = View.VISIBLE
 
             // Registrar al ganador
             registerWinner()
@@ -299,6 +318,7 @@ class GameActivity : BaseActivity() {
     //Llamar a latitud longitud
     //Llamar a calendario
     private fun registerWinner() {
+
         val winnerName = "Jugador"
         val winnerScore = points
         val winnerDateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
@@ -349,6 +369,12 @@ class GameActivity : BaseActivity() {
     }
     //compartir victoria y notificación
     private fun showVictoryNotification(elapsedTime: String) {
+        // Verificar permisos de notificación en Android 13+ (API 33)
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+            // Si el permiso no está otorgado, mostrar un mensaje o solicitar permiso
+            Toast.makeText(this, "Permiso de notificaciones denegado. No se puede mostrar la notificación.", Toast.LENGTH_SHORT).show()
+            return
+        }
         // Cargar el logo de la notificación desde los recursos
         val logoBitmap = BitmapFactory.decodeResource(resources, R.drawable.guesswarslogo) // Asegúrate de que "logo" sea el nombre del archivo sin la extensión
 
@@ -377,7 +403,7 @@ private fun showTimeToast(elapsedTime: String) {
             // Si ya se tiene el permiso
             ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED -> {
                 // Ya tienes permiso, registra al ganador
-                registerWinner()
+                //registerWinner()
             }
             // Si no se tiene el permiso, se solicita
             else -> {
@@ -391,18 +417,11 @@ private fun showTimeToast(elapsedTime: String) {
         if (requestCode == PERMISSION_REQUEST_CODE) {
             if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                 // Permiso concedido, registra al ganador
-                registerWinner()
+                //registerWinner()
             } else {
                 // Permiso denegado, informa al usuario
                 Toast.makeText(this, "Permiso de ubicación denegado", Toast.LENGTH_SHORT).show()
             }
         }
     }
-
-
-
-
-
-
-
 }
