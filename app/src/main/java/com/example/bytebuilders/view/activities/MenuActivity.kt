@@ -2,10 +2,11 @@ package com.example.bytebuilders.view.activities
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.media.AudioAttributes
+import android.media.SoundPool
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.style.UnderlineSpan
-import android.view.MenuItem
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import com.example.bytebuilders.R
@@ -18,6 +19,10 @@ class MenuActivity : BaseActivity() {
 
     private var points: Int = 0
 
+    // Variables para el sonido de clic
+    private lateinit var soundPool: SoundPool
+    private var soundIdClickNormal: Int = 0
+
     @SuppressLint("WrongViewCast", "MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +31,17 @@ class MenuActivity : BaseActivity() {
         setContentView(binding.root)
 
         MusicPlayer.start(this, R.raw.solve_the_puzzle)
+
+        // Configurar SoundPool y cargar el sonido
+        val audioAttributes = AudioAttributes.Builder()
+            .setUsage(AudioAttributes.USAGE_GAME)
+            .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+            .build()
+        soundPool = SoundPool.Builder()
+            .setMaxStreams(1)
+            .setAudioAttributes(audioAttributes)
+            .build()
+        soundIdClickNormal = soundPool.load(this, R.raw.click_normal, 1)
 
         // Configura el texto subrayado en el título del menu
         val textView = findViewById<TextView>(R.id.titlePlayer)
@@ -37,29 +53,49 @@ class MenuActivity : BaseActivity() {
         points = intent.getIntExtra("Final_Score", 0)
 
         binding.settingsButtonMenu.setOnClickListener {
+
+            soundPool.play(soundIdClickNormal, 1f, 1f, 0, 0, 1f)
             val intent = Intent(this, SettingsActivity::class.java)
             startActivity(intent)
         }
 
         binding.exitButtonMenu.setOnClickListener {
+
+            soundPool.play(soundIdClickNormal, 1f, 1f, 0, 0, 1f)
             // Salir de la app
             finishAffinity()
         }
 
-        binding.playGame.setOnClickListener { navigateToSelectPlayers() }
-        binding.btnScores.setOnClickListener { navigateToScores() }
-        //Llamada Detalle partida
-        binding.btnDetalle.setOnClickListener{navigateDetailGame()}
-        // Configución botón mute
+        binding.playGame.setOnClickListener {
+
+            soundPool.play(soundIdClickNormal, 1f, 1f, 0, 0, 1f)
+            navigateToSelectPlayers()
+        }
+        binding.btnScores.setOnClickListener {
+
+            soundPool.play(soundIdClickNormal, 1f, 1f, 0, 0, 1f)
+            navigateToScores()
+        }
+        // Llamada Detalle partida
+        binding.btnDetalle.setOnClickListener{
+
+            soundPool.play(soundIdClickNormal, 1f, 1f, 0, 0, 1f)
+            navigateDetailGame()
+        }
+        // Configuracion boton mute
         binding.muteButtonMenu.setOnClickListener {
+
+            soundPool.play(soundIdClickNormal, 1f, 1f, 0, 0, 1f)
             if (MusicPlayer.isPlaying()) {
                 MusicPlayer.pause()
             } else {
                 MusicPlayer.resume()
             }
         }
-        // Configurar el botón de ayuda
+        // Configurar el boton de ayuda
         binding.helpButton.setOnClickListener {
+
+            soundPool.play(soundIdClickNormal, 1f, 1f, 0, 0, 1f)
             startActivity(Intent(this, HelpActivity::class.java))
         }
     }
@@ -74,23 +110,20 @@ class MenuActivity : BaseActivity() {
         intent.putExtra("CURRENT_SCORE", points)
         startActivity(intent)
     }
-    //Boton Detalle Partida
+    // Boton Detalle Partida
     private fun navigateDetailGame(){
-
         val intent = Intent(this, DetallePartidas::class.java)
         startActivity(intent)
-
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        soundPool.release()
+        MusicPlayer.release()
+    }
 
     override fun onResume() {
         super.onResume()
         MusicPlayer.resume()
-    }
-
-    // Libera recursos al salir de la app
-    override fun onDestroy() {
-        super.onDestroy()
-        MusicPlayer.release()
     }
 }

@@ -1,78 +1,89 @@
 package com.example.bytebuilders.view.activities
 
 import android.content.Intent
+import android.media.AudioAttributes
+import android.media.SoundPool
 import android.os.Bundle
-import android.util.Log
-import androidx.activity.enableEdgeToEdge
+import android.widget.Toast
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import com.example.bytebuilders.R
-import com.example.bytebuilders.application.RoomByteBuilders
 import com.example.bytebuilders.databinding.ActivityScoresBinding
 import com.example.bytebuilders.model.data.entitys.UserEntity
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import com.example.bytebuilders.viewmodel.MainViewModel
 
-class ScoresActivity : BaseActivity() {
+class ScoresActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityScoresBinding
+    private val viewModel: MainViewModel by viewModels()
 
-    private var currentScore: Int = 0
+    // Variables para el sonido de clic
+    private lateinit var soundPool: SoundPool
+    private var soundIdClickNormal: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityScoresBinding.inflate(layoutInflater)
-        enableEdgeToEdge()
         setContentView(binding.root)
 
-        try {
+        // Configurar SoundPool y cargar el sonido
+        val audioAttributes = AudioAttributes.Builder()
+            .setUsage(AudioAttributes.USAGE_GAME)
+            .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+            .build()
+        soundPool = SoundPool.Builder()
+            .setMaxStreams(1)
+            .setAudioAttributes(audioAttributes)
+            .build()
+        soundIdClickNormal = soundPool.load(this, R.raw.click_normal, 1)
 
-            // Sacar la score actual desde el Intent
-            currentScore = intent.getIntExtra("CURRENT_SCORE", 0)
+        binding.buttonBackToMain.setOnClickListener {
 
-            binding.buttonBackToMain.setOnClickListener {
-                val intent = Intent(this, MenuActivity::class.java)
-                startActivity(intent)
-                finish()
-            }
-
-            // Cargar y mostrar las scores
-            loadScores()
-        } catch (e: Exception) {
-            Log.e("ScoresActivity", "Error en onCreate: ${e.message}")
+            soundPool.play(soundIdClickNormal, 1f, 1f, 0, 0, 1f)
+            val intent = Intent(this, MenuActivity::class.java)
+            startActivity(intent)
+            finish()
         }
-    }
 
-    private fun loadScores() {
-        CoroutineScope(Dispatchers.Main).launch {
-            val scores = withContext(Dispatchers.IO) { getScoresFromDatabase() } // con Dispatchers.IO aseguramos que se realice en un hilo secundario de E/S de datos
+        // Mejores puntuaciones
+        viewModel.topScores.observe(this) { scores ->
             displayScores(scores)
         }
-    }
 
-    private suspend fun getScoresFromDatabase(): List<UserEntity> {
-        return try {
-            RoomByteBuilders.db.userDao().getTopScores()
-        } catch (e: Exception) {
-            Log.e("ScoresActivity", "Error al obtener puntuaciones: ${e.message}")
-            emptyList()
+        // Mensajes de error
+        viewModel.errorMessage.observe(this) { errorMsg ->
+            if (errorMsg != null) {
+                Toast.makeText(this, errorMsg, Toast.LENGTH_SHORT).show()
+            }
         }
+
+        // Cargar las mejores puntuaciones
+        viewModel.loadTopScores()
     }
 
     private fun displayScores(scores: List<UserEntity>) {
-        // Nos aseguramos que la lista tenga al menos 4 elementos
-        // Si no, rellenar con datos predeterminados
-        val defaultUser = UserEntity(namePlayer = "N/A", puntuacion = 0, fecha = "",latitude = 0.0, longitude = 0.0)
+        // Asegurarse de tener al menos 4 elementos
+        val defaultUser = UserEntity(
+            namePlayer = "N/A",
+            puntuacion = 0,
+            fecha = "N/A",
+            latitude = 0.0,
+            longitude = 0.0
+        )
         val topScores = scores.take(4).toMutableList()
         while (topScores.size < 4) {
             topScores.add(defaultUser)
         }
 
-        // Actualizar los TextViews con los datos de los jugadores. Cambiar usuario por fecha?
-        binding.player1NameScore.text = "${topScores[0].fecha} - ${topScores[0].puntuacion} ${getString(R.string.points)}"
-        binding.player2NameScore.text = "${topScores[1].fecha} - ${topScores[1].puntuacion} ${getString(R.string.points)}"
-        binding.player2NameScore.text = "${topScores[1].fecha} - ${topScores[1].puntuacion} ${getString(R.string.points)}"
-        binding.player3NameScore.text = "${topScores[2].fecha} - ${topScores[2].puntuacion} ${getString(R.string.points)}"
-        binding.player4NameScore.text = "${topScores[3].fecha} - ${topScores[3].puntuacion} ${getString(R.string.points)}"
+        // Actualizar los TextViews con los datos
+        binding.player1NameScore.text = "${topScores[0].fecha} - ${topScores[0].puntuacion} ${getString(R.string.points)}\nLat: ${topScores[0].latitude}, Lon: ${topScores[0].longitude}"
+        binding.player2NameScore.text = "${topScores[1].fecha} - ${topScores[1].puntuacion} ${getString(R.string.points)}\nLat: ${topScores[1].latitude}, Lon: ${topScores[1].longitude}"
+        binding.player3NameScore.text = "${topScores[2].fecha} - ${topScores[2].puntuacion} ${getString(R.string.points)}\nLat: ${topScores[2].latitude}, Lon: ${topScores[2].longitude}"
+        binding.player4NameScore.text = "${topScores[3].fecha} - ${topScores[3].puntuacion} ${getString(R.string.points)}\nLat: ${topScores[3].latitude}, Lon: ${topScores[3].longitude}"
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        soundPool.release()
     }
 }

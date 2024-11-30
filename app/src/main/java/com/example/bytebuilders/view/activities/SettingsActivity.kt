@@ -4,6 +4,8 @@ import android.Manifest
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
+import android.media.AudioAttributes
+import android.media.SoundPool
 import android.net.Uri
 import android.os.Bundle
 import android.widget.SeekBar
@@ -12,6 +14,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
+import com.example.bytebuilders.R
 import androidx.core.content.ContextCompat
 import com.example.bytebuilders.databinding.ActivitySettingsBinding
 import com.example.bytebuilders.view.utils.MusicPlayer
@@ -26,14 +29,29 @@ class SettingsActivity : BaseActivity() {
     }
 
     // Variable del volumen con valor predeterminado
-    private var volumeLevel: Int = 50
+    private var volumeLevel: Int = 20
     private lateinit var sharedPreferences: SharedPreferences
+
+    // Variables para el sonido de clic
+    private lateinit var soundPool: SoundPool
+    private var soundIdClickNormal: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySettingsBinding.inflate(layoutInflater)
         enableEdgeToEdge()
         setContentView(binding.root)
+
+        // Configurar SoundPool y cargar el sonido
+        val audioAttributes = AudioAttributes.Builder()
+            .setUsage(AudioAttributes.USAGE_GAME)
+            .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+            .build()
+        soundPool = SoundPool.Builder()
+            .setMaxStreams(1)
+            .setAudioAttributes(audioAttributes)
+            .build()
+        soundIdClickNormal = soundPool.load(this, R.raw.click_normal, 1)
 
         // Se inicializa el ActivityResultLauncher
         getContentLauncher = registerForActivityResult(
@@ -60,6 +78,7 @@ class SettingsActivity : BaseActivity() {
         })
 
         binding.musicFolderButton.setOnClickListener {
+            soundPool.play(soundIdClickNormal, 1f, 1f, 0, 0, 1f)
             if (ContextCompat.checkSelfPermission(
                     this,
                     Manifest.permission.READ_MEDIA_AUDIO
@@ -76,7 +95,15 @@ class SettingsActivity : BaseActivity() {
         }
 
         // Manejar el clic del botón de salir
-        binding.exitSettingsButton.setOnClickListener { finish() }
+        binding.exitSettingsButton.setOnClickListener {
+            soundPool.play(soundIdClickNormal, 1f, 1f, 0, 0, 1f)
+            finish()
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        soundPool.release()
     }
 
     override fun onRequestPermissionsResult(

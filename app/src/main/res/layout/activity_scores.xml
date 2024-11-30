@@ -12,24 +12,18 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- Titulo de la pantalla -->
+        <!-- Título de la pantalla -->
         <TextView
             android:id="@+id/titleScores"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="50dp"
             android:layout_marginBottom="30dp"
-            android:text="@string/scores_settings"
+            android:text="@string/scores_title"
             android:textColor="@android:color/white"
             android:textSize="36sp"
             android:textStyle="bold" />
-
-
-        <!-- Espacio entre el boton y los rankings -->
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="16dp" />
 
         <!-- Contenedor de los rankings -->
         <LinearLayout
@@ -166,7 +160,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="350dp"
+            android:layout_marginTop="32dp"
             android:text="@string/main_to_menu"
             android:textStyle="bold" />
 

@@ -142,28 +142,55 @@
             app:tint="@color/white" />
     </LinearLayout>
 
-    <!-- Layout final de fin de juego (mensaje y botón) -->
+    <!-- Layout final de fin de juego (mensaje y botones) -->
     <LinearLayout
         android:id="@+id/endGameLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="160dp"
+        android:orientation="vertical"
+        android:gravity="center"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/feedback"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
+        <!-- Mensaje de fin de juego -->
+        <TextView
+            android:id="@+id/gameOverMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="16dp" />
 
+        <!-- Botón para guardar captura -->
+        <Button
+            android:id="@+id/saveScreenshotButton"
+            style="@style/Widget.AppCompat.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/guardar_captura"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:backgroundTint="#423D3D"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Botón para volver al inicio -->
         <Button
             android:id="@+id/return_to_start"
             style="@style/Widget.AppCompat.Button"
-            android:layout_width="150dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/start_return"
+            android:text="@string/main_to_menu"
             android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold"
             app:backgroundTint="#423D3D" />
+
     </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

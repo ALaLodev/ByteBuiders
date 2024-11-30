@@ -56,7 +56,6 @@
         android:layout_width="300sp"
         android:layout_height="80sp"
         android:layout_marginTop="10dp"
-        android:contentDescription="Detalle Puntuación"
         android:scaleType="fitCenter"
         android:text="@string/detallePuntuacion"
         android:textColor="@color/black"
