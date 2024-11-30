@@ -3,11 +3,11 @@ package com.example.bytebuilders.view.utils
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.res.Configuration
-import android.preference.PreferenceManager
+import androidx.preference.PreferenceManager
 import java.util.Locale
 
 object LocalHelper {
-    fun  setLocale(context: Context,languageCode: String): Context{
+    fun setLocale(context: Context, languageCode: String): Context {
         val locale = Locale(languageCode)
         Locale.setDefault(locale)
 
@@ -22,13 +22,15 @@ object LocalHelper {
         val prefs: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
         prefs.edit().putString("preferred_language", languageCode).apply()
     }
+
     fun applyPreferredLanguage(context: Context): Context {
         val prefs: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-        val languageCode = prefs.getString("preferred_language", "es") ?: "es"
+        val languageCode = prefs.getString("preferred_language", Locale.getDefault().language) ?: Locale.getDefault().language
         return setLocale(context, languageCode)
     }
-    fun getPreferredLanguage(context: Context): String? {
+
+    fun getPreferredLanguage(context: Context): String {
         val prefs: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-        return prefs.getString("preferred_language", Locale.getDefault().language)
+        return prefs.getString("preferred_language", Locale.getDefault().language) ?: Locale.getDefault().language
     }
 }

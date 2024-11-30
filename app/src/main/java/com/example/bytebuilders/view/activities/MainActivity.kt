@@ -48,28 +48,21 @@ class MainActivity : BaseActivity() {
         }
 
         binding.changeToEnglishButton.setOnClickListener{
-            // Reproducir sonido de clic normal
-            soundPool.play(soundIdClickNormal, 1f, 1f, 0, 0, 1f)
             LocalHelper.setLocale(this, "en")
             recreate()
         }
         binding.changeToSpanishButton.setOnClickListener{
-            // Reproducir sonido de clic normal
-            soundPool.play(soundIdClickNormal, 1f, 1f, 0, 0, 1f)
             LocalHelper.setLocale(this, "es")
             recreate()
         }
         binding.changeToGermanButton.setOnClickListener{
-            // Reproducir sonido de clic normal
-            soundPool.play(soundIdClickNormal, 1f, 1f, 0, 0, 1f)
             LocalHelper.setLocale(this, "de")
             recreate()
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        soundPool.release()
+    override fun attachBaseContext(base: Context?) {
+        super.attachBaseContext(base?.let { LocalHelper.applyPreferredLanguage(it) })
     }
 
     private fun navigateToSelectPlayers() {
@@ -77,7 +70,8 @@ class MainActivity : BaseActivity() {
         startActivity(intent)
     }
 
-    override fun attachBaseContext(base: Context?) {
-        super.attachBaseContext(base?.let { LocalHelper.applyPreferredLanguage(it) })
+    override fun onDestroy() {
+        super.onDestroy()
+        soundPool.release()
     }
 }
