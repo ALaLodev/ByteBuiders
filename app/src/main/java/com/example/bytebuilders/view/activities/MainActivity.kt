@@ -5,6 +5,8 @@ import android.content.Intent
 import android.media.AudioAttributes
 import android.media.SoundPool
 import android.os.Bundle
+import android.view.ViewGroup
+import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import com.example.bytebuilders.R
 import com.example.bytebuilders.databinding.ActivityMainBinding

@@ -1,5 +1,6 @@
 [versions]
 agp = "8.6.0"
+googleServices = "4.4.2"
 kotlin = "1.9.0"
 coreKtx = "1.15.0"
 junit = "4.13.2"
@@ -19,6 +20,9 @@ roomCommon = "2.6.1"
 lifecycleProcess = "2.8.7"
 playServicesLocation = "21.3.0"
 preferenceKtx = "1.2.1"
+firebaseBom = "33.6.0"
+services = "4.4.0"
+crashlytics = "3.0.2"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -26,6 +30,9 @@ androidx-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-view
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomRuntime" }
 androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomRuntime" }
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
+firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
+google-firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics" }
+google-services = { module = "com.google.gms:google-services", version.ref = "googleServices" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -41,7 +48,13 @@ play-services-location = { group = "com.google.android.gms", name = "play-servic
 androidx-lifecycle-process = { group = "androidx.lifecycle", name = "lifecycle-process", version.ref = "lifecycleProcess" }
 androidx-preference-ktx = { group = "androidx.preference", name = "preference-ktx", version.ref = "preferenceKtx" }
 
+firebase-bom = {module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom"}
+firebase-crashlytics = {module = "com.google.firebase:firebase-crashlytics"}
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kaptVersion" }
+
+googleServices = {id = "com.google.gsm.google-services", version.ref = "services"}
+crashlytics = {id = "com.google.firebase.crashlytics", version.ref = "crashlytics"}

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "88715981978",
+    "project_id": "bytebuilders-uoc",
+    "storage_bucket": "bytebuilders-uoc.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:88715981978:android:2c332440d73c4e7a6e1b23",
+        "android_client_info": {
+          "package_name": "com.example.bytebuilders"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD4H9o4B2VU1d1v4HVkPZ0CXkpDW01Awrc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
