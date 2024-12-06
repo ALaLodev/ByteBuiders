@@ -19,8 +19,8 @@ interface UserDao {
     suspend fun loadAllUser(userIds: IntArray): List<UserEntity>
 
     // Inserta uno o más usuarios de manera asíncrona
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertUser(vararg users: UserEntity)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertUser(user: UserEntity)
 
     // Inserta una lista de usuarios de manera asíncrona
     @Insert(onConflict = OnConflictStrategy.IGNORE)
@@ -30,7 +30,9 @@ interface UserDao {
     @Delete
     suspend fun delete(user: UserEntity)
 
-    // Obtener los 4 mejores puntajes ordenados de mayor a menor
-    @Query("SELECT * FROM UserEntity ORDER BY puntuacion DESC LIMIT 4")
-    suspend fun getTopScores(): List<UserEntity>
+    @Query("SELECT * FROM userentity ORDER BY puntuacion DESC, fecha ASC LIMIT 10")
+    fun getTopScores(): List<UserEntity>
+
+    @Query("SELECT * FROM userentity ORDER BY fecha DESC")
+    fun getAllUsers(): List<UserEntity>
 }

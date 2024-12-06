@@ -8,11 +8,11 @@
     <!--Menu, activity_menu -->
     <string name="menu_title">Menu Principal</string>
     <string name="play_description">Jugar</string>
-    <string name="scores_description">Puntuaciones</string>
-    <string name="scores">Puntuaciones</string>
+    <string name="scores_description">Historico Puntuaciones</string>
+    <string name="scores">Ranking Puntuaciones</string>
     <string name="settings_description">Ajustes</string>
     <string name="exit_description">Salir</string>
-    <string name="detallePuntuacion">Detalle Puntuacion</string>
+    <string name="detallePuntuacion">Historico Puntuaciones</string>
 
     <!--Pausa, activity_pause -->
     <string name="pause_title">Pausa</string>
@@ -21,7 +21,7 @@
 
     <!--Puntuaciones, activity_scores -->
     <string name="points">Puntos</string>
-    <string name="scores_title">Puntuaciones</string>
+    <string name="scores_title">Ranking Puntuaciones</string>
     <string name="player1_score">NombreJugador1</string>
     <string name="player2_score">NombreJugador2</string>
     <string name="player3_score">NombreJugador3</string>
@@ -31,11 +31,21 @@
     <!--Ajustes, activity_settings -->
     <string name="volume_label">Volumen</string>
     <string name="language_label">Cambiar Idioma</string>
-    <string name="btn_exit">Salir</string>
+    <string name="btn_exit">Volver al menu</string>
     <string name="settings_title">Ajustes</string>
     <string name="change_music">Cambiar pista de audio</string>
     <string name="music_folder">Abrir carpeta de pistas de audio</string>
     <string name="pause">Pause</string>
+    <string name="ir_al_inicio_desc">Ir al inicio</string>
+    <string name="salir_de_la_cuenta">Salir de la cuenta</string>
+    <string name="salir_de_la_cuenta_title">Salir de la cuenta</string>
+    <string name="email">Email</string>
+    <string name="enter_your_email_desc">Introduce tu email</string>
+    <string name="password">Password</string>
+    <string name="enter_your_password">Introduce tu password</string>
+    <string name="log_in">Acceder</string>
+    <string name="sing_in">No tienes cuenta? Create una.</string>
+    <string name="crear_cuenta">crear cuenta</string>
 
     <!--Pantalla de juego, activity_game -->
     <string name="pack_of_cards">Imagen de la baraja</string>
@@ -52,10 +62,14 @@
     <string name="de_flag_description">Bandera Alemana</string>
     <string name="es_flag_description">Bandera España</string>
     <string name="usa_flag_description">Bandera USA</string>
-    <string name="scores_settings">Puntuaciones</string>
+    <string name="scores_settings">Ranking Puntuaciones</string>
     <string name="Attempt">Intento:</string>
     <string name="btn_minus_description">btn_minus</string>
     <string name="btn_plus_description">btn_plus</string>
     <string name="help">AYUDA</string>
-
+    <string name="save_screenshot">Guardar Captura</string>
+    <string name="puntos">100 puntos</string>
+    <string name="fecha">Fecha</string>
+    <string name="ubicacion">Ubicación</string>
+    <string name="guardar_captura">Guardar captura</string>
 </resources>

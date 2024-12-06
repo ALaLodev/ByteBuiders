@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.example.bytebuilders" />
+                  <option name="mobileSdkAppId" value="1:88715981978:android:2c332440d73c4e7a6e1b23" />
+                  <option name="projectId" value="bytebuilders-uoc" />
+                  <option name="projectNumber" value="88715981978" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

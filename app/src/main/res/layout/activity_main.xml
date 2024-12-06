@@ -5,17 +5,17 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.activities.MainActivity"
     android:background="#151923"
-    android:padding="20dp">
+    android:padding="20dp"
+    tools:context=".view.activities.MainActivity">
 
     <ImageView
         android:id="@+id/ImageTitle"
         android:layout_width="match_parent"
         android:layout_height="550dp"
+        android:scaleType="centerCrop"
         android:src="@drawable/guesswarslogo"
         app:layout_constraintEnd_toEndOf="parent"
-        android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -24,57 +24,57 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/subtitle"
+        android:textColor="@color/white"
         android:textAlignment="center"
-        android:textSize="24sp"
+        android:textSize="18sp"
         android:textStyle="italic"
-        app:layout_constraintTop_toBottomOf="@+id/ImageTitle"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5" />
-    <!-- Etiqueta Idioma -->
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ImageTitle" />
 
     <!-- Layuot idiomas -->
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/languageIcons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginBottom="100dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnStart">
+        app:layout_constraintBottom_toTopOf="@+id/btnStart"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <ImageButton
             android:id="@+id/change_to_english_button"
-            android:layout_marginTop="30dp"
-            android:layout_marginStart="60dp"
             android:layout_width="60dp"
             android:layout_height="60dp"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="30dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/usa_flag_description"
             android:scaleType="fitCenter"
-            android:src="@drawable/usa_flag"/>
+            android:src="@drawable/usa_flag" />
 
         <ImageButton
             android:id="@+id/change_to_spanish_button"
-            android:layout_marginTop="30dp"
-            android:layout_marginStart="50dp"
             android:layout_width="60dp"
             android:layout_height="60dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="30dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/es_flag_description"
             android:scaleType="fitCenter"
-            android:src="@drawable/es_flag"/>
+            android:src="@drawable/es_flag" />
 
         <ImageButton
             android:id="@+id/change_to_german_button"
-            android:layout_marginTop="30dp"
-            android:layout_marginStart="50dp"
             android:layout_width="60dp"
             android:layout_height="60dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="30dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/de_flag_description"
             android:scaleType="fitCenter"
-            android:src="@drawable/de_flag"/>
+            android:src="@drawable/de_flag" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -84,8 +84,10 @@
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:text="@string/btn_empezar"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

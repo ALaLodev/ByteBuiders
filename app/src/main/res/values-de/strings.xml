@@ -1,60 +1,77 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- activity_main -->
     <string name="app_name">ByteBuilders</string>
     <string name="title">Kartenspiel</string>
-    <string name="subtitle">Erstellt von ByteBuilders</string>
-    <string name="btn_empezar">Anfangen</string>
+    <string name="subtitle">Erstellt von Bytebuilders</string>
+    <string name="btn_empezar">Starten</string>
 
-    <!--Menu, activity_menu -->
+    <!-- Menu, activity_menu -->
     <string name="menu_title">Hauptmenü</string>
-    <string name="play_description">Spiele</string>
-    <string name="scores_description">Punkte</string>
-    <string name="scores">Punkte</string>
+    <string name="play_description">Spielen</string>
+    <string name="scores_description">Punkteverlauf</string>
+    <string name="scores">Punkte-Rangliste</string>
     <string name="settings_description">Einstellungen</string>
     <string name="exit_description">Beenden</string>
+    <string name="detallePuntuacion">Punkteverlauf</string>
 
-    <!--Pausa, activity_pause -->
+    <!-- Pausa, activity_pause -->
     <string name="pause_title">Pause</string>
-    <string name="resume">Wieterspielen</string>
-    <string name="main_menu">Zurück zum Anfang</string>
+    <string name="resume">Fortsetzen</string>
+    <string name="main_menu">Zurück zum Start</string>
 
-    <!--Puntuaciones, activity_scores -->
-    <string name="scores_title">Punkte</string>
+    <!-- Puntuaciones, activity_scores -->
     <string name="points">Punkte</string>
-    <string name="player1_score">Spielername1</string>
-    <string name="player2_score">Spielername2</string>
-    <string name="player3_score">Spielername3</string>
-    <string name="player4_score">Spielername4</string>
+    <string name="scores_title">Punkte-Rangliste</string>
+    <string name="player1_score">SpielerName1</string>
+    <string name="player2_score">SpielerName2</string>
+    <string name="player3_score">SpielerName3</string>
+    <string name="player4_score">SpielerName4</string>
     <string name="main_to_menu">Zurück zum Menü</string>
 
-    <!--Ajustes, activity_settings -->
+    <!-- Ajustes, activity_settings -->
     <string name="volume_label">Lautstärke</string>
     <string name="language_label">Sprache ändern</string>
-    <string name="btn_exit">Beenden</string>
+    <string name="btn_exit">Zurück zum Menü</string>
     <string name="settings_title">Einstellungen</string>
-    <string name="change_music">Audiospur wechseln</string>
-    <string name="music_folder">Musick-Ordner öfnen</string>
+    <string name="change_music">Audio-Track wechseln</string>
+    <string name="music_folder">Audio-Ordner öffnen</string>
     <string name="pause">Pause</string>
+    <string name="salir_de_la_cuenta">Von konto abmelden</string>
+    <string name="salir_de_la_cuenta_title">Von konto abmelde</string>
+    <string name="ir_al_inicio_desc">Gehe zum Start</string>
+    <string name="email">Email</string>
+    <string name="enter_your_email_desc">Geben Sie Ihre E-Mail ein</string>
+    <string name="password">Password</string>
+    <string name="enter_your_password">Geben Sie Ihr Passwort ein</string>
+    <string name="log_in">Einloggen</string>
+    <string name="sing_in"> Hast du kein Konto? Erstelle eins.</string>
+    <string name="crear_cuenta">Benutzerkonto erstellen</string>
 
-    <!--Pantalla de juego, activity_game -->
-    <string name="pack_of_cards">Bild des Decks</string>
+
+
+    <!-- Pantalla de juego, activity_game -->
+    <string name="pack_of_cards">Bild des Kartendecks</string>
     <string name="send">Senden</string>
-    <string name="start_return">Zurück zum Anfang</string>
+    <string name="start_return">ZURÜCK ZUM START</string>
     <string name="round_number">Runde 1</string>
     <string name="round_text">Runde %1$d</string>
     <string name="attempt_text">Versuch: %1$d/4</string>
     <string name="feedback_higher">Die Zahl ist höher</string>
     <string name="feedback_lower">Die Zahl ist niedriger</string>
     <string name="feedback_correct">Richtig</string>
-    <string name="feedback_loss">Sie haben diese Runde verloren, die Zahl war %1$d</string>
-    <string name="game_over">Spiel vorbei, Ihre Punktzahl beträgt %1$d Punkte</string>
-    <string name="de_flag_description">Deutche Flagge</string>
-    <string name="es_flag_description">Spanishe Flagge</string>
-    <string name="usa_flag_description">USA Flagge</string>
-    <string name="scores_settings">Punkte</string>
-    <string name="Attempt">Versucht: </string>
+    <string name="feedback_loss">Du hast diese Runde verloren, die Zahl war %1$d</string>
+    <string name="game_over">Spiel vorbei, deine Punktzahl ist %1$d Punkte</string>
+    <string name="de_flag_description">Deutsche Flagge</string>
+    <string name="es_flag_description">Spanische Flagge</string>
+    <string name="usa_flag_description">US-Flagge</string>
+    <string name="scores_settings">Punkte-Rangliste</string>
+    <string name="Attempt">Versuch:</string>
     <string name="btn_minus_description">btn_minus</string>
     <string name="btn_plus_description">btn_plus</string>
     <string name="help">HILFE</string>
+    <string name="save_screenshot">Screenshot speichern</string>
+    <string name="puntos">100 Punkte</string>
+    <string name="fecha">Datum</string>
+    <string name="ubicacion">Standort</string>
+    <string name="guardar_captura">Screenshot speichern</string>
 </resources>

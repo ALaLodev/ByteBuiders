@@ -1,8 +1,12 @@
+
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.kapt)
 
+    id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
 }
 
 android {
@@ -11,7 +15,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.bytebuilders"
-        minSdk = 34
+        minSdk = 31
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -42,9 +46,11 @@ android {
 
 dependencies {
 
+    implementation (libs.google.services)
     implementation(libs.androidx.room.common)
     implementation(libs.androidx.lifecycle.process)
     implementation(libs.play.services.location)
+    implementation(libs.androidx.preference.ktx)
     val room_version = "2.6.1"
 
     implementation(libs.firebase.firestore.ktx)
@@ -54,6 +60,14 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
 
+    //Firebase
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.crashlytics)
+    implementation(libs.google.firebase.crashlytics)
+    implementation(libs.firebase.analytics)
+    implementation(libs.firebase.auth)
+    implementation(libs.play.services.auth)
+
     //livecycle y coroutines
     implementation (libs.androidx.lifecycle.viewmodel.ktx)
     implementation (libs.kotlinx.coroutines.android)
@@ -61,14 +75,17 @@ dependencies {
     implementation(libs.androidx.room.runtime)
     annotationProcessor(libs.androidx.room.compiler)
     implementation (libs.androidx.room.ktx)
+
     //LOCALIZACION
     implementation(libs.androidx.activity)
    // implementation(libs.play.services.location)
     // To use Kotlin annotation processing tool (kapt)
     kapt("androidx.room:room-compiler:$room_version")
+
     // optional - RxJava2 support for Room
     implementation("androidx.room:room-rxjava2:$room_version")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    implementation(kotlin("script-runtime"))
 }
