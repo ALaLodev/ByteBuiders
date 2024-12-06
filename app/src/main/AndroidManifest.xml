@@ -2,19 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
     <!-- PARA MÚSICA -->
-
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
-
-    <!-- PARA CALENDARIO -->
+    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" /> <!-- PARA CALENDARIO -->
     <uses-permission android:name="android.permission.READ_CALENDAR" />
-    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
-
-    <!-- PARA UBICACIÓN -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.WRITE_CALENDAR" /> <!-- PARA UBICACIÓN -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
-
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
@@ -28,6 +22,9 @@
         android:supportsRtl="true"
         android:theme="@style/Base.Theme.ByteBuilders"
         tools:targetApi="31">
+        <activity
+            android:name=".view.activities.LoginActivity"
+            android:exported="false" />
         <activity
             android:name=".view.activities.HelpActivity"
             android:exported="false" />

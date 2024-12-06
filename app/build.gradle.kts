@@ -65,6 +65,8 @@ dependencies {
     implementation(libs.firebase.crashlytics)
     implementation(libs.google.firebase.crashlytics)
     implementation(libs.firebase.analytics)
+    implementation(libs.firebase.auth)
+    implementation(libs.play.services.auth)
 
     //livecycle y coroutines
     implementation (libs.androidx.lifecycle.viewmodel.ktx)

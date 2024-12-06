@@ -12,7 +12,12 @@
           "package_name": "com.example.bytebuilders"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "88715981978-70cbrb70shis0qj2d8gulojb35bqfnlu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyD4H9o4B2VU1d1v4HVkPZ0CXkpDW01Awrc"
@@ -20,7 +25,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "88715981978-70cbrb70shis0qj2d8gulojb35bqfnlu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

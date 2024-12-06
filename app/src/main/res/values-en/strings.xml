@@ -31,11 +31,19 @@
     <!-- Ajustes, activity_settings -->
     <string name="volume_label">Volume</string>
     <string name="language_label">Change Language</string>
-    <string name="btn_exit">Exit</string>
+    <string name="btn_exit">Return to Menu</string>
     <string name="settings_title">Settings</string>
     <string name="change_music">Change Audio Track</string>
     <string name="music_folder">Open Audio Tracks Folder</string>
     <string name="pause">Pause</string>
+    <string name="salir_de_la_cuenta">Exit from account</string>
+    <string name="salir_de_la_cuenta_title">Exit from account</string>
+    <string name="ir_al_inicio_desc">Go to start</string>
+    <string name="email">Email</string>
+    <string name="enter_your_email_desc">Enter your email</string>
+    <string name="password">Password</string>
+    <string name="enter_your_password">Enter your password</string>
+    <string name="log_in">Log in</string>
 
     <!-- Pantalla de juego, activity_game -->
     <string name="pack_of_cards">Deck Image</string>

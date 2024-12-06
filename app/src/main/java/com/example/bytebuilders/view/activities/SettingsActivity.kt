@@ -2,6 +2,7 @@ package com.example.bytebuilders.view.activities
 
 import android.Manifest
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.media.AudioAttributes
@@ -18,6 +19,7 @@ import com.example.bytebuilders.R
 import androidx.core.content.ContextCompat
 import com.example.bytebuilders.databinding.ActivitySettingsBinding
 import com.example.bytebuilders.view.utils.MusicPlayer
+import com.google.firebase.auth.FirebaseAuth
 
 class SettingsActivity : BaseActivity() {
 
@@ -99,6 +101,22 @@ class SettingsActivity : BaseActivity() {
             soundPool.play(soundIdClickNormal, 1f, 1f, 0, 0, 1f)
             finish()
         }
+
+        binding.logoutButton.setOnClickListener { logout() }
+
+    }
+
+
+    //Maneja el boton de log out
+    private fun logout() {
+        FirebaseAuth.getInstance().signOut() // Cierra la sesión del usuario actual
+        navigateToLogin() // Redirige al login
+    }
+    private fun navigateToLogin() {
+        val intent = Intent(this, LoginActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(intent)
+        finish() // Finaliza la actividad actual
     }
 
     override fun onDestroy() {

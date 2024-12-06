@@ -5,8 +5,6 @@ import android.content.Intent
 import android.media.AudioAttributes
 import android.media.SoundPool
 import android.os.Bundle
-import android.view.ViewGroup
-import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import com.example.bytebuilders.R
 import com.example.bytebuilders.databinding.ActivityMainBinding
@@ -46,7 +44,8 @@ class MainActivity : BaseActivity() {
         binding.btnStart.setOnClickListener {
             // Reproducir sonido de clic normal
             soundPool.play(soundIdClickNormal, 1f, 1f, 0, 0, 1f)
-            navigateToSelectPlayers()
+            //navigateToSelectPlayers()
+            navigateToLoggin()
         }
 
         binding.changeToEnglishButton.setOnClickListener{
@@ -61,6 +60,10 @@ class MainActivity : BaseActivity() {
             LocalHelper.setLocale(this, "de")
             recreate()
         }
+    }
+
+    private fun navigateToLoggin() {
+        startActivity(Intent(this, LoginActivity::class.java))
     }
 
     override fun attachBaseContext(base: Context?) {
