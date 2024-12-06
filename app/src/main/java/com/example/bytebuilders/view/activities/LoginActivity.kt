@@ -58,6 +58,11 @@ class LoginActivity : BaseActivity() {
             }
             false
         }
+        binding.newRegister.setOnClickListener {
+            val intent = Intent(this, RegisterActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 
     private fun togglePasswordVisibility() {
