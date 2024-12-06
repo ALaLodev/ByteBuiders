@@ -70,6 +70,4 @@
     <string name="fecha">Datum</string>
     <string name="ubicacion">Standort</string>
     <string name="guardar_captura">Screenshot speichern</string>
-    <!-- Pantalla de registro, activity_game -->
-    <string name="sing_in">Anmelden</string>
 </resources>

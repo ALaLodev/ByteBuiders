@@ -42,9 +42,6 @@ android {
     viewBinding{
         enable = true
     }
-    buildFeatures {
-        viewBinding = true
-    }
 }
 
 dependencies {
@@ -54,8 +51,6 @@ dependencies {
     implementation(libs.androidx.lifecycle.process)
     implementation(libs.play.services.location)
     implementation(libs.androidx.preference.ktx)
-    implementation(libs.androidx.navigation.fragment.ktx)
-    implementation(libs.androidx.navigation.ui.ktx)
     val room_version = "2.6.1"
 
     implementation(libs.firebase.firestore.ktx)

@@ -70,7 +70,4 @@
     <string name="fecha">Fecha</string>
     <string name="ubicacion">Ubicación</string>
     <string name="guardar_captura">Guardar captura</string>
-
-    <!-- Pantalla de registro, activity_game -->
-    <string name="sing_in">Registrarse</string>
 </resources>
