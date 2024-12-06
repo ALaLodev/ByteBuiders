@@ -23,7 +23,7 @@ import com.google.firebase.auth.FirebaseAuth
 
 class SettingsActivity : BaseActivity() {
 
-    private lateinit var binding : ActivitySettingsBinding
+    private lateinit var binding: ActivitySettingsBinding
     private lateinit var getContentLauncher: ActivityResultLauncher<String>
 
     companion object {
@@ -70,9 +70,11 @@ class SettingsActivity : BaseActivity() {
         binding.volumeSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 volumeLevel = progress
-                sharedPreferences.edit().putInt("volumeLevel", volumeLevel).apply() // Guardar el nuevo nivel de volumen
+                sharedPreferences.edit().putInt("volumeLevel", volumeLevel)
+                    .apply() // Guardar el nuevo nivel de volumen
                 MusicPlayer.setVolume(volumeLevel / 100f) // Ajustar el volumen
-                binding.volumeLabel.text = "Volumen: $volumeLevel" // Actualizar etiqueta del volumen
+                binding.volumeLabel.text =
+                    "Volumen: $volumeLevel" // Actualizar etiqueta del volumen
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {} // No es necesario implementar
@@ -102,8 +104,10 @@ class SettingsActivity : BaseActivity() {
             finish()
         }
 
-        binding.logoutButton.setOnClickListener { logout() }
-
+        binding.logoutButton.setOnClickListener {
+            soundPool.play(soundIdClickNormal, 1f, 1f, 0, 0, 1f)
+            logout()
+        }
     }
 
 
@@ -112,6 +116,7 @@ class SettingsActivity : BaseActivity() {
         FirebaseAuth.getInstance().signOut() // Cierra la sesión del usuario actual
         navigateToLogin() // Redirige al login
     }
+
     private fun navigateToLogin() {
         val intent = Intent(this, LoginActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
@@ -134,7 +139,8 @@ class SettingsActivity : BaseActivity() {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 openFileChooser()
             } else {
-                Toast.makeText(this, "Permiso denegado para leer archivos", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Permiso denegado para leer archivos", Toast.LENGTH_SHORT)
+                    .show()
             }
         }
     }

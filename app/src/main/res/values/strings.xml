@@ -43,7 +43,9 @@
     <string name="enter_your_email_desc">Introduce tu email</string>
     <string name="password">Password</string>
     <string name="enter_your_password">Introduce tu password</string>
-    <string name="log_in">Log in</string>
+    <string name="log_in">Acceder</string>
+    <string name="sing_in">No tienes cuenta? Create una.</string>
+    <string name="crear_cuenta">crear cuenta</string>
 
     <!--Pantalla de juego, activity_game -->
     <string name="pack_of_cards">Imagen de la baraja</string>

@@ -43,7 +43,11 @@
     <string name="enter_your_email_desc">Geben Sie Ihre E-Mail ein</string>
     <string name="password">Password</string>
     <string name="enter_your_password">Geben Sie Ihr Passwort ein</string>
-    <string name="log_in">Log in</string>
+    <string name="log_in">Einloggen</string>
+    <string name="sing_in"> Hast du kein Konto? Erstelle eins.</string>
+    <string name="crear_cuenta">Benutzerkonto erstellen</string>
+
+
 
     <!-- Pantalla de juego, activity_game -->
     <string name="pack_of_cards">Bild des Kartendecks</string>

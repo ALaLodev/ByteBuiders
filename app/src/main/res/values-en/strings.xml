@@ -44,6 +44,10 @@
     <string name="password">Password</string>
     <string name="enter_your_password">Enter your password</string>
     <string name="log_in">Log in</string>
+    <string name="sing_in">Do not have an account? Create one.</string>
+    <string name="crear_cuenta">create account</string>
+
+
 
     <!-- Pantalla de juego, activity_game -->
     <string name="pack_of_cards">Deck Image</string>

@@ -10,14 +10,14 @@ import android.view.MotionEvent
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import com.example.bytebuilders.R
-import com.example.bytebuilders.databinding.ActivityLoginBinding
+import com.example.bytebuilders.databinding.ActivityRegisterBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
-class LoginActivity : BaseActivity() {
+class RegisterActivity : BaseActivity() {
 
-    private lateinit var binding : ActivityLoginBinding
+    private lateinit var binding: ActivityRegisterBinding
     private lateinit var auth: FirebaseAuth
 
     private var isPasswordVisible = false
@@ -30,9 +30,10 @@ class LoginActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         auth = Firebase.auth
         enableEdgeToEdge()
-        binding = ActivityLoginBinding.inflate(layoutInflater)
+        binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Configurar SoundPool y cargar el sonido
         val audioAttributes = AudioAttributes.Builder()
             .setUsage(AudioAttributes.USAGE_GAME)
             .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
@@ -44,13 +45,14 @@ class LoginActivity : BaseActivity() {
         soundIdClickNormal = soundPool.load(this, R.raw.click_normal, 1)
 
         // Configurar el botón "Log in"
-        binding.loginButton.setOnClickListener {
+        binding.registerButton.setOnClickListener {
             soundPool.play(soundIdClickNormal, 1f, 1f, 0, 0, 1f)
+
             val email = binding.emailInput.text.toString()
             val password = binding.passwordInput.text.toString()
 
             if (validateInput(email, password)) {
-                signInWithEmailAndPassword(email, password)
+                registerUser(email, password)
             }
         }
 
@@ -66,7 +68,8 @@ class LoginActivity : BaseActivity() {
             if (event.action == MotionEvent.ACTION_UP) {
                 val drawableEnd = binding.passwordInput.compoundDrawables[2] // Ícono al final
                 if (drawableEnd != null) {
-                    val touchAreaWidth = drawableEnd.bounds.width() + 40 // Aumenta el área clicable en 40px
+                    val touchAreaWidth =
+                        drawableEnd.bounds.width() + 40 // Aumenta el área clicable en 40px
                     if (event.rawX >= (binding.passwordInput.right - touchAreaWidth)) {
                         togglePasswordVisibility()
                         return@setOnTouchListener true
@@ -74,13 +77,6 @@ class LoginActivity : BaseActivity() {
                 }
             }
             false
-        }
-
-        binding.singIn.setOnClickListener {
-            soundPool.play(soundIdClickNormal, 1f, 1f, 0, 0, 1f)
-            val intent = Intent(this, RegisterActivity::class.java)
-            startActivity(intent)
-            finish()
         }
     }
 
@@ -90,10 +86,21 @@ class LoginActivity : BaseActivity() {
         // Cambia el tipo de entrada del campo de texto
         if (isPasswordVisible) {
             binding.passwordInput.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
-            binding.passwordInput.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_visivility, 0)
+            binding.passwordInput.setCompoundDrawablesWithIntrinsicBounds(
+                0,
+                0,
+                R.drawable.ic_visivility,
+                0
+            )
         } else {
-            binding.passwordInput.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
-            binding.passwordInput.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_visibility_off, 0)
+            binding.passwordInput.inputType =
+                InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+            binding.passwordInput.setCompoundDrawablesWithIntrinsicBounds(
+                0,
+                0,
+                R.drawable.ic_visibility_off,
+                0
+            )
         }
 
         // Coloca el cursor al final del texto
@@ -120,15 +127,17 @@ class LoginActivity : BaseActivity() {
         return true
     }
 
-    private fun signInWithEmailAndPassword(email: String, password: String) {
-        auth.signInWithEmailAndPassword(email, password)
+    private fun registerUser(email: String, password: String) {
+        auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    // Inicio de sesión exitoso, navega al menú
+                    // Registro exitoso
+                    Toast.makeText(this, "Registration successful!", Toast.LENGTH_SHORT).show()
                     navigateToMenu()
                 } else {
-                    // Muestra un mensaje de error
-                    Toast.makeText(this, "Authentication failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                    // Manejo de errores
+                    val errorMessage = task.exception?.message ?: "Registration failed"
+                    Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
                 }
             }
     }
@@ -139,7 +148,8 @@ class LoginActivity : BaseActivity() {
         startActivity(intent)
         finish() // Finaliza esta actividad para que no se pueda volver con "atrás"
     }
-    private fun navigateToMenu(){
+
+    private fun navigateToMenu() {
         val intent = Intent(this, MenuActivity::class.java)
         startActivity(intent)
         finish()
