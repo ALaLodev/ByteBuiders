@@ -34,9 +34,15 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import com.example.bytebuilders.R
 import com.example.bytebuilders.databinding.ActivityGameBinding
+import com.example.bytebuilders.model.data.entitys.DatosJugador
 import com.example.bytebuilders.viewmodel.MainViewModel
+import com.example.bytebuilders.viewmodel.VistaFirebase
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.*
 import java.io.IOException
 import java.time.Duration
@@ -57,7 +63,11 @@ class GameActivity : BaseActivity() {
     private var points = 0
     private var gameEnded = false
     private val totalRounds = 4
+    //Base de datos viewmodel local
     private val modelo: MainViewModel by viewModels()
+    //Instancia a vistaFirebase
+    private val vistaFirebase = VistaFirebase()
+
 
     private lateinit var sharedPreferences: SharedPreferences
     private var volumeLevel: Int = 50
@@ -78,10 +88,13 @@ class GameActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         createNotificationChannel() // Crear el canal de notificaciones
         binding = ActivityGameBinding.inflate(layoutInflater)
         enableEdgeToEdge()
         setContentView(binding.root)
+
+
 
         startTime = LocalDateTime.now() // Registrar el tiempo de inicio del juego
         sharedPreferences = getSharedPreferences("GameSettings", Context.MODE_PRIVATE)
@@ -336,8 +349,9 @@ class GameActivity : BaseActivity() {
 
     private fun registerWinner() {
         Log.d("GameActivity", "Registrando ganador...")
-
-        val winnerName = "Jugador"
+        //Correo jugador firebase
+        val user = FirebaseAuth.getInstance().currentUser
+        val winnerName = user?.email
         val winnerScore = points
         val winnerDateTime =
             LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
@@ -360,7 +374,17 @@ class GameActivity : BaseActivity() {
                     longitude
                 )
                 // Llamar al ViewModel para registro
-                modelo.insertUser(winnerName, winnerScore, winnerDateTime, locationData)
+
+                //modelo.insertUser(winnerName, winnerScore, winnerDateTime, locationData)
+
+                val nuevoJugador = DatosJugador(
+                    namePlayer =  winnerName,
+                    puntuacion = winnerScore,
+                    fecha = winnerDateTime,
+                    latitude = locationData.latitude,
+                    longitude = locationData.longitude
+                )
+                vistaFirebase.agregarJugador(nuevoJugador)
             }.addOnFailureListener { e ->
                 // Manejo de errores al obtener la ubicacion
                 Log.e("GameActivity", "Error al obtener la ubicacion: ${e.message}")
@@ -371,7 +395,16 @@ class GameActivity : BaseActivity() {
                 0.0, // Latitud por defecto
                 0.0  // Longitud por defecto
             )
-            modelo.insertUser(winnerName, winnerScore, winnerDateTime, locationData)
+
+            //modelo.insertUser(winnerName, winnerScore, winnerDateTime, locationData)
+            val nuevoJugador = DatosJugador(
+                namePlayer = winnerName,
+                puntuacion = winnerScore,
+                fecha = winnerDateTime,
+                latitude = locationData.latitude,
+                longitude = locationData.longitude
+            )
+            vistaFirebase.agregarJugador(nuevoJugador)
         }
 
         // Mostrar notificacion de victoria

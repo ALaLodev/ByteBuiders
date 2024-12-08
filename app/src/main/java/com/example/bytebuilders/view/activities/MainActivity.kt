@@ -10,6 +10,9 @@ import com.example.bytebuilders.R
 import com.example.bytebuilders.databinding.ActivityMainBinding
 import com.example.bytebuilders.view.utils.LocalHelper
 import com.example.bytebuilders.view.utils.MusicPlayer
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 class MainActivity : BaseActivity() {
 
@@ -19,9 +22,11 @@ class MainActivity : BaseActivity() {
     private lateinit var soundPool: SoundPool
     private var soundIdClickNormal: Int = 0
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
+
         enableEdgeToEdge()
         setContentView(binding.root)
 
