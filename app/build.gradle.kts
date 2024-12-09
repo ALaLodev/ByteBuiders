@@ -67,7 +67,8 @@ dependencies {
     implementation(libs.firebase.analytics)
     implementation(libs.firebase.auth)
     implementation(libs.play.services.auth)
-
+    //Firestore
+    implementation(libs.firebase.firestore)
     //livecycle y coroutines
     implementation (libs.androidx.lifecycle.viewmodel.ktx)
     implementation (libs.kotlinx.coroutines.android)
