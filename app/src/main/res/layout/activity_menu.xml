@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#151923">
+
+    <TextView
+        android:id="@+id/titlePlayer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:text="@string/menu_title"
+        android:textColor="@color/white"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/playGame"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="300sp"
+        android:layout_height="80sp"
+        android:layout_marginTop="100dp"
+        android:contentDescription="@string/play_description"
+        android:scaleType="fitCenter"
+        android:src="@drawable/xbox_control"
+        app:backgroundTint="#A20E0E"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titlePlayer" />
+
+    <!-- Boton Score -->
+    <Button
+        android:id="@+id/btnScores"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="300sp"
+        android:layout_height="80sp"
+        android:layout_marginTop="10dp"
+        android:contentDescription="@string/scores_description"
+        android:scaleType="fitCenter"
+        android:text="@string/scores"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:backgroundTint="#FFD700"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/playGame" />
+    <!-- Nuevo botón debajo de btnScores -->
+    <Button
+        android:id="@+id/btnDetalle"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="300sp"
+        android:layout_height="80sp"
+        android:layout_marginTop="10dp"
+        android:scaleType="fitCenter"
+        android:text="@string/detallePuntuacion"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:backgroundTint="#00FF00"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnScores" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnScores">
+
+        <!-- Boton Ajustes (Icono) -->
+        <ImageButton
+            android:id="@+id/settingsButtonMenu"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="60dp"
+            android:layout_marginEnd="60dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/settings_description"
+            android:scaleType="fitCenter"
+            android:src="@drawable/settings" />
+
+        <!-- Boton Ajustes (Icono) -->
+        <ImageButton
+            android:id="@+id/muteButtonMenu"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/settings_description"
+            android:scaleType="fitCenter"
+            android:src="@drawable/mute_2" />
+
+        <!-- Boton Salir (Icono) -->
+        <ImageButton
+            android:id="@+id/exitButtonMenu"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="50dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/exit_description"
+            android:scaleType="fitCenter"
+            android:src="@drawable/exit_2" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/helpButton"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:text="@string/help"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:backgroundTint="#4CAF50"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
