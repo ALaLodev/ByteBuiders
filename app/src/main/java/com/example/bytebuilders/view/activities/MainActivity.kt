@@ -10,9 +10,6 @@ import com.example.bytebuilders.R
 import com.example.bytebuilders.databinding.ActivityMainBinding
 import com.example.bytebuilders.view.utils.LocalHelper
 import com.example.bytebuilders.view.utils.MusicPlayer
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 
 class MainActivity : BaseActivity() {
 
@@ -22,7 +19,6 @@ class MainActivity : BaseActivity() {
     private lateinit var soundPool: SoundPool
     private var soundIdClickNormal: Int = 0
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -30,7 +26,7 @@ class MainActivity : BaseActivity() {
         enableEdgeToEdge()
         setContentView(binding.root)
 
-        // Solo inicia la música si no esta reproduciendose
+        // Solo inicia la música si no está reproduciéndose
         if (!MusicPlayer.isPlaying()) {
             MusicPlayer.start(this, R.raw.solve_the_puzzle)
         }
@@ -49,19 +45,18 @@ class MainActivity : BaseActivity() {
         binding.btnStart.setOnClickListener {
             // Reproducir sonido de clic normal
             soundPool.play(soundIdClickNormal, 1f, 1f, 0, 0, 1f)
-            //navigateToSelectPlayers()
             navigateToLoggin()
         }
 
-        binding.changeToEnglishButton.setOnClickListener{
+        binding.changeToEnglishButton.setOnClickListener {
             LocalHelper.setLocale(this, "en")
             recreate()
         }
-        binding.changeToSpanishButton.setOnClickListener{
+        binding.changeToSpanishButton.setOnClickListener {
             LocalHelper.setLocale(this, "es")
             recreate()
         }
-        binding.changeToGermanButton.setOnClickListener{
+        binding.changeToGermanButton.setOnClickListener {
             LocalHelper.setLocale(this, "de")
             recreate()
         }
@@ -71,8 +66,10 @@ class MainActivity : BaseActivity() {
         startActivity(Intent(this, LoginActivity::class.java))
     }
 
-    override fun attachBaseContext(base: Context?) {
-        super.attachBaseContext(base?.let { LocalHelper.applyPreferredLanguage(it) })
+    // Renombramos el parámetro a newBase para evitar el warning
+    // de la superclase BaseActivity
+    override fun attachBaseContext(newBase: Context?) {
+        super.attachBaseContext(newBase?.let { LocalHelper.applyPreferredLanguage(it) })
     }
 
     private fun navigateToSelectPlayers() {

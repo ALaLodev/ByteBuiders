@@ -4,6 +4,7 @@ import android.media.AudioAttributes
 import android.media.SoundPool
 import android.os.Bundle
 import android.util.Log
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -13,13 +14,13 @@ import com.example.bytebuilders.databinding.DetallePartidasBinding
 import com.example.bytebuilders.model.data.entitys.DatosJugador
 import com.example.bytebuilders.viewmodel.MainViewModel
 import com.example.bytebuilders.viewmodel.VistaFirebase
-
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class DetallePartidas : AppCompatActivity() {
 
     private lateinit var binding: DetallePartidasBinding
     private val viewModel: MainViewModel by viewModels()
-   // private val viewModelFirestore: VistaFirebase by viewModels()
     // Variables para el sonido de clic
     private lateinit var soundPool: SoundPool
     private var soundIdClickNormal: Int = 0
@@ -46,57 +47,68 @@ class DetallePartidas : AppCompatActivity() {
             finish() // Regresa a la actividad anterior
         }
 
-        // Datos del ViewModel
-        /*viewModel.users.observe(this) { users ->
-            val userList = users ?: emptyList()
-            displayUserDetails(userList)
-        }*/
-        cargarTodosJugadores()
-        // Mensajes de error
         viewModel.errorMessage.observe(this) { errorMsg ->
             if (errorMsg != null) {
                 Toast.makeText(this, errorMsg, Toast.LENGTH_SHORT).show()
             }
         }
 
-        // Carga todos los usuarios al iniciar
+        cargarTodosJugadores()
+
+        // Carga usuarios en la BD local (si lo usas)
         viewModel.loadAllUsers()
     }
+
     private fun cargarTodosJugadores() {
         val vistaFirebase = VistaFirebase()
 
         vistaFirebase.obtenerTopJugadores(
-            onResult = { topJugadores ->
-                // Llama a displayScores con la lista de jugadores obtenidos
-                displayUserDetails(topJugadores)
+            onResult = { jugadores ->
+                displayUserDetails(jugadores)
             },
             onError = { exception ->
-                // Manejo de errores
                 Log.e("Error", "Error al obtener los jugadores: ${exception.message}")
             }
         )
     }
 
-
     private fun displayUserDetails(jugadores: List<DatosJugador>) {
         val container = binding.detailsContainer
-        container.removeAllViews() // Limpiar vistas anteriores
+        container.removeAllViews()
 
-        val displayUsers =  jugadores.take(10) // Limitar a 10 usuarios
+        // 1) Encontrar quién jugó más recientemente (fecha más grande).
+        //    Asumimos formato "yyyy-MM-dd HH:mm:ss"
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+        val lastPlayer = jugadores.maxByOrNull { LocalDateTime.parse(it.fecha, formatter) }
 
-        for ((index, user) in displayUsers.withIndex()) {
+        // 2) Ordenar por puntuacion de mayor a menor
+        val sortedUsers = jugadores.sortedByDescending { it.puntuacion }
+
+        // 3) Tomamos los primeros 10 si deseas límite
+        val displayUsers = sortedUsers.take(10)
+
+        for ((_, user) in displayUsers.withIndex()) {
             val detailLayout = layoutInflater.inflate(R.layout.item_user_detail, container, false)
 
             val positionTextView = detailLayout.findViewById<TextView>(R.id.positionText)
             val scoreTextView = detailLayout.findViewById<TextView>(R.id.scoreText)
             val dateTextView = detailLayout.findViewById<TextView>(R.id.dateText)
             val locationTextView = detailLayout.findViewById<TextView>(R.id.locationText)
+            val trofeoImageView = detailLayout.findViewById<ImageView>(R.id.trofeoImage)
 
-            // Establecer datos
-            positionTextView.text = "${user.namePlayer}."
-            scoreTextView.text = "${user.puntuacion} ${getString(R.string.points)}"
-            dateTextView.text = user.fecha
+            // Rellenar datos
+            positionTextView.text = "${user.namePlayer}-${user.fecha} - ${user.puntuacion} ${getString(R.string.points)}"
+            scoreTextView.text = ""
+            dateTextView.text = ""
             locationTextView.text = "Lat: ${user.latitude}, Lon: ${user.longitude}"
+
+            // 4) Si este usuario es el último que jugó, mostramos el trofeo a la derecha
+            if (user == lastPlayer) {
+                trofeoImageView.setImageResource(R.drawable.trofeo)
+                trofeoImageView.visibility = android.view.View.VISIBLE
+            } else {
+                trofeoImageView.visibility = android.view.View.GONE
+            }
 
             container.addView(detailLayout)
         }

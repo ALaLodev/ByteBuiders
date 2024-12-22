@@ -1,10 +1,8 @@
-
-
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.kapt)
-
+    
     id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
 }
@@ -22,7 +20,6 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
-
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -39,14 +36,15 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-    viewBinding{
+    viewBinding {
         enable = true
     }
 }
 
 dependencies {
 
-    implementation (libs.google.services)
+    // Tus dependencias, según tu version catalog
+    implementation(libs.google.services)
     implementation(libs.androidx.room.common)
     implementation(libs.androidx.lifecycle.process)
     implementation(libs.play.services.location)
@@ -60,58 +58,64 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
 
-    //Firebase
+    // Firebase
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.crashlytics)
     implementation(libs.google.firebase.crashlytics)
     implementation(libs.firebase.analytics)
     implementation(libs.firebase.auth)
     implementation(libs.play.services.auth)
-    //Firestore
+    // Firestore
     implementation(libs.firebase.firestore)
-    //livecycle y coroutines
-    implementation (libs.androidx.lifecycle.viewmodel.ktx)
-    implementation (libs.kotlinx.coroutines.android)
-    //Room
+
+    // Livedata + coroutines
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.kotlinx.coroutines.android)
+
+    // Room
     implementation(libs.androidx.room.runtime)
     annotationProcessor(libs.androidx.room.compiler)
-    implementation (libs.androidx.room.ktx)
+    implementation(libs.androidx.room.ktx)
 
-    //LOCALIZACION
+    // Localización
     implementation(libs.androidx.activity)
-   // implementation(libs.play.services.location)
-    // To use Kotlin annotation processing tool (kapt)
+
+    // KAPT para Room
     kapt("androidx.room:room-compiler:$room_version")
 
-    // optional - RxJava2 support for Room
-    implementation("androidx.room:room-rxjava2:$room_version")
+    // Soporte RxJava2 para Room
+    implementation(libs.androidx.room.rxjava2)
+
+    // Tests
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     implementation(kotlin("script-runtime"))
 
-    //cargar imagen victoria con Glide, producto 3
-    implementation("com.github.bumptech.glide:glide:4.13.0")
-    annotationProcessor("com.github.bumptech.glide:compiler:4.13.0")
+    // Glide (carga de imagen victoria)
+    implementation(libs.glide)
+    annotationProcessor(libs.compiler)
 
-    //Retrofit
-    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation ("com.squareup.retrofit2:converter-moshi:2.9.0") // Moshi para convertir JSON
+    // Retrofit + Gson (en lugar de Moshi)
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
 
-    // Moshi
-    implementation("com.squareup.moshi:moshi:1.13.0")
-    implementation ("com.squareup.moshi:moshi-kotlin:1.13.0")
+    // (Opcional) OkHttp
+    // implementation("com.squareup.okhttp3:okhttp:4.9.0")
+    // implementation("com.squareup.okhttp3:logging-interceptor:4.9.0")
 
-    // Gson converter para Retrofit
-    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
-    // Kotlin Coroutines (para trabajo en segundo plano)
-    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.2")
+    // Elimina Moshi si no lo usas
+    // implementation("com.squareup.moshi:moshi:1.14.0")
+    // implementation("com.squareup.moshi:moshi-kotlin:1.14.0")
+    // kapt("com.squareup.moshi:moshi-kotlin-codegen:1.14.0")
 
-    // Para usar Retrofit con Coroutines (suspension functions)
-    implementation ("com.squareup.retrofit2:adapter-rxjava2:2.9.0")
+    // Coroutines
+    implementation(libs.kotlinx.coroutines.android.v172)
 
-    // Si estás utilizando ViewModel y LiveData, también asegúrate de tener estas dependencias
-    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.0")
-    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.6.0")
+    // Retrofit con coroutines
+    implementation(libs.adapter.rxjava2)
 
+    // Lifecycle ViewModel + LiveData
+    implementation(libs.androidx.lifecycle.viewmodel.ktx.v260)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
 }

@@ -193,15 +193,6 @@
             android:textStyle="bold"
             app:backgroundTint="#423D3D" />
 
-        <!-- Imagen Victoria Producto 3
-        <ImageView
-            android:id="@+id/imagenVictoria"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:contentDescription="Imagen de victoria"
-            android:scaleType="centerCrop"
-            android:visibility="gone" />-->
     </LinearLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

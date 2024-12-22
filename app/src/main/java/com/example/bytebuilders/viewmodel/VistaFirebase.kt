@@ -7,46 +7,55 @@ import com.example.bytebuilders.model.data.entitys.DatosJugador
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.gson.annotations.SerializedName
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.tasks.await
-import com.squareup.retrofit2.Retrofit
-import com.squareup.retrofit2.converter.moshi.MoshiConverterFactory
 import kotlinx.coroutines.launch
 import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.http.GET
+import retrofit2.converter.gson.GsonConverterFactory
 
-// Retrofit interface
 interface FirebaseApiService {
-    @GET("victoryImage") // Suponiendo que este es el endpoint de tu API
-    suspend fun getVictoryImage(): Response<VictoryImageResponse>
+    @GET("commonReward")
+    suspend fun getCommonReward(): Response<PremioComunResponse>
 }
 
-// Retrofit response data class
-data class VictoryImageResponse(
-    val url: String // La URL de la imagen de victoria
+data class VictoryImageResponse(val url: String)
+
+/**
+ * Cambiamos la propiedad a "galahad" con @SerializedName("premio")
+ * para mapear la clave "premio" en el JSON al campo 'galahad' .
+ */
+data class PremioComunResponse(
+    @SerializedName("premio")
+    val galahad: String
 )
 
 object RetrofitInstance {
-    private const val BASE_URL = "https://your-api-url.com/" // URL de tu API
+    // Apuntamos la URL de la Firestore
+    private const val BASE_URL =
+        "https://firestore.googleapis.com/v1/projects/bytebuilders-uoc/databases/(default)/documents/"
 
     val retrofit: Retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
-        .addConverterFactory(MoshiConverterFactory.create()) // Usamos Moshi como convertidor JSON
+        .addConverterFactory(GsonConverterFactory.create()) //Uso Gson porque Moshi no me termina de funcionar
         .build()
 
     val apiService: FirebaseApiService = retrofit.create(FirebaseApiService::class.java)
 }
 
 class VistaFirebase : ViewModel() {
-    //Base de datos FireStore
-    private var db: FirebaseFirestore = Firebase.firestore // Llamamos a fireStore
+
+    // cargamos la BD FireStore
+    private var db: FirebaseFirestore = Firebase.firestore
 
     private val _jugador = MutableStateFlow<List<DatosJugador>>(emptyList())
     val jugador: StateFlow<List<DatosJugador>> = _jugador
 
-    // Función insertar datos Jugador
+    // Insertamos un jugador en Firestore
     fun agregarJugador(jugador: DatosJugador) {
-        val jugadoresCollection = db.collection("Jugadores") // Nombre de la colección
+        val jugadoresCollection = db.collection("Jugadores") // Nombre de la coleccion
 
         jugadoresCollection.add(jugador)
             .addOnSuccessListener { documentReference ->
@@ -59,44 +68,99 @@ class VistaFirebase : ViewModel() {
             }
     }
 
-    // Función para obtener todos los jugadores
-    fun obtenerJugadores(onResult: (List<DatosJugador>) -> Unit, onError: (Exception) -> Unit) {
+    fun obtenerJugadores(
+        onResult: (List<DatosJugador>) -> Unit,
+        onError: (Exception) -> Unit
+    ) {
         db.collection("Jugadores")
             .get()
-            .addOnSuccessListener { documents ->
-                val topJugadores = mutableListOf<DatosJugador>()
-                for (document in documents) {
-                    val namePlayer = document.getString("namePlayer") ?: ""
-                    val puntuacion = document.getLong("puntuacion")?.toInt() ?: 0
-                    val fecha = document.getString("fecha") ?: ""
-                    val latitude = document.getDouble("latitude") ?: 0.0
-                    val longitude = document.getDouble("longitude") ?: 0.0
+            .addOnSuccessListener { docs ->
+                val lista = docs.mapNotNull { doc ->
+                    val namePlayer = doc.getString("namePlayer") ?: ""
+                    val puntuacion = doc.getLong("puntuacion")?.toInt() ?: 0
+                    val fecha = doc.getString("fecha") ?: ""
+                    val latitude = doc.getDouble("latitude") ?: 0.0
+                    val longitude = doc.getDouble("longitude") ?: 0.0
 
-                    val jugador = DatosJugador(namePlayer, puntuacion, fecha, latitude, longitude)
-                    topJugadores.add(jugador)
+                    DatosJugador(namePlayer, puntuacion, fecha, latitude, longitude)
                 }
-                onResult(topJugadores) // Llama al callback con la lista de jugadores
+                onResult(lista)
             }
-            .addOnFailureListener { exception ->
-                Log.w("VistaFirebase", "Error getting documents: ", exception)
-                onError(exception) // Llama al callback de error
+            .addOnFailureListener { e ->
+                Log.w("VistaFirebase", "Error al obtener documentos", e)
+                onError(e)
             }
     }
 
-    // Función para obtener la URL de la imagen de victoria usando Retrofit
-    fun obtenerImagenVictoriaDesdeApi(onResult: (String?) -> Unit, onError: (Exception) -> Unit) {
+    /**
+     * Versión simplificada de "obtenerTopJugadores",
+     * para DetallePartidas y ScoresActivity. Solo lee
+     * la colección "Jugadores" y devuelve la lista completa
+     * en onResult (ya te encargas luego de mostrar los top 10 o 4).
+     */
+    fun obtenerTopJugadores(
+        onResult: (List<DatosJugador>) -> Unit,
+        onError: (Exception) -> Unit
+    ) {
+        db.collection("Jugadores")
+            .get()
+            .addOnSuccessListener { docs ->
+                val topJugadores = mutableListOf<DatosJugador>()
+                for (doc in docs) {
+                    val namePlayer = doc.getString("namePlayer") ?: ""
+                    val puntuacion = doc.getLong("puntuacion")?.toInt() ?: 0
+                    val fecha = doc.getString("fecha") ?: ""
+                    val latitude = doc.getDouble("latitude") ?: 0.0
+                    val longitude = doc.getDouble("longitude") ?: 0.0
+
+                    topJugadores.add(DatosJugador(namePlayer, puntuacion, fecha, latitude, longitude))
+                }
+                onResult(topJugadores)
+            }
+            .addOnFailureListener { e ->
+                onError(e)
+            }
+    }
+
+    // Obtiene el premio común (Retrofit)
+    fun obtenerPremioComun(
+        onSuccess: (String) -> Unit,
+        onFailure: (Exception) -> Unit
+    ) {
         viewModelScope.launch {
             try {
-                val response = RetrofitInstance.apiService.getVictoryImage()
-                if (response.isSuccessful) {
-                    val imageUrl = response.body()?.url // Extraemos la URL de la imagen desde la respuesta
-                    onResult(imageUrl)
+                val resp = RetrofitInstance.apiService.getCommonReward()
+                if (resp.isSuccessful) {
+                    val premioObj = resp.body()
+                    // "galahad" = la clave mapeada por @SerializedName("premio")
+                    val galahadValue = premioObj?.galahad ?: "No se encontró premio"
+                    onSuccess(galahadValue)
                 } else {
-                    onError(Exception("Error en la respuesta de la API"))
+                    Log.d("VistaFirebase", "Response JSON: ${resp.errorBody()?.string()}")
+                    onFailure(Exception("Error al obtener el premio común"))
                 }
-            } catch (exception: Exception) {
-                onError(exception)
+            } catch (ex: Exception) {
+                onFailure(ex)
             }
         }
+    }
+
+    fun consumirPremioComun(
+        onSuccess: () -> Unit,
+        onFailure: (Exception) -> Unit
+    ) {
+        // Formato Firestore:
+        //   Collection: "Premios"
+        //   Document: "commonRewardDoc"
+        val docRef = db.collection("Premios").document("commonRewardDoc")
+        docRef.delete()
+            .addOnSuccessListener {
+                Log.d("VistaFirebase", "Premio común consumido y eliminado.")
+                onSuccess()
+            }
+            .addOnFailureListener { e ->
+                Log.w("VistaFirebase", "Error al consumir premio común", e)
+                onFailure(e)
+            }
     }
 }
