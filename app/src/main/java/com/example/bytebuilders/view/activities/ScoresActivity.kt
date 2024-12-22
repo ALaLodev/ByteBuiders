@@ -71,21 +71,21 @@ class ScoresActivity : AppCompatActivity() {
     }
 
     private fun displayScores(scores: List<DatosJugador>) {
-        // 1) Encontrar el último que jugó
+        // buscamos quien jugo mas recientemente.
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
         val lastPlayer = scores.maxByOrNull { LocalDateTime.parse(it.fecha, formatter) }
 
-        // 2) Ordenar por puntuacion (desc)
+        // Ordenamos por puntuacion de mayor a menor
         val sortedByPoints = scores.sortedByDescending { it.puntuacion }
 
-        // 3) Asegurarse de tener al menos 4 elementos
+        // Tomamos los primeros 4, que son el top
         val defaultUser = DatosJugador("N/A", 0, "N/A", 0.0, 0.0)
         val topScores = sortedByPoints.take(4).toMutableList()
         while (topScores.size < 4) {
             topScores.add(defaultUser)
         }
 
-        // 4) Actualizar los TextViews + trofeo si es el último
+        // De nuevo, si este usuario es el ultimo que jugo, mostramos el trofeo a la derecha
         binding.player1NameScore.text = formatScoreText(topScores[0], 1, lastPlayer)
         binding.player2NameScore.text = formatScoreText(topScores[1], 2, lastPlayer)
         binding.player3NameScore.text = formatScoreText(topScores[2], 3, lastPlayer)

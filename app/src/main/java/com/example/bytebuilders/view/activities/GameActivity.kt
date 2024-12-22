@@ -172,8 +172,6 @@ class GameActivity : BaseActivity() {
         requestLocationPermission()
     }
 
-    // ========== RESTO DE MÉTODOS EXISTENTES ==========
-
     private fun setVolume(volume: Int) {
         val maxVolume = 100
         val volumeAdjustment = (1 - (Math.log((maxVolume - volume).toDouble()) / Math.log(maxVolume.toDouble()))).toFloat()
@@ -308,7 +306,7 @@ class GameActivity : BaseActivity() {
 
             registerWinner()
 
-            // Llamamos a obtener el premio común y lo mostramos en un AlertDialog
+            // Llamamos a obtener el premio comun y lo mostramos en un AlertDialog
             vistaFirebase.obtenerPremioComun(
                 onSuccess = { premio ->
                     // Mostrar el premio en un AlertDialog
@@ -527,7 +525,7 @@ class GameActivity : BaseActivity() {
         saveScreenshotLauncher.launch(intent)
     }
 
-    // Guardar la captura en la ubicación elegida
+    // Guardar la captura en la ubicacion elegida
     private fun saveScreenshot(uri: Uri) {
         val bitmap = captureScreenshot()
         try {

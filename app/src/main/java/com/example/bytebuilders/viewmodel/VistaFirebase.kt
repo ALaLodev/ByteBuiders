@@ -23,10 +23,9 @@ interface FirebaseApiService {
 
 data class VictoryImageResponse(val url: String)
 
-/**
- * Cambiamos la propiedad a "galahad" con @SerializedName("premio")
- * para mapear la clave "premio" en el JSON al campo 'galahad' .
- */
+
+//Cambiamos la propiedad a "galahad" con @SerializedName("premio") para mapear la clave "premio" en el JSON al campo 'galahad'
+
 data class PremioComunResponse(
     @SerializedName("premio")
     val galahad: String
@@ -68,36 +67,30 @@ class VistaFirebase : ViewModel() {
             }
     }
 
-    fun obtenerJugadores(
-        onResult: (List<DatosJugador>) -> Unit,
-        onError: (Exception) -> Unit
-    ) {
-        db.collection("Jugadores")
-            .get()
-            .addOnSuccessListener { docs ->
-                val lista = docs.mapNotNull { doc ->
-                    val namePlayer = doc.getString("namePlayer") ?: ""
-                    val puntuacion = doc.getLong("puntuacion")?.toInt() ?: 0
-                    val fecha = doc.getString("fecha") ?: ""
-                    val latitude = doc.getDouble("latitude") ?: 0.0
-                    val longitude = doc.getDouble("longitude") ?: 0.0
+//    fun obtenerJugadores( // Lo gestionamos todo mediante obtenerTopJugadores()
+//        onResult: (List<DatosJugador>) -> Unit,
+//        onError: (Exception) -> Unit
+//    ) {
+//        db.collection("Jugadores")
+//            .get()
+//            .addOnSuccessListener { docs ->
+//                val lista = docs.mapNotNull { doc ->
+//                    val namePlayer = doc.getString("namePlayer") ?: ""
+//                    val puntuacion = doc.getLong("puntuacion")?.toInt() ?: 0
+//                    val fecha = doc.getString("fecha") ?: ""
+//                    val latitude = doc.getDouble("latitude") ?: 0.0
+//                    val longitude = doc.getDouble("longitude") ?: 0.0
+//
+//                    DatosJugador(namePlayer, puntuacion, fecha, latitude, longitude)
+//                }
+//                onResult(lista)
+//            }
+//            .addOnFailureListener { e ->
+//                Log.w("VistaFirebase", "Error al obtener documentos", e)
+//                onError(e)
+//            }
+//    }
 
-                    DatosJugador(namePlayer, puntuacion, fecha, latitude, longitude)
-                }
-                onResult(lista)
-            }
-            .addOnFailureListener { e ->
-                Log.w("VistaFirebase", "Error al obtener documentos", e)
-                onError(e)
-            }
-    }
-
-    /**
-     * Versión simplificada de "obtenerTopJugadores",
-     * para DetallePartidas y ScoresActivity. Solo lee
-     * la colección "Jugadores" y devuelve la lista completa
-     * en onResult (ya te encargas luego de mostrar los top 10 o 4).
-     */
     fun obtenerTopJugadores(
         onResult: (List<DatosJugador>) -> Unit,
         onError: (Exception) -> Unit
@@ -122,7 +115,7 @@ class VistaFirebase : ViewModel() {
             }
     }
 
-    // Obtiene el premio común (Retrofit)
+    // Obtiene el premio comun (Retrofit)
     fun obtenerPremioComun(
         onSuccess: (String) -> Unit,
         onFailure: (Exception) -> Unit
@@ -145,22 +138,22 @@ class VistaFirebase : ViewModel() {
         }
     }
 
-    fun consumirPremioComun(
-        onSuccess: () -> Unit,
-        onFailure: (Exception) -> Unit
-    ) {
-        // Formato Firestore:
-        //   Collection: "Premios"
-        //   Document: "commonRewardDoc"
-        val docRef = db.collection("Premios").document("commonRewardDoc")
-        docRef.delete()
-            .addOnSuccessListener {
-                Log.d("VistaFirebase", "Premio común consumido y eliminado.")
-                onSuccess()
-            }
-            .addOnFailureListener { e ->
-                Log.w("VistaFirebase", "Error al consumir premio común", e)
-                onFailure(e)
-            }
-    }
+//    fun consumirPremioComun( // Finalmente no es necesario, se gestiona desde la GameaActivity la visibilidad.
+//        onSuccess: () -> Unit,
+//        onFailure: (Exception) -> Unit
+//    ) {
+//        // Formato Firestore:
+//        //   Collection: "Premios"
+//        //   Document: "commonRewardDoc"
+//        val docRef = db.collection("Premios").document("commonRewardDoc")
+//        docRef.delete()
+//            .addOnSuccessListener {
+//                Log.d("VistaFirebase", "Premio común consumido y eliminado.")
+//                onSuccess()
+//            }
+//            .addOnFailureListener { e ->
+//                Log.w("VistaFirebase", "Error al consumir premio común", e)
+//                onFailure(e)
+//            }
+//    }
 }

@@ -66,8 +66,7 @@ class MainActivity : BaseActivity() {
         startActivity(Intent(this, LoginActivity::class.java))
     }
 
-    // Renombramos el parámetro a newBase para evitar el warning
-    // de la superclase BaseActivity
+    // Renombramos el parametro a newBase para evitar el warning del logcat
     override fun attachBaseContext(newBase: Context?) {
         super.attachBaseContext(newBase?.let { LocalHelper.applyPreferredLanguage(it) })
     }

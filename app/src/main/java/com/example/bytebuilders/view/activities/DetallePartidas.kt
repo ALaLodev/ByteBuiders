@@ -55,7 +55,7 @@ class DetallePartidas : AppCompatActivity() {
 
         cargarTodosJugadores()
 
-        // Carga usuarios en la BD local (si lo usas)
+        // Carga usuarios
         viewModel.loadAllUsers()
     }
 
@@ -76,15 +76,14 @@ class DetallePartidas : AppCompatActivity() {
         val container = binding.detailsContainer
         container.removeAllViews()
 
-        // 1) Encontrar quién jugó más recientemente (fecha más grande).
-        //    Asumimos formato "yyyy-MM-dd HH:mm:ss"
+        // buscamos quien jugo mas recientemente.
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
         val lastPlayer = jugadores.maxByOrNull { LocalDateTime.parse(it.fecha, formatter) }
 
-        // 2) Ordenar por puntuacion de mayor a menor
+        // Ordenamos por puntuacion de mayor a menor
         val sortedUsers = jugadores.sortedByDescending { it.puntuacion }
 
-        // 3) Tomamos los primeros 10 si deseas límite
+        // Tomamos los primeros 10, que es el limite con el que trabajamos
         val displayUsers = sortedUsers.take(10)
 
         for ((_, user) in displayUsers.withIndex()) {
@@ -102,7 +101,7 @@ class DetallePartidas : AppCompatActivity() {
             dateTextView.text = ""
             locationTextView.text = "Lat: ${user.latitude}, Lon: ${user.longitude}"
 
-            // 4) Si este usuario es el último que jugó, mostramos el trofeo a la derecha
+            // De nuevo, si este usuario es el ultimo que jugo, mostramos el trofeo a la derecha
             if (user == lastPlayer) {
                 trofeoImageView.setImageResource(R.drawable.trofeo)
                 trofeoImageView.visibility = android.view.View.VISIBLE
