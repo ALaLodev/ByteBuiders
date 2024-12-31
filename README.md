@@ -49,7 +49,6 @@ This project is an **Android card game** developed by a team of four students. T
 - Efficient use of threads and services for managing music and storage.  
 - Performance optimization, reducing CPU and memory consumption.
 
----
 ## 🎯 **Highlighted For...**  
 - Attractive design focused on **user experience**.  
 - Use of advanced technologies such as **Firebase**, concurrent programming, and modular architecture.  
@@ -110,7 +109,6 @@ Este proyecto es un **juego de cartas para Android** desarrollado en equipo por 
 - Uso eficiente de hilos y servicios para la gestión de música y almacenamiento.  
 - Optimización de rendimiento, reduciendo el consumo de CPU y memoria.
 
----
 ## 🎯 **Destacado por...**
 - Diseño atractivo y centrado en la **experiencia del usuario**.  
 - Uso de tecnologías avanzadas como **Firebase**, programación concurrente y arquitectura modular.  
