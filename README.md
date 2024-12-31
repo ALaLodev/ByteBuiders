@@ -1,5 +1,3 @@
-Here’s the translated README:  
-
 # 🃏 Android Card Game  
 
 This project is an **Android card game** developed by a team of four students. The main goal is for players to guess a hidden card, receiving hints with each attempt to refine their strategy. It stands out for integrating **advanced features** that enhance user experience and application performance.  
@@ -62,6 +60,8 @@ This project is an **Android card game** developed by a team of four students. T
 ---  
 
 This project showcases a professional approach to mobile development and team collaboration, implementing modern practices for a seamless and entertaining user experience. 🎉
+
+---
 
 # 🃏 Juego de Cartas para Android
 
