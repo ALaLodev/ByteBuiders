@@ -1,3 +1,68 @@
+Here’s the translated README:  
+
+# 🃏 Android Card Game  
+
+This project is an **Android card game** developed by a team of four students. The main goal is for players to guess a hidden card, receiving hints with each attempt to refine their strategy. It stands out for integrating **advanced features** that enhance user experience and application performance.  
+
+---  
+<p align="center">  
+  <img src="/screenShots/Screenshot_1.png" alt="Main Screen" width="15%" style="margin-right: 40dp">  
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <!-- 10 non-breaking spaces -->  
+  <img src="/screenShots/Screenshot_2.png" alt="Main Screen" width="15%" style="margin-right: 40dp">  
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <!-- 10 non-breaking spaces -->  
+  <img src="/screenShots/Screenshot_3.png" alt="Detail Screen" width="15%">  
+</p>  
+
+## ✨ **Key Features**  
+
+### 🎵 **Background Music Management**  
+- Dynamic music that automatically stops when receiving calls or when another app comes to the foreground.  
+- Automatically resumes when the app regains focus.  
+- Intuitive controls to mute or unmute the music.  
+
+### 🔔 **Push Notifications**  
+- Automatic notifications at the end of each game.  
+- Displays the game's elapsed time in an appealing format.  
+
+### 📸 **Screenshot Capture**  
+- Allows users to take game screenshots.  
+- Saves images on the device with an option to choose the location.  
+
+### 🗺️ **Storage and Database**  
+- Saves the player's location at the end of the game.  
+- Victories are automatically logged in the device's calendar.  
+
+### 🔐 **Firebase Authentication**  
+- Secure login using a Google account.  
+- Integrates a reliable and modern authentication system.  
+
+### 🏆 **Global Leaderboard**  
+- **Top 10 high scores** system managed with Firebase.  
+- Encourages competitiveness among players.  
+
+### 🌍 **Multilingual Interface**  
+- Automatically adapts the game language based on device settings.  
+- Option to manually configure the language from the menu.  
+
+### 🌐 **Integrated WebView**  
+- Embedded HTML help page within the application.  
+- Designed to be intuitive and align with the game's aesthetic.  
+
+### 🚀 **Concurrent Programming and Services**  
+- Efficient use of threads and services for managing music and storage.  
+- Performance optimization, reducing CPU and memory consumption.  
+
+---  
+
+## 🎯 **Highlighted For...**  
+- Attractive design focused on **user experience**.  
+- Use of advanced technologies such as **Firebase**, concurrent programming, and modular architecture.  
+- Modern features combining fun, accessibility, and performance.  
+
+---  
+
+This project showcases a professional approach to mobile development and team collaboration, implementing modern practices for a seamless and entertaining user experience. 🎉
+
 # 🃏 Juego de Cartas para Android
 
 Este proyecto es un **juego de cartas para Android** desarrollado en equipo por cuatro estudiantes. Su objetivo principal es que los jugadores adivinen una carta oculta, recibiendo pistas en cada intento para mejorar su estrategia. Destaca por integrar **funcionalidades avanzadas** que optimizan la experiencia del usuario y el rendimiento de la aplicación.
