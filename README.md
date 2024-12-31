@@ -2,7 +2,6 @@
 
 This project is an **Android card game** developed by a team of four students. The main goal is for players to guess a hidden card, receiving hints with each attempt to refine their strategy. It stands out for integrating **advanced features** that enhance user experience and application performance.  
 
----  
 <p align="center">  
   <img src="/screenShots/Screenshot_1.png" alt="Main Screen" width="15%" style="margin-right: 40dp">  
    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <!-- 10 non-breaking spaces -->  
@@ -48,16 +47,13 @@ This project is an **Android card game** developed by a team of four students. T
 
 ### 🚀 **Concurrent Programming and Services**  
 - Efficient use of threads and services for managing music and storage.  
-- Performance optimization, reducing CPU and memory consumption.  
+- Performance optimization, reducing CPU and memory consumption.
 
----  
-
+---
 ## 🎯 **Highlighted For...**  
 - Attractive design focused on **user experience**.  
 - Use of advanced technologies such as **Firebase**, concurrent programming, and modular architecture.  
 - Modern features combining fun, accessibility, and performance.  
-
----  
 
 This project showcases a professional approach to mobile development and team collaboration, implementing modern practices for a seamless and entertaining user experience. 🎉
 
@@ -67,7 +63,6 @@ This project showcases a professional approach to mobile development and team co
 
 Este proyecto es un **juego de cartas para Android** desarrollado en equipo por cuatro estudiantes. Su objetivo principal es que los jugadores adivinen una carta oculta, recibiendo pistas en cada intento para mejorar su estrategia. Destaca por integrar **funcionalidades avanzadas** que optimizan la experiencia del usuario y el rendimiento de la aplicación.
 
----
 <p align="center">
   <img src="/screenShots/Screenshot_1.png" alt="Principal Screen" width="15%" style="margin-right: 40dp">
    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp <!-- 10 espacios no separables -->
@@ -116,12 +111,10 @@ Este proyecto es un **juego de cartas para Android** desarrollado en equipo por 
 - Optimización de rendimiento, reduciendo el consumo de CPU y memoria.
 
 ---
-
 ## 🎯 **Destacado por...**
 - Diseño atractivo y centrado en la **experiencia del usuario**.  
 - Uso de tecnologías avanzadas como **Firebase**, programación concurrente y arquitectura modular.  
 - Funcionalidades modernas que combinan diversión, accesibilidad y rendimiento.
 
----
 
 Este proyecto refleja un enfoque profesional en el desarrollo móvil y la colaboración en equipo, implementando prácticas modernas para una experiencia de usuario fluida y entretenida. 🎉
